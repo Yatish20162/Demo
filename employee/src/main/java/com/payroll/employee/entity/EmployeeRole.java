@@ -27,4 +27,10 @@ public class EmployeeRole {
     @Enumerated(EnumType.STRING)
     @Column(name = "role")
     private Role role;
+
+    public EmployeeRole(Long employeeId, Role role) {
+        setEmployeeId(employeeId);
+        setRole(role);
+    }
+
 }

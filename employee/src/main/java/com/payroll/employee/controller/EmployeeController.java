@@ -19,7 +19,7 @@ import java.util.ArrayList;
 @RequestMapping("/api/employee")
 @AllArgsConstructor
 public class EmployeeController {
-    private final EmployeeServiceImpl employeeService = new EmployeeServiceImpl();
+    private final EmployeeServiceImpl employeeService;
 
     @GetMapping("/ping")
     public ResponseEntity<String> Ping() {
