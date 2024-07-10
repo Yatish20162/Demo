@@ -41,7 +41,19 @@ public class EmployeeServiceImpl implements IEmployeeService {
 
         @Override
         public EmployeeDto getEmployeeById(Long employeeId) {
-                return null;
+                Employee foundEmployee = employeeRepository.findByEmployeeId(employeeId).orElseThrow(
+                        () -> new ResourceNotFoundException("Employee", "employeeId", employeeId.toString())
+                );
+                EmployeeDto foundEmployeeDto = EmployeeMapper.mapToEmployeeDto(foundEmployee, new EmployeeDto());
+
+                List<EmployeeRole> employeeRoleList= employeeRoleRepository.findAllByEmployeeId(employeeId).orElseThrow(
+                        ()-> new ResourceNotFoundException("Employee", "EmployeeId", employeeId.toString())
+                );
+
+                List<Role> roleList = employeeRoleList.stream().map(EmployeeRole::getRole).toList();
+                foundEmployeeDto.setEmployeeRoles(roleList);
+
+                return foundEmployeeDto;
         }
 
         @Override

@@ -31,4 +31,10 @@ public class EmployeeController {
         employeeService.createEmployee(employeeDto);
         return ResponseEntity.status(HttpStatus.CREATED).body(new ResponseDto("201", "Created Successfully"));
     }
+
+    @GetMapping("/{employeeId}")
+    public ResponseEntity<EmployeeDto> getEmployeeById(@PathVariable Long employeeId){ // Not sure if Long will work or have to use String
+        EmployeeDto employeeDto = employeeService.getEmployeeById(employeeId);
+        return ResponseEntity.status(HttpStatus.OK).body(employeeDto);
+    }
 }

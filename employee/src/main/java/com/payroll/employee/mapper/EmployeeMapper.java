@@ -6,14 +6,15 @@ import com.payroll.employee.entity.EmployeeRole;
 import com.payroll.employee.enums.Role;
 import com.payroll.employee.exception.ResourceNotFoundException;
 import com.payroll.employee.repository.EmployeeRoleRepository;
+import lombok.AllArgsConstructor;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collector;
 import java.util.stream.Collectors;
 
+@AllArgsConstructor
 public class EmployeeMapper {
-    private static EmployeeRoleRepository employeeRoleRepository;
-
     public static EmployeeDto mapToEmployeeDto(Employee employee, EmployeeDto employeeDto){
         employeeDto.setFirstName(employee.getFirstName());
         employeeDto.setLastName(employee.getLastName());
@@ -23,13 +24,7 @@ public class EmployeeMapper {
         employeeDto.setJobTitle(employee.getJobTitle());
         employeeDto.setDepartment(employee.getDepartment());
         employeeDto.setManagerId(employee.getManagerId());
-
-        List<EmployeeRole> employeeRoleList= employeeRoleRepository.findAllByEmployeeId(employee.getEmployeeId()).orElseThrow(
-                ()-> new ResourceNotFoundException("Employee", "EmployeeId", employee.getEmployeeId().toString())
-            );
-
-        List<Role> roleList = employeeRoleList.stream().map(EmployeeRole::getRole).toList();
-        employeeDto.setEmployeeRoles(roleList);
+        employeeDto.setEmployeeRoles(new ArrayList<>());
         return employeeDto;
     }
 
