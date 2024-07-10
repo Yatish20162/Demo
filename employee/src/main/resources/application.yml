@@ -3,6 +3,8 @@ server:
 spring:
   application:
     name: "employee-microservice"
+  profiles:
+    active: 'dev'
   devtools:
     livereload:
       enabled: true
