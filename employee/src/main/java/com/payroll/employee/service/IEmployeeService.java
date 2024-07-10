@@ -5,13 +5,13 @@ import com.payroll.employee.dto.EmployeeDto;
 import java.util.List;
 
 public interface IEmployeeService {
-    void createEmployee(); // accessible to admin
+    void createEmployee(EmployeeDto employeeDto); // accessible to admin
 
-    EmployeeDto getEmployeeById(); // accessible to all
+    EmployeeDto getEmployeeById(Long employeeId); // accessible to all
 
-    Boolean updateEmployee(); // accessible to admin
+    Boolean updateEmployee(Long employeeId, EmployeeDto employeeDto); // accessible to admin
 
-    Boolean deleteEmployee(); // accessible to admin
+    Boolean deleteEmployee(Long employeeId); // accessible to admin
 
-    List<Long> getEmployeeIdsByManagerId(); // accessible to admin, manager
+    List<EmployeeDto> getEmployeesByManagerId(Long managerId); // accessible to admin, manager
 }
