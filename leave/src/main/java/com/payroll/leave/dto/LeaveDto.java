@@ -11,6 +11,8 @@ import lombok.Setter;
 @NoArgsConstructor
 public class LeaveDto {
 
+    private Long employeeId;
+
     private Long totalLeaves;
 
     private Long remainingLeaves;

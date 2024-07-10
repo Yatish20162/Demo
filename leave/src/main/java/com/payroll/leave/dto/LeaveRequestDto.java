@@ -21,12 +21,16 @@ public class LeaveRequestDto {
         APPROVED, PENDING , DECLINED;
     }
 
+    private Long employeeId;
+
     private LocalDateTime startDate;
     private LocalDateTime endDate;
 
     private Long remainingLeaves;
 
     private Long lwp;
+
+    private Long plwp;
 
     @Enumerated(EnumType.STRING)
     private Status status;

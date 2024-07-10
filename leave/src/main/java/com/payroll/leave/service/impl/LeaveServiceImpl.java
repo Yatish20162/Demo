@@ -14,6 +14,7 @@ import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
+import java.util.Optional;
 
 @Service
 @AllArgsConstructor
@@ -35,9 +36,26 @@ public class LeaveServiceImpl implements ILeaveService {
 
     @Override
     public boolean generateLeaveRequest(LeaveRequestDto leaveRequestDto) {
+        boolean isCreated = false;
         LeaveRequest leaveRequest = LeaveRequestMapper.mapToLeaveRequest(leaveRequestDto , new LeaveRequest());
-        leaveRequestRepository.save(leaveRequest);
-        return false;
+        Leave leave = leaveRepository.findByEmployeeId(leaveRequest.getEmployeeId()).orElseThrow(
+                () -> new ResourceNotFoundException("leaves", "employeeID", leaveRequest.getEmployeeId())
+        );
+
+        if(leave != null){
+            Long remainingLeaves = leave.getRemainingLeaves();
+            Long lwp = leave.getLwp();
+            Long plwp = leave.getLwp();
+
+            leaveRequest.setRemainingLeaves(remainingLeaves);
+            leaveRequest.setLwp(lwp);
+            leaveRequest.setPlwp(plwp);
+            leaveRequest.setStatus(LeaveRequest.Status.PENDING);
+            leaveRequestRepository.save(leaveRequest);
+            isCreated = true;
+        }
+
+        return isCreated;
     }
 
     @Override

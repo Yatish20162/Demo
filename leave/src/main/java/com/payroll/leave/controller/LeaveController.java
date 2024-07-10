@@ -28,7 +28,14 @@ public class LeaveController {
     @PostMapping("/leaveRequest")
     public ResponseEntity<ResponseDto> leaveRequest(@RequestBody LeaveRequestDto leaveRequestDto){
         boolean isCreated = iLeaveService.generateLeaveRequest(leaveRequestDto);
-        return ResponseEntity.status(HttpStatus.OK).body(new ResponseDto("204" , "Leave Request Created Successfully"));
+        if(isCreated){
+            return ResponseEntity
+                    .status(HttpStatus.OK)
+                    .body(new ResponseDto("204" , "Leave Request Created Successfully"));
+        }
+        return ResponseEntity
+                .status(HttpStatus.INTERNAL_SERVER_ERROR)
+                .body(new ResponseDto("500", "Failed to create leave request"));
     }
 
     @GetMapping("/fetchLwp")

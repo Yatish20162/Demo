@@ -12,8 +12,6 @@ import java.time.LocalDateTime;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-
-
 public class LeaveRequest {
 
     public enum Status {
@@ -36,6 +34,8 @@ public class LeaveRequest {
     private Long remainingLeaves;
 
     private Long lwp;
+
+    private Long plwp;
 
     @Enumerated(EnumType.STRING)
     private Status status;

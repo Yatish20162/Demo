@@ -8,18 +8,20 @@ import com.payroll.leave.entity.LeaveRequest;
 public class LeaveRequestMapper {
 
     public static LeaveRequestDto mapToLeaveRequestDto(LeaveRequest leaveRequest, LeaveRequestDto leaveRequestDto) {
+        leaveRequestDto.setEmployeeId(leaveRequest.getEmployeeId());
         leaveRequestDto.setStartDate(leaveRequest.getStartDate());
         leaveRequestDto.setEndDate(leaveRequest.getEndDate());
-        leaveRequestDto.setRemainingLeaves(leaveRequest.getRemainingLeaves());
-        leaveRequestDto.setLwp(leaveRequest.getLwp());
+//        leaveRequestDto.setRemainingLeaves(leaveRequest.getRemainingLeaves());
+//        leaveRequestDto.setLwp(leaveRequest.getLwp());
         return leaveRequestDto;
     }
 
     public static LeaveRequest mapToLeaveRequest(LeaveRequestDto leaveRequestDto, LeaveRequest leaveRequest) {
+        leaveRequest.setEmployeeId(leaveRequest.getEmployeeId());
         leaveRequest.setStartDate(leaveRequestDto.getStartDate());
         leaveRequest.setEndDate(leaveRequestDto.getEndDate());
-        leaveRequest.setRemainingLeaves(leaveRequestDto.getRemainingLeaves());
-        leaveRequest.setLwp(leaveRequestDto.getLwp());
+//        leaveRequest.setRemainingLeaves(leaveRequestDto.getRemainingLeaves());
+//        leaveRequest.setLwp(leaveRequestDto.getLwp());
         return leaveRequest;
     }
 }
