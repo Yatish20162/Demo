@@ -24,8 +24,7 @@ public class LeaveRequest {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long leaveRequestId;
 
-    @NotNull
-
+//    @NotNull
     private Long employeeId;
 
     @NotNull
@@ -40,6 +39,8 @@ public class LeaveRequest {
 
     @Enumerated(EnumType.STRING)
     private Status status;
+
+    private Long managerID;
 
 
 }
