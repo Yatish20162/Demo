@@ -1,4 +1,4 @@
-package com.payroll.leave.dto;
+package com.payroll.report.dto;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -9,12 +9,9 @@ import lombok.Setter;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-
-public class EmployeeDto {
-
+public class SalaryDto {
+    private Long baseSalary;
+    private Long hra;
+    private Long benefits;
     private Long employeeId;
-    private String name;
-    private String email;
-    private String mobileNumber;
-
 }

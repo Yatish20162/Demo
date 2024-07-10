@@ -1,7 +1,7 @@
-package com.payroll.leave.mapper;
+package com.payroll.report.mapper;
 
-import com.payroll.leave.dto.SalaryDto;
-import com.payroll.leave.entity.Salary;
+import com.payroll.report.dto.SalaryDto;
+import com.payroll.report.entity.Salary;
 
 public class SalaryMapper {
     public static Salary mapToSalary(Salary salary, SalaryDto salaryDto)

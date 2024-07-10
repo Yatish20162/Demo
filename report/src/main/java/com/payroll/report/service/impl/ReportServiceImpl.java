@@ -1,9 +1,9 @@
-package com.payroll.leave.service.impl;
+package com.payroll.report.service.impl;
 
-import com.payroll.leave.dto.EmployeeDto;
-import com.payroll.leave.dto.PayrollDto;
-import com.payroll.leave.dto.ReportDto;
-import com.payroll.leave.service.ReportService;
+import com.payroll.report.dto.EmployeeDto;
+import com.payroll.report.dto.PayrollDto;
+import com.payroll.report.dto.ReportDto;
+import com.payroll.report.service.ReportService;
 import org.springframework.stereotype.Service;
 
 import java.util.Date;

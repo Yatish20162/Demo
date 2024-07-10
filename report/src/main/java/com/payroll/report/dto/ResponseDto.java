@@ -1,4 +1,4 @@
-package com.payroll.leave.dto;
+package com.payroll.report.dto;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;

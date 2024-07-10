@@ -1,4 +1,4 @@
-package com.payroll.leave.entity;
+package com.payroll.report.entity;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;

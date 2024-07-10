@@ -1,7 +1,7 @@
-package com.payroll.leave.mapper;
+package com.payroll.report.mapper;
 
-import com.payroll.leave.dto.PayrollDto;
-import com.payroll.leave.entity.Payroll;
+import com.payroll.report.dto.PayrollDto;
+import com.payroll.report.entity.Payroll;
 
 public class PayrollMapper {
     public static Payroll mapToPayroll(Payroll payroll, PayrollDto payrollDto)
