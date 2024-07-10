@@ -10,6 +10,7 @@ import lombok.Setter;
 @AllArgsConstructor
 @NoArgsConstructor
 public class LeaveDto {
+
     private Long totalLeaves;
 
     private Long remainingLeaves;

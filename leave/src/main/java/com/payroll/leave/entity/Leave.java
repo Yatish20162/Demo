@@ -11,6 +11,7 @@ import lombok.*;
 @AllArgsConstructor
 @NoArgsConstructor
 public class Leave {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long leaveId;
