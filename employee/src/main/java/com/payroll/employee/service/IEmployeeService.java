@@ -9,9 +9,9 @@ public interface IEmployeeService {
 
     EmployeeDto getEmployeeById(); // accessible to all
 
-    void updateEmployee(); // accessible to admin
+    Boolean updateEmployee(); // accessible to admin
 
-    void deleteEmployee(); // accessible to admin
+    Boolean deleteEmployee(); // accessible to admin
 
     List<Long> getEmployeeIdsByManagerId(); // accessible to admin, manager
 }
