@@ -29,6 +29,6 @@ public class LeaveRequestDto {
     private Long lwp;
 
     @Enumerated(EnumType.STRING)
-    private LeaveRequest.Status status;
+    private Status status;
 
 }

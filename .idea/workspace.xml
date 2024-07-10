@@ -31,6 +31,9 @@
   &quot;associatedIndex&quot;: 4
 }</component>
   <component name="ProjectId" id="2j0GC77058SVLmXgZJDvcruPE4d" />
+  <component name="ProjectLevelVcsManager">
+    <ConfirmationsSetting value="2" id="Add" />
+  </component>
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
@@ -39,7 +42,7 @@
   "keyToString": {
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "SHARE_PROJECT_CONFIGURATION_FILES": "true",
-    "git-widget-placeholder": "main",
+    "git-widget-placeholder": "Merging leave",
     "kotlin-language-version-configured": "true",
     "last_opened_file_path": "C:/Users/yatish.garg/OneDrive - UKG/Desktop/demo",
     "settings.editor.selected.configurable": "vcs.Git"
