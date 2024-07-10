@@ -20,5 +20,5 @@ public class EmployeeDto {
     private String jobTitle;
     private String department;
     private Long managerId;
-//    private EmployeeRoleDto employeeRoleDto;
+    private EmployeeRoleDto employeeRoleDto;
 }

@@ -15,7 +15,6 @@ public class EmployeeMapper {
         employeeDto.setDepartment(employee.getDepartment());
         employeeDto.setManagerId(employee.getManagerId());
 
-
         return employeeDto;
     }
 
