@@ -30,5 +30,6 @@ public class LeaveRequestDto {
 
     @Enumerated(EnumType.STRING)
     private Status status;
+    private Long managerID;
 
 }

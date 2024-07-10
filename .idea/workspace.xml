@@ -40,13 +40,17 @@
   </component>
   <component name="PropertiesComponent"><![CDATA[{
   "keyToString": {
+    "Application.LeaveApplication.executor": "Run",
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "SHARE_PROJECT_CONFIGURATION_FILES": "true",
     "git-widget-placeholder": "leave",
     "kotlin-language-version-configured": "true",
+<<<<<<< HEAD
     "last_opened_file_path": "C:/Users/agrim.gupta/workspace/payrolGroup5",
     "git-widget-placeholder": "Merging leave",
     "kotlin-language-version-configured": "true",
+=======
+>>>>>>> a8ef6c3b03e59126edf880563509c6e5b25d97f8
     "last_opened_file_path": "C:/Users/yatish.garg/OneDrive - UKG/Desktop/demo",
     "settings.editor.selected.configurable": "vcs.Git"
   }
