@@ -1,11 +1,13 @@
 package com.payroll.employee.dto;
 
 import com.payroll.employee.enums.Role;
+import jakarta.validation.constraints.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.List;
 
@@ -16,7 +18,7 @@ import java.util.List;
 public class EmployeeDto {
     private String firstName;
     private String lastName;
-    private LocalDateTime dateOfBirth;
+    private LocalDate dateOfBirth;
     private String email;
     private String phoneNumber;
     private String jobTitle;
