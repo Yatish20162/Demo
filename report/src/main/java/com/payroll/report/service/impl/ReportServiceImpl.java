@@ -3,14 +3,24 @@ package com.payroll.report.service.impl;
 import com.payroll.report.dto.EmployeeDto;
 import com.payroll.report.dto.PayrollDto;
 import com.payroll.report.dto.ReportDto;
-import com.payroll.report.service.ReportService;
+import com.payroll.report.dto.SalaryDto;
+import com.payroll.report.entity.Salary;
+import com.payroll.report.exception.ResourceNotFoundException;
+import com.payroll.report.mapper.SalaryMapper;
+import com.payroll.report.repository.SalaryRepository;
+import com.payroll.report.service.IReportService;
+import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
 import java.util.Date;
 import java.util.List;
 
 @Service
-public class ReportServiceImpl implements ReportService {
+@AllArgsConstructor
+public class ReportServiceImpl implements IReportService {
+
+    private final SalaryRepository salaryRepository;
 
     @Override
     public List<EmployeeDto> fetchAllEmployee() {
@@ -27,14 +37,26 @@ public class ReportServiceImpl implements ReportService {
     return null;
     }
 
-    @Override
-    public EmployeeDto fetchEmployeeDetails(String employeeName, Long employeeId, Date endTime) {
-        return null;
-    }
+//    @Override
+//    public EmployeeDto fetchEmployeeDetails(String employeeName, Long employeeId, LocalDate endTime) {
+//        return null;
+//    }
 
     @Override
-    public boolean updateAccount(String employeeName, Long employeeId, Date endTime) {
-        return false;
+    public boolean updateSalary(SalaryDto salaryDto) {
+        boolean isUpdated = false;
+
+        Salary salary = salaryRepository.findByEmployeeId(salaryDto.getEmployeeId()).orElseThrow(
+                () -> new ResourceNotFoundException("salary", "employee", salaryDto.getEmployeeId())
+        );
+
+        if(salary != null){
+            Salary updatedSalary = SalaryMapper.mapToSalary(salaryDto, salary);
+            salaryRepository.save(updatedSalary);
+
+            isUpdated = true;
+        }
+        return isUpdated;
     }
 
     @Override

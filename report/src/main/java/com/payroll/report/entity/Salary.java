@@ -1,8 +1,6 @@
 package com.payroll.report.entity;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -16,6 +14,7 @@ import lombok.Setter;
 @NoArgsConstructor
 public class Salary {
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long salaryId;
     private Long baseSalary;
     private Long hra;

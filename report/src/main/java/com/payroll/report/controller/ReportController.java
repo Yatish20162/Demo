@@ -3,7 +3,8 @@ package com.payroll.report.controller;
 import com.payroll.report.dto.EmployeeDto;
 import com.payroll.report.dto.ReportDto;
 import com.payroll.report.dto.ResponseDto;
-import com.payroll.report.service.ReportService;
+import com.payroll.report.dto.SalaryDto;
+import com.payroll.report.service.IReportService;
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -18,7 +19,7 @@ import java.util.List;
 public class ReportController {
 
 
-    private final ReportService reportService;
+    private final IReportService reportService;
 //    @GetMapping("/")
 //    public ResponseEntity<PayrollDto>fetchEmployeeReport(@RequestParam String employeeName, @RequestParam Date startTime, @RequestParam Date endTime)
 //    {
@@ -56,20 +57,24 @@ public class ReportController {
     }
 
     @PutMapping("/update")
-    public ResponseEntity<ResponseDto> updateDetails(@RequestParam String employeeName, @RequestParam Long employeeId, @RequestParam Date endTime)
+    public ResponseEntity<ResponseDto> updateSalaryDetails(@RequestBody SalaryDto salaryDto)
     {
-        boolean isUpdated = reportService.updateAccount(employeeName, employeeId, endTime);
+        boolean isUpdated = reportService.updateSalary(salaryDto);
         if (isUpdated) {
-            return ResponseEntity.status(HttpStatus.OK).body(new ResponseDto("204", "Updated successfully"));
+            return ResponseEntity
+                    .status(HttpStatus.OK)
+                    .body(new ResponseDto("204", "Updated successfully"));
         } else {
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(new ResponseDto("500", "Internal Server Error"));
+            return ResponseEntity
+                    .status(HttpStatus.INTERNAL_SERVER_ERROR)
+                    .body(new ResponseDto("500", "Internal Server Error"));
         }
     }
 
     @DeleteMapping("/delete")
     public ResponseEntity<ResponseDto> deleteAccount(@RequestParam String employeeName, @RequestParam Long employeeId, @RequestParam Date endTime)
     {
-        boolean isDeleted = ReportService.deleteAccount(employeeName, employeeId, endTime);
+        boolean isDeleted = IReportService.deleteAccount(employeeName, employeeId, endTime);
         if (isDeleted) {
             return ResponseEntity.status(HttpStatus.OK).body(new ResponseDto("204", "Deleted successfully"));
         } else {
