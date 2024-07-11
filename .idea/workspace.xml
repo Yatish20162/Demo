@@ -5,26 +5,9 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="8508177f-2578-4fb2-ad0f-40b0a3c83b95" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/report/src/main/java/com/payroll/report/controller/ReportController.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/report/src/main/java/com/payroll/report/dto/EmployeeDto.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/report/src/main/java/com/payroll/report/dto/PayrollDto.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/report/src/main/java/com/payroll/report/dto/ReportDto.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/report/src/main/java/com/payroll/report/dto/ResponseDto.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/report/src/main/java/com/payroll/report/dto/SalaryDto.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/report/src/main/java/com/payroll/report/entity/Payroll.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/report/src/main/java/com/payroll/report/entity/Salary.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/report/src/main/java/com/payroll/report/mapper/PayrollMapper.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/report/src/main/java/com/payroll/report/mapper/SalaryMapper.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/report/src/main/java/com/payroll/report/repository/ReportRepository.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/report/src/main/java/com/payroll/report/repository/SalaryRepository.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/report/src/main/java/com/payroll/report/service/ReportService.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/report/src/main/java/com/payroll/report/service/impl/ReportServiceImpl.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/report/src/main/resources/application.yml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/report/src/main/resources/data.sql" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/report/src/main/resources/schema.sql" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/report/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/report/pom.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/report/src/main/resources/application.properties" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/report/src/main/java/com/payroll/report/controller/ReportController.java" beforeDir="false" afterPath="$PROJECT_DIR$/report/src/main/java/com/payroll/report/controller/ReportController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/report/src/main/java/com/payroll/report/service/ReportService.java" beforeDir="false" afterPath="$PROJECT_DIR$/report/src/main/java/com/payroll/report/service/ReportService.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -60,12 +43,13 @@
     "SHARE_PROJECT_CONFIGURATION_FILES": "true",
     "git-widget-placeholder": "report__service",
     "kotlin-language-version-configured": "true",
-    "last_opened_file_path": "C:/Users/simran.vishrant/Desktop/payrolGroup5/report/src/main",
+    "last_opened_file_path": "C:/Users/simran.vishrant/Desktop/payrolGroup5/leave/src/main/resources",
     "settings.editor.selected.configurable": "vcs.Git"
   }
 }]]></component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="C:\Users\simran.vishrant\Desktop\payrolGroup5\leave\src\main\resources" />
       <recent name="C:\Users\simran.vishrant\Desktop\payrolGroup5\report\src\main" />
       <recent name="C:\Users\simran.vishrant\Desktop\payrolGroup5\report\src\main\java\com\payroll\report" />
     </key>

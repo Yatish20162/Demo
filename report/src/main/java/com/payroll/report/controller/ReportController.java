@@ -27,7 +27,6 @@ public class ReportController {
 //    }
 
     @PostMapping("/create")
-
     public ResponseEntity<ResponseDto> createReport(@RequestBody ReportDto reportDto)
     {
         reportService.createReport(reportDto);
@@ -36,14 +35,14 @@ public class ReportController {
                 .body(new ResponseDto("201", "Created Successfully"));
     }
 
-    @GetMapping("/fetch")
-    public ResponseEntity<EmployeeDto> fetchEmployee(@RequestParam String employeeName, @RequestParam Long employeeId, @RequestParam Date endTime)
-    {
-        EmployeeDto employeeDto = reportService.fetchEmployeeDetails(employeeName, employeeId, endTime);
-        return ResponseEntity
-                .status(HttpStatus.OK)
-                .body(employeeDto);
-    }
+//    @GetMapping("/fetch")
+//    public ResponseEntity<EmployeeDto> fetchEmployee(@RequestParam String employeeName, @RequestParam Long employeeId, @RequestParam Date endTime)
+//    {
+//        EmployeeDto employeeDto = reportService.fetchEmployeeDetails(employeeName, employeeId, endTime);
+//        return ResponseEntity
+//                .status(HttpStatus.OK)
+//                .body(employeeDto);
+//    }
 
     @GetMapping("/fetchall")
     public ResponseEntity<List<EmployeeDto>> getallEmployee(){
