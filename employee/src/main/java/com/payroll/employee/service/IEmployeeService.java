@@ -13,5 +13,7 @@ public interface IEmployeeService {
 
     Boolean deleteEmployee(Long employeeId); // accessible to admin
 
+    List<EmployeeDto> getAllEmployeeData();
+
     List<EmployeeDto> getEmployeesByManagerId(Long managerId); // accessible to admin, manager
 }

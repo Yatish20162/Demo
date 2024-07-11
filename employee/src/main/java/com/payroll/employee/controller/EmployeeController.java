@@ -149,6 +149,12 @@ public class EmployeeController {
             )
     }
     )
+    @GetMapping("/fetch-all")
+    public ResponseEntity<List<EmployeeDto>> getAllEmployeeData(){
+        List<EmployeeDto> employeeDtoList = employeeService.getAllEmployeeData();
+        return ResponseEntity.status(HttpStatus.OK).body(employeeDtoList);
+    }
+
     @Modifying
     @Transactional
     @PutMapping("/update/{employeeId}")
