@@ -13,6 +13,7 @@ import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
+import java.util.List;
 
 @Validated
 @RestController
@@ -36,5 +37,11 @@ public class EmployeeController {
     public ResponseEntity<EmployeeDto> getEmployeeById(@PathVariable Long employeeId){ // Not sure if Long will work or have to use String
         EmployeeDto employeeDto = employeeService.getEmployeeById(employeeId);
         return ResponseEntity.status(HttpStatus.OK).body(employeeDto);
+    }
+
+    @GetMapping("manager/{managerId}")
+    public ResponseEntity<List<EmployeeDto>> getEmployeeByManagerId(@PathVariable Long managerId){ // Not sure if Long will work or have to use String
+        List<EmployeeDto> employeeDtoList = employeeService.getEmployeesByManagerId(managerId);
+        return ResponseEntity.status(HttpStatus.OK).body(employeeDtoList);
     }
 }
