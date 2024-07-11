@@ -35,7 +35,7 @@ public class EmployeeController {
         return ResponseEntity.status(HttpStatus.CREATED).body(new ResponseDto("201", "Created Successfully"));
     }
 
-@DeleteMapping("/delete")
+@DeleteMapping("/delete/{employeeId}")
 public  ResponseEntity<ResponseDto> deleteEmployee(@PathVariable Long employeeId) {
     boolean isDeleted = iEmployeeService.deleteEmployee(employeeId);
     if (isDeleted) {

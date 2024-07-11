@@ -10,6 +10,7 @@ import com.payroll.employee.mapper.EmployeeMapper;
 import com.payroll.employee.repository.EmployeeRepository;
 import com.payroll.employee.repository.EmployeeRoleRepository;
 import com.payroll.employee.service.IEmployeeService;
+import jakarta.transaction.Transactional;
 import lombok.AllArgsConstructor;
 import lombok.NoArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -64,20 +65,27 @@ public class EmployeeServiceImpl implements IEmployeeService {
 
 
 
+
+
         @Override
+        @Transactional
         public Boolean deleteEmployee(Long employeeId) {
                 boolean isDeleted = false;
+
+
                 Employee employee = employeeRepository.findByEmployeeId(employeeId).orElseThrow(
-                        () -> new ResourceNotFoundException("Employee","EmployeeId", employeeId.toString())
+                        () -> new ResourceNotFoundException("Employee", "EmployeeId", employeeId.toString())
                 );
-                if(employee != null){
-                      employeeRoleRepository.deleteById(employeeId);
-//                        employeeRoleRepository.deleteById();
-                      employeeRepository.deleteById(employeeId);
-                      isDeleted = true;
+
+                if (employee != null) {
+                        employeeRoleRepository.deleteAllByEmployeeId(employeeId);
+                        employeeRepository.deleteById(employeeId);
+
+                        isDeleted = true;
                 }
                 return isDeleted;
         }
+
 
         @Override
         public List<EmployeeDto> getEmployeesByManagerId(Long managerId) {
