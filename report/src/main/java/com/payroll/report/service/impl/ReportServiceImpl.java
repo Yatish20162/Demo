@@ -29,7 +29,13 @@ public class ReportServiceImpl implements IReportService {
 
     @Override
     public boolean deleteAccount(String employeeName, Long employeeId) {
-        return false;
+
+        boolean isDeleted = false;
+
+        Salary salary = salaryRepository.findByEmployeeId(employeeId).orElseThrow(
+                () -> new ResourceNotFoundException("salary", "employee", )
+        );
+
     }
 
     @Override
