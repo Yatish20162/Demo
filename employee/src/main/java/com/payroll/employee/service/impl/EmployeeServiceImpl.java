@@ -15,6 +15,7 @@ import lombok.NoArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -80,12 +81,9 @@ public class EmployeeServiceImpl implements IEmployeeService {
 
         @Override
         public List<EmployeeDto> getEmployeesByManagerId(Long managerId) {
-                return List.of();
+                Optional<List<Employee>> employeeList = employeeRepository.findAllByManagerId(managerId);
+                return employeeList.map(employees -> employees.stream().map(
+                    (employee) -> getEmployeeById(employee.getEmployeeId())
+            ).toList()).orElseGet(ArrayList::new);
         }
-
-//        List<Employee> getEmployeesByManagerId(Long managerId){
-//            employeeRepository.findByManagerId(managerId).stream().map(()->{
-//
-//            })
-//        }
 }
