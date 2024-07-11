@@ -17,7 +17,7 @@ public class LeaveRequestMapper {
     }
 
     public static LeaveRequest mapToLeaveRequest(LeaveRequestDto leaveRequestDto, LeaveRequest leaveRequest) {
-        leaveRequest.setEmployeeId(leaveRequest.getEmployeeId());
+        leaveRequest.setEmployeeId(leaveRequestDto.getEmployeeId());
         leaveRequest.setStartDate(leaveRequestDto.getStartDate());
         leaveRequest.setEndDate(leaveRequestDto.getEndDate());
 //        leaveRequest.setRemainingLeaves(leaveRequestDto.getRemainingLeaves());

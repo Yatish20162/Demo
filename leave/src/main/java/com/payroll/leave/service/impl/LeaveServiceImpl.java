@@ -3,6 +3,7 @@ package com.payroll.leave.service.impl;
 import com.payroll.leave.LeaveApplication;
 import com.payroll.leave.dto.LeaveDto;
 import com.payroll.leave.dto.LeaveRequestDto;
+import com.payroll.leave.dto.NotificationResponseDto;
 import com.payroll.leave.entity.Leave;
 import com.payroll.leave.entity.LeaveRequest;
 import com.payroll.leave.exception.ResourceNotFoundException;
@@ -16,6 +17,7 @@ import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.temporal.ChronoUnit;
 import java.util.List;
 import java.util.Optional;
 
@@ -41,6 +43,7 @@ public class LeaveServiceImpl implements ILeaveService {
     public boolean generateLeaveRequest(LeaveRequestDto leaveRequestDto) {
         boolean isCreated = false;
         LeaveRequest leaveRequest = LeaveRequestMapper.mapToLeaveRequest(leaveRequestDto , new LeaveRequest());
+        System.out.println("IN Service" + leaveRequest.getEmployeeId());
         Leave leave = leaveRepository.findByEmployeeId(leaveRequest.getEmployeeId()).orElseThrow(
                 () -> new ResourceNotFoundException("leaves", "employeeID", leaveRequest.getEmployeeId())
         );
@@ -57,6 +60,8 @@ public class LeaveServiceImpl implements ILeaveService {
             leaveRequestRepository.save(leaveRequest);
             isCreated = true;
         }
+
+//       code for send Notification to manager
 
         return isCreated;
     }
@@ -83,4 +88,54 @@ public class LeaveServiceImpl implements ILeaveService {
         System.out.println("lwpDays" + lwpDays);
         return lwpDays;
     }
+
+    @Override
+    public boolean approveLeave(NotificationResponseDto notificationResponseDto) {
+
+        Long employeeId = notificationResponseDto.getEmployeeId();
+        Long leaveRequestId = notificationResponseDto.getLeaveRequestId();
+        NotificationResponseDto.Status status = notificationResponseDto.getStatus();
+
+        if(status != NotificationResponseDto.Status.APPROVED){
+            return false;
+        }
+
+
+        Leave leave = leaveRepository.findByEmployeeId(employeeId).orElseThrow(
+                () -> new ResourceNotFoundException("leaves", "employeeID", employeeId)
+        );
+
+        LeaveRequest leaveRequest = leaveRequestRepository.findByLeaveRequestId(leaveRequestId).orElseThrow(
+                () -> new ResourceNotFoundException("leaves", "leaveRequestId", leaveRequestId)
+        );
+
+        long daysBetween = ChronoUnit.DAYS.between(leaveRequest.getStartDate(), leaveRequest.getEndDate());
+
+
+        if(leave.getRemainingLeaves() >= daysBetween){
+
+            leaveRequest.setRemainingLeaves(leave.getRemainingLeaves() - daysBetween);
+
+            leave.setRemainingLeaves(leave.getRemainingLeaves() - daysBetween);
+
+
+
+        }
+        else{
+
+            leaveRequest.setRemainingLeaves(0L);
+
+            leaveRequest.setLwp(daysBetween - leave.getRemainingLeaves());
+
+            leave.setLwp(leave.getLwp() + (daysBetween - leave.getRemainingLeaves()));
+            leave.setRemainingLeaves(0L);
+
+
+        }
+
+        leaveRequestRepository.save(leaveRequest);
+        leaveRepository.save(leave);
+        return true;
+    }
+
 }

@@ -2,6 +2,7 @@ package com.payroll.leave.controller;
 
 import com.payroll.leave.dto.LeaveDto;
 import com.payroll.leave.dto.LeaveRequestDto;
+import com.payroll.leave.dto.NotificationResponseDto;
 import com.payroll.leave.dto.ResponseDto;
 import com.payroll.leave.service.ILeaveService;
 import lombok.AllArgsConstructor;
@@ -29,6 +30,7 @@ public class LeaveController {
     }
     @PostMapping("/leaveRequest")
     public ResponseEntity<ResponseDto> leaveRequest(@RequestBody LeaveRequestDto leaveRequestDto){
+        System.out.println(leaveRequestDto.getEmployeeId());
         boolean isCreated = iLeaveService.generateLeaveRequest(leaveRequestDto);
         if(isCreated){
             return ResponseEntity
@@ -62,6 +64,22 @@ public class LeaveController {
 
         Long lwpCount = iLeaveService.fetchLwp(employeeId , startLocalDate , endLocalDate);
         return ResponseEntity.status(HttpStatus.OK).body(lwpCount);
+    }
+
+    @PostMapping("/approveleave")
+    public ResponseEntity<ResponseDto> approveLeave(@RequestBody NotificationResponseDto notificationResponseDto){
+        System.out.println("Entered");
+        boolean isApproved = false;
+        isApproved = iLeaveService.approveLeave(notificationResponseDto);
+
+        if(isApproved){
+            return ResponseEntity
+                    .status(HttpStatus.OK)
+                    .body(new ResponseDto("200" , "Leave Request Approved"));
+        }
+        return ResponseEntity
+                .status(HttpStatus.OK)
+                .body(new ResponseDto("200", "Leave Request Declined"));
     }
 
 
