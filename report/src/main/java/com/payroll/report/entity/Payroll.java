@@ -6,7 +6,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-import java.time.LocalDateTime;
+import java.time.LocalDate;
 
 @Entity
 @Table(name="payroll")
@@ -24,5 +24,5 @@ public class Payroll {
     private Long benefits;
     private Long netSalary;
     private Long deduction;
-    private LocalDateTime localDateTime;
+    private LocalDate localDateTime;
 }

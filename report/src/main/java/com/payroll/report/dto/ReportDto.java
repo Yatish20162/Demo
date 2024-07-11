@@ -2,6 +2,7 @@ package com.payroll.report.dto;
 
 import lombok.*;
 
+import java.time.LocalDate;
 import java.util.Date;
 
 @Data
@@ -12,6 +13,6 @@ import java.util.Date;
 public class ReportDto {
     private String employeeName;
     private Long employeeId;
-    private Date startTime;
-    private Date endTime;
+    private LocalDate startDate;
+    private LocalDate endDate;
 }

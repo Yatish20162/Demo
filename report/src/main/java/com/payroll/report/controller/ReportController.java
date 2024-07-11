@@ -20,40 +20,20 @@ public class ReportController {
 
 
     private final IReportService reportService;
-//    @GetMapping("/")
-//    public ResponseEntity<PayrollDto>fetchEmployeeReport(@RequestParam String employeeName, @RequestParam Date startTime, @RequestParam Date endTime)
-//    {
-//        PayrollDto payrollDto =reportService.fetchEmployeeReport(employeeName,startTime,endTime);
-//        return ResponseEntity.status(HttpStatus.OK).body(payrollDto);
-//    }
 
     @PostMapping("/create")
     public ResponseEntity<ResponseDto> createReport(@RequestBody ReportDto reportDto)
     {
-        reportService.createReport(reportDto);
-        return ResponseEntity
-                .status(HttpStatus.CREATED)
-                .body(new ResponseDto("201", "Created Successfully"));
-    }
-
-//    @GetMapping("/fetch")
-//    public ResponseEntity<EmployeeDto> fetchEmployee(@RequestParam String employeeName, @RequestParam Long employeeId, @RequestParam Date endTime)
-//    {
-//        EmployeeDto employeeDto = reportService.fetchEmployeeDetails(employeeName, employeeId, endTime);
-//        return ResponseEntity
-//                .status(HttpStatus.OK)
-//                .body(employeeDto);
-//    }
-
-    @GetMapping("/fetchall")
-    public ResponseEntity<List<EmployeeDto>> getallEmployee(){
-
-        EmployeeDto customerDto=new EmployeeDto();
-        List<EmployeeDto>a = reportService.fetchAllEmployee();
-
-        System.out.println(a);
-        return ResponseEntity.status(HttpStatus.OK).body(a);
-
+        boolean isCreated = reportService.createReport(reportDto);
+        if (isCreated) {
+            return ResponseEntity
+                    .status(HttpStatus.CREATED)
+                    .body(new ResponseDto("201", "Created successfully"));
+        } else {
+            return ResponseEntity
+                    .status(HttpStatus.INTERNAL_SERVER_ERROR)
+                    .body(new ResponseDto("500", "Internal Server Error"));
+        }
     }
 
     @PutMapping("/update")
@@ -72,15 +52,13 @@ public class ReportController {
     }
 
     @DeleteMapping("/delete")
-    public ResponseEntity<ResponseDto> deleteAccount(@RequestParam String employeeName, @RequestParam Long employeeId, @RequestParam Date endTime)
+    public ResponseEntity<ResponseDto> deleteAccount(@RequestParam Long employeeId)
     {
-        boolean isDeleted = IReportService.deleteAccount(employeeName, employeeId, endTime);
+        boolean isDeleted = reportService.deleteAccount(employeeId);
         if (isDeleted) {
             return ResponseEntity.status(HttpStatus.OK).body(new ResponseDto("204", "Deleted successfully"));
         } else {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(new ResponseDto("500", "Internal Server Error"));
         }
     }
-
-
 }

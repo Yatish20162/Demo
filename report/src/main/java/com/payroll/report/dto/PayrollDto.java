@@ -5,7 +5,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-import java.time.LocalDateTime;
+import java.time.LocalDate;
 
 @NoArgsConstructor
 @AllArgsConstructor
@@ -17,5 +17,5 @@ public class PayrollDto {
     private Long benefits;
     private Long netSalary;
     private Long deduction;
-    private LocalDateTime localDateTime;
+    private LocalDate localDateTime;
 }
