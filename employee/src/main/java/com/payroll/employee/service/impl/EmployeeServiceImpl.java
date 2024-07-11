@@ -61,9 +61,21 @@ public class EmployeeServiceImpl implements IEmployeeService {
                 return null;
         }
 
+
+
         @Override
         public Boolean deleteEmployee(Long employeeId) {
-                return null;
+                boolean isDeleted = false;
+                Employee employee = employeeRepository.findByEmployeeId(employeeId).orElseThrow(
+                        () -> new ResourceNotFoundException("Employee","EmployeeId", employeeId.toString())
+                );
+                if(employee != null){
+                      employeeRoleRepository.deleteById(employeeId);
+//                        employeeRoleRepository.deleteById();
+                      employeeRepository.deleteById(employeeId);
+                      isDeleted = true;
+                }
+                return isDeleted;
         }
 
         @Override

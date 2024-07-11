@@ -4,6 +4,7 @@ import com.payroll.employee.dto.EmployeeDto;
 import com.payroll.employee.dto.ResponseDto;
 import com.payroll.employee.service.IEmployeeService;
 import com.payroll.employee.service.impl.EmployeeServiceImpl;
+import jakarta.validation.constraints.Pattern;
 import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpStatus;
@@ -20,6 +21,7 @@ import java.util.ArrayList;
 @AllArgsConstructor
 public class EmployeeController {
     private final EmployeeServiceImpl employeeService;
+    private  final IEmployeeService iEmployeeService;
 
     @GetMapping("/ping")
     public ResponseEntity<String> Ping() {
@@ -31,6 +33,20 @@ public class EmployeeController {
         employeeService.createEmployee(employeeDto);
         return ResponseEntity.status(HttpStatus.CREATED).body(new ResponseDto("201", "Created Successfully"));
     }
+
+@DeleteMapping("/delete")
+public  ResponseEntity<ResponseDto> deleteEmployee(@PathVariable Long employeeId) {
+    boolean isDeleted = iEmployeeService.deleteEmployee(employeeId);
+    if (isDeleted) {
+        return ResponseEntity.status(HttpStatus.OK).body(new ResponseDto("204", "Deleted Successfully"));
+    } else {
+        return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(new ResponseDto("500", "Internal Server Error"));
+    }
+
+}
+
+
+
 
     @GetMapping("/{employeeId}")
     public ResponseEntity<EmployeeDto> getEmployeeById(@PathVariable Long employeeId){ // Not sure if Long will work or have to use String
