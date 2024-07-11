@@ -13,5 +13,11 @@ import java.util.Optional;
 public interface EmployeeRoleRepository extends JpaRepository<EmployeeRole, Long> {
 
     Optional<List<EmployeeRole>> findAllByEmployeeId(Long employeeId);
+<<<<<<< HEAD
     void deleteAllByEmployeeId(Long employeeId);
+=======
+
+    void deleteAllByEmployeeId(Long employeeId);
+
+>>>>>>> refs/remotes/origin/employee-dev
 }

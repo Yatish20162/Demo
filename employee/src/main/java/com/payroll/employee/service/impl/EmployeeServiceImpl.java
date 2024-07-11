@@ -60,7 +60,24 @@ public class EmployeeServiceImpl implements IEmployeeService {
 
         @Override
         public Boolean updateEmployee(Long employeeId, EmployeeDto employeeDto) {
-                return null;
+
+                Employee foundEmployee = employeeRepository.findByEmployeeId(employeeId).orElseThrow(
+                        () -> new ResourceNotFoundException("Employee", "employeeId", employeeId.toString())
+                );
+
+
+
+               Employee updatedemployee=EmployeeMapper.mapToEmployee(employeeDto, new Employee());
+               updatedemployee.setEmployeeId(employeeId);
+               employeeRepository.save(updatedemployee);
+
+                employeeRoleRepository.deleteAllByEmployeeId(employeeId);
+
+                for(Role role: employeeDto.getEmployeeRoles()){
+                        employeeRoleRepository.save(new EmployeeRole(updatedemployee.getEmployeeId(), role));
+                }
+
+                return Boolean.TRUE;
         }
 
 
