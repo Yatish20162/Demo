@@ -4,11 +4,8 @@ import com.payroll.employee.dto.EmployeeDto;
 import com.payroll.employee.dto.ResponseDto;
 import com.payroll.employee.service.IEmployeeService;
 import com.payroll.employee.service.impl.EmployeeServiceImpl;
-<<<<<<< HEAD
 import jakarta.validation.constraints.Pattern;
-=======
 import jakarta.transaction.Transactional;
->>>>>>> refs/remotes/origin/employee-dev
 import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.jpa.repository.Modifying;
@@ -39,7 +36,6 @@ public class EmployeeController {
         employeeService.createEmployee(employeeDto);
         return ResponseEntity.status(HttpStatus.CREATED).body(new ResponseDto("201", "Created Successfully"));
     }
-<<<<<<< HEAD
 
 @DeleteMapping("/delete/{employeeId}")
 public  ResponseEntity<ResponseDto> deleteEmployee(@PathVariable Long employeeId) {
@@ -55,9 +51,6 @@ public  ResponseEntity<ResponseDto> deleteEmployee(@PathVariable Long employeeId
 
 
 
-=======
-    
->>>>>>> refs/remotes/origin/employee-dev
     @GetMapping("/{employeeId}")
     public ResponseEntity<EmployeeDto> getEmployeeById(@PathVariable Long employeeId){ // Not sure if Long will work or have to use String
         EmployeeDto employeeDto = employeeService.getEmployeeById(employeeId);
