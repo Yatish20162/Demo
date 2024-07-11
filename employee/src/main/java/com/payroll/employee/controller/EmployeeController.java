@@ -41,7 +41,6 @@ public class EmployeeController {
         return ResponseEntity.status(HttpStatus.OK).body(employeeDto);
     }
 
-<<<<<<< HEAD
     @Modifying
     @Transactional
     @PutMapping("/update/{employeeId}")
@@ -53,11 +52,9 @@ public class EmployeeController {
         return ResponseEntity.status(HttpStatus.NOT_FOUND).body(new ResponseDto("500", "Failure to update Employee"));
     }
 
-=======
     @GetMapping("manager/{managerId}")
     public ResponseEntity<List<EmployeeDto>> getEmployeeByManagerId(@PathVariable Long managerId){ // Not sure if Long will work or have to use String
         List<EmployeeDto> employeeDtoList = employeeService.getEmployeesByManagerId(managerId);
         return ResponseEntity.status(HttpStatus.OK).body(employeeDtoList);
     }
->>>>>>> 78f7e98cc13ccd1c67b54eaef5b07a6d630aa930
 }
