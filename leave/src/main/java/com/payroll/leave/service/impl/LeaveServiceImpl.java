@@ -1,5 +1,6 @@
 package com.payroll.leave.service.impl;
 
+import com.payroll.leave.LeaveApplication;
 import com.payroll.leave.dto.LeaveDto;
 import com.payroll.leave.dto.LeaveRequestDto;
 import com.payroll.leave.entity.Leave;
@@ -13,7 +14,9 @@ import com.payroll.leave.service.ILeaveService;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -45,11 +48,11 @@ public class LeaveServiceImpl implements ILeaveService {
         if(leave != null){
             Long remainingLeaves = leave.getRemainingLeaves();
             Long lwp = leave.getLwp();
-            Long plwp = leave.getLwp();
+//            Long plwp = leave.getLwp();
 
             leaveRequest.setRemainingLeaves(remainingLeaves);
             leaveRequest.setLwp(lwp);
-            leaveRequest.setPlwp(plwp);
+//            leaveRequest.setPlwp(plwp);
             leaveRequest.setStatus(LeaveRequest.Status.PENDING);
             leaveRequestRepository.save(leaveRequest);
             isCreated = true;
@@ -59,8 +62,25 @@ public class LeaveServiceImpl implements ILeaveService {
     }
 
     @Override
-    public Long fetchLwp(Long employeeId, LocalDateTime startDate, LocalDateTime endDate) {
+    public Long fetchLwp(Long employeeId, LocalDate startDate, LocalDate endDate) {
 
-        return 0L;
+        List<LeaveRequest> leaveRequests = leaveRequestRepository.findByEmployeeIdAndStartDateBetween(employeeId, startDate, endDate);
+
+        System.out.println("LeaveRequests List : " + leaveRequests);
+
+
+        Long lwpDays = 0L;
+
+        for (LeaveRequest leaveRequest : leaveRequests) {
+            System.out.println(leaveRequest);
+            if (leaveRequest.getStatus().equals(LeaveRequest.Status.APPROVED)) {
+                System.out.println(leaveRequest.getLwp());
+                System.out.println(leaveRequest.getStartDate());
+                System.out.println(leaveRequest.getEndDate());
+                lwpDays += leaveRequest.getLwp();
+            }
+        }
+        System.out.println("lwpDays" + lwpDays);
+        return lwpDays;
     }
 }

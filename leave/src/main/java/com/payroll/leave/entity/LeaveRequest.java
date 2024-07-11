@@ -4,6 +4,7 @@ import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
 import lombok.*;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 @Entity
@@ -26,16 +27,16 @@ public class LeaveRequest {
     private Long employeeId;
 
     @NotNull
-    private LocalDateTime startDate;
+    private LocalDate startDate;
 
     @NotNull
-    private LocalDateTime endDate;
+    private LocalDate endDate;
 
     private Long remainingLeaves;
 
     private Long lwp;
 
-    private Long plwp;
+//    private Long plwp;
 
     @Enumerated(EnumType.STRING)
     private Status status;

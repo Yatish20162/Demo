@@ -9,7 +9,9 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 
 @RestController
 @RequestMapping("/api")
@@ -38,9 +40,27 @@ public class LeaveController {
                 .body(new ResponseDto("500", "Failed to create leave request"));
     }
 
-    @GetMapping("/fetchLwp")
-    public ResponseEntity<Long> fetchLwp(@RequestParam Long employeeId , @RequestParam LocalDateTime startDate , @RequestParam LocalDateTime endDate){
-        Long lwpCount = iLeaveService.fetchLwp(employeeId , startDate , endDate);
+    @GetMapping("/fetchlwp")
+    public ResponseEntity<Long> fetchLwp(@RequestParam Long employeeId , @RequestParam String startDate , @RequestParam String endDate){
+        System.out.println("Link active");
+        System.out.println(startDate);
+        System.out.println(endDate);
+
+        // Convert the startDate and endDate strings to LocalDateTime
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+
+        // Trim any leading or trailing whitespace from the date strings
+        startDate = startDate.trim();
+        endDate = endDate.trim();
+
+        // Convert the startDate and endDate strings to LocalDate
+        LocalDate startLocalDate = LocalDate.parse(startDate, formatter);
+        LocalDate endLocalDate = LocalDate.parse(endDate, formatter);
+        System.out.println(startLocalDate);
+        System.out.println(endLocalDate);
+
+
+        Long lwpCount = iLeaveService.fetchLwp(employeeId , startLocalDate , endLocalDate);
         return ResponseEntity.status(HttpStatus.OK).body(lwpCount);
     }
 

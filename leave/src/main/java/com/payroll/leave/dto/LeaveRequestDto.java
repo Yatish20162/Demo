@@ -8,6 +8,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 @Getter
@@ -23,14 +24,14 @@ public class LeaveRequestDto {
 
     private Long employeeId;
 
-    private LocalDateTime startDate;
-    private LocalDateTime endDate;
+    private LocalDate startDate;
+    private LocalDate endDate;
 
     private Long remainingLeaves;
 
     private Long lwp;
 
-    private Long plwp;
+//    private Long plwp;
 
     @Enumerated(EnumType.STRING)
     private Status status;
