@@ -8,6 +8,7 @@
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
         <module name="report" />
+        <module name="ConfigServer" />
         <module name="login" />
         <module name="salary" />
         <module name="employee" />
@@ -20,6 +21,7 @@
   </component>
   <component name="JavacSettings">
     <option name="ADDITIONAL_OPTIONS_OVERRIDE">
+      <module name="ConfigServer" options="-parameters" />
       <module name="employee" options="-parameters" />
       <module name="leave" options="-parameters" />
       <module name="login" options="-parameters" />
