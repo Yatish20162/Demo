@@ -10,6 +10,7 @@
         <module name="report" />
         <module name="login" />
         <module name="salary" />
+        <module name="employee" />
         <module name="leave" />
       </profile>
     </annotationProcessing>
@@ -19,6 +20,7 @@
   </component>
   <component name="JavacSettings">
     <option name="ADDITIONAL_OPTIONS_OVERRIDE">
+      <module name="employee" options="-parameters" />
       <module name="leave" options="-parameters" />
       <module name="login" options="-parameters" />
       <module name="report" options="-parameters" />

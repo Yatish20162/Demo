@@ -3,12 +3,13 @@ package com.payroll.report.service;
 import com.payroll.report.dto.EmployeeDto;
 import com.payroll.report.dto.PayrollDto;
 import com.payroll.report.dto.ReportDto;
+import com.payroll.report.dto.SalaryDto;
 
 import java.util.Date;
 import java.util.List;
 
 
-public interface ReportService {
+public interface IReportService {
 
 
     static boolean deleteAccount(String employeeName, Long employeeId, Date endTime) {
@@ -21,9 +22,9 @@ public interface ReportService {
 
     PayrollDto fetchEmployeeReport(String employeeName, Date startTime, Date endTime);
 
-    EmployeeDto fetchEmployeeDetails(String employeeName, Long employeeId, Date endTime);
+//    EmployeeDto fetchEmployeeDetails(String employeeName, Long employeeId, Date endTime);
 
-    boolean updateAccount(String employeeName, Long employeeId, Date endTime);
+    boolean updateSalary(SalaryDto salaryDto);
 
     void createReport(ReportDto reportDto);
 }
