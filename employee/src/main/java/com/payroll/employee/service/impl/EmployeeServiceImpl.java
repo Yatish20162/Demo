@@ -14,6 +14,7 @@ import jakarta.transaction.Transactional;
 import lombok.AllArgsConstructor;
 import lombok.NoArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -59,6 +60,8 @@ public class EmployeeServiceImpl implements IEmployeeService {
         }
 
         @Override
+        @Modifying
+        @Transactional
         public Boolean updateEmployee(Long employeeId, EmployeeDto employeeDto) {
 
                 Employee foundEmployee = employeeRepository.findByEmployeeId(employeeId).orElseThrow(
@@ -110,5 +113,13 @@ public class EmployeeServiceImpl implements IEmployeeService {
                 return employeeList.map(employees -> employees.stream().map(
                     (employee) -> getEmployeeById(employee.getEmployeeId())
             ).toList()).orElseGet(ArrayList::new);
+        }
+
+        @Override
+        public List<EmployeeDto> getAllEmployeeData(){
+                List<Employee>employeeList = employeeRepository.findAll();
+                return employeeList.stream().map(
+                        (employee) -> getEmployeeById(employee.getEmployeeId()))
+                        .toList();
         }
 }

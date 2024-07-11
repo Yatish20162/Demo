@@ -37,24 +37,27 @@ public class EmployeeController {
         return ResponseEntity.status(HttpStatus.CREATED).body(new ResponseDto("201", "Created Successfully"));
     }
 
-@DeleteMapping("/delete/{employeeId}")
-public  ResponseEntity<ResponseDto> deleteEmployee(@PathVariable Long employeeId) {
-    boolean isDeleted = iEmployeeService.deleteEmployee(employeeId);
-    if (isDeleted) {
-        return ResponseEntity.status(HttpStatus.OK).body(new ResponseDto("204", "Deleted Successfully"));
-    } else {
-        return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(new ResponseDto("500", "Internal Server Error"));
+    @DeleteMapping("/delete/{employeeId}")
+    public  ResponseEntity<ResponseDto> deleteEmployee(@PathVariable Long employeeId) {
+        boolean isDeleted = iEmployeeService.deleteEmployee(employeeId);
+        if (isDeleted) {
+            return ResponseEntity.status(HttpStatus.OK).body(new ResponseDto("204", "Deleted Successfully"));
+        } else {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(new ResponseDto("500", "Internal Server Error"));
+        }
+
     }
 
-}
-
-
-
-
-    @GetMapping("/{employeeId}")
-    public ResponseEntity<EmployeeDto> getEmployeeById(@PathVariable Long employeeId){ // Not sure if Long will work or have to use String
+    @GetMapping("/find/{employeeId}")
+    public ResponseEntity<EmployeeDto> getEmployeeById(@PathVariable Long employeeId){
         EmployeeDto employeeDto = employeeService.getEmployeeById(employeeId);
         return ResponseEntity.status(HttpStatus.OK).body(employeeDto);
+    }
+
+    @GetMapping("/fetch-all")
+    public ResponseEntity<List<EmployeeDto>> getAllEmployeeData(){
+        List<EmployeeDto> employeeDtoList = employeeService.getAllEmployeeData();
+        return ResponseEntity.status(HttpStatus.OK).body(employeeDtoList);
     }
 
     @Modifying
