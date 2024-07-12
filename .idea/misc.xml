@@ -10,9 +10,8 @@
         <option value="$PROJECT_DIR$/report/pom.xml" />
         <option value="$PROJECT_DIR$/salary/pom.xml" />
         <option value="$PROJECT_DIR$/employee/pom.xml" />
-
         <option value="$PROJECT_DIR$/configserver/pom.xml" />
-
+        <option value="$PROJECT_DIR$/eurekaserver/pom.xml" />
       </list>
     </option>
     <option name="ignoredFiles">
