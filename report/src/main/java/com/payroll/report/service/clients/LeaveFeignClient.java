@@ -5,9 +5,9 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
-@FeignClient("leave")
+@FeignClient("LEAVE")
 public interface LeaveFeignClient {
 
-    @GetMapping("/api/fetchlwp")
+    @GetMapping("/leave/fetchlwp")
     public ResponseEntity<Long> fetchLwp(@RequestParam Long employeeId , @RequestParam String startDate , @RequestParam String endDate);
 }

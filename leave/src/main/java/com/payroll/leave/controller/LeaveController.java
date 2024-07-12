@@ -1,11 +1,10 @@
 package com.payroll.leave.controller;
 
-import com.payroll.leave.dto.LeaveDto;
-import com.payroll.leave.dto.LeaveRequestDto;
-import com.payroll.leave.dto.NotificationResponseDto;
-import com.payroll.leave.dto.ResponseDto;
+import com.payroll.leave.dto.*;
 import com.payroll.leave.service.ILeaveService;
+import com.payroll.leave.service.clients.EmployeeFeignClient;
 import lombok.AllArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -15,11 +14,14 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
 @RestController
-@RequestMapping("/api")
+@RequestMapping("/leave")
 @AllArgsConstructor
 public class LeaveController {
 
     private final ILeaveService iLeaveService;
+
+    @Autowired
+    private EmployeeFeignClient employeeFeignClient;
 
     @GetMapping("/viewLeaves")
     public ResponseEntity<LeaveDto> viewLeaves(@RequestParam Long employeeId){
@@ -82,5 +84,11 @@ public class LeaveController {
                 .body(new ResponseDto("200", "Leave Request Declined"));
     }
 
+    @GetMapping("/getEmployeeDetails/{employeeId}")
+    public ResponseEntity<EmployeeDto> getEmployeeDetails(@PathVariable Long employeeId){
+        return ResponseEntity
+                .status(HttpStatus.OK)
+                .body(employeeFeignClient.getEmployeeById(employeeId).getBody());
+    }
 
 }
