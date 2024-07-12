@@ -4,7 +4,23 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
+<<<<<<< HEAD
     <list default="true" id="29c7181c-5c30-4bc5-910b-2ddc3d1f044a" name="Changes" comment="" />
+=======
+    <list default="true" id="29c7181c-5c30-4bc5-910b-2ddc3d1f044a" name="Changes" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/compiler.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/compiler.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/encodings.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/encodings.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/employee/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/employee/pom.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/employee/src/main/resources/application.yml" beforeDir="false" afterPath="$PROJECT_DIR$/employee/src/main/resources/application.yml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/employee/target/classes/application.yml" beforeDir="false" afterPath="$PROJECT_DIR$/employee/target/classes/application.yml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/leave/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/leave/pom.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/leave/src/main/resources/application.yml" beforeDir="false" afterPath="$PROJECT_DIR$/leave/src/main/resources/application.yml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/report/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/report/pom.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/report/src/main/resources/application.yml" beforeDir="false" afterPath="$PROJECT_DIR$/report/src/main/resources/application.yml" afterDir="false" />
+    </list>
+>>>>>>> 1b586a05dccbd716c4649a69a0b1e6b31a9b6399
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -35,23 +51,43 @@
   </component>
   <component name="PropertiesComponent"><![CDATA[{
   "keyToString": {
-    "Application.ConfigServerApplication.executor": "Debug",
-    "Application.LeaveApplication.executor": "Debug",
+    "Application.ConfigServerApplication.executor": "Run",
+    "Application.EmployeeApplication.executor": "Run",
+    "Application.EurekaserverApplication.executor": "Run",
+    "Application.LeaveApplication.executor": "Run",
+    "Application.ReportApplication.executor": "Run",
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "SHARE_PROJECT_CONFIGURATION_FILES": "true",
     "git-widget-placeholder": "main",
     "kotlin-language-version-configured": "true",
+<<<<<<< HEAD
     "last_opened_file_path": "C:/Users/yatish.garg/OneDrive - UKG/Desktop/demo",
+=======
+    "last_opened_file_path": "C:/Users/jaskaran.kamboj/OneDrive - UKG/Desktop/New folder/payrolGroup5/eurekaserver",
+>>>>>>> 1b586a05dccbd716c4649a69a0b1e6b31a9b6399
     "settings.editor.selected.configurable": "preferences.pluginManager"
   }
 }]]></component>
-  <component name="RunManager" selected="Application.LeaveApplication">
+  <component name="RunManager">
     <configuration name="ConfigServerApplication" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="com.payroll.ConfigServer.ConfigServerApplication" />
       <module name="ConfigServer" />
       <extension name="coverage">
         <pattern>
           <option name="PATTERN" value="com.payroll.ConfigServer.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="EmployeeApplication" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="com.payroll.employee.EmployeeApplication" />
+      <module name="employee" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="com.payroll.employee.*" />
           <option name="ENABLED" value="true" />
         </pattern>
       </extension>
@@ -74,6 +110,7 @@
     </configuration>
     <recent_temporary>
       <list>
+        <item itemvalue="Application.EmployeeApplication" />
         <item itemvalue="Application.LeaveApplication" />
         <item itemvalue="Application.ConfigServerApplication" />
       </list>
