@@ -1,6 +1,5 @@
 package com.payroll.report.controller;
 
-import com.payroll.report.dto.EmployeeDto;
 import com.payroll.report.dto.ReportDto;
 import com.payroll.report.dto.ResponseDto;
 import com.payroll.report.dto.SalaryDto;
@@ -9,9 +8,6 @@ import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-
-import java.util.Date;
-import java.util.List;
 
 @RestController
 @RequestMapping("/report")
