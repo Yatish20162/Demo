@@ -28,6 +28,7 @@ public class ReportController {
         if (isCreated) {
             return ResponseEntity
                     .status(HttpStatus.CREATED)
+                    and this
                     .body(new ResponseDto("201", "Created successfully"));
         } else {
             return ResponseEntity
