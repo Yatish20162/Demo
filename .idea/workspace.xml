@@ -4,12 +4,27 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
+
+    <list default="true" id="29c7181c-5c30-4bc5-910b-2ddc3d1f044a" name="Changes" comment="" />
+
     <list default="true" id="8508177f-2578-4fb2-ad0f-40b0a3c83b95" name="Changes" comment="" />
+
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
+
+  <component name="ProjectLevelVcsManager">
+    <ConfirmationsSetting value="2" id="Add" />
+  </component>
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "git-widget-placeholder": "report__service"
+  }
+}]]></component>
+  <component name="TaskManager">
+
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
       <list>
@@ -67,8 +82,13 @@
     "SHARE_PROJECT_CONFIGURATION_FILES": "true",
     "git-widget-placeholder": "leave",
     "kotlin-language-version-configured": "true",
+
+    "last_opened_file_path": "C:/Users/yatish.garg/OneDrive - UKG/Desktop/payrolGroup5/employee",
+    "settings.editor.selected.configurable": "vcs.Git"
+
     "last_opened_file_path": "C:/Users/yatish.garg/OneDrive - UKG/Desktop/demo",
     "settings.editor.selected.configurable": "preferences.pluginManager"
+
   }
 }]]></component>
   <component name="RunManager" selected="Application.LeaveApplication">
@@ -116,6 +136,7 @@
       <updated>1720516449060</updated>
       <workItem from="1720589492000" duration="132000" />
     </task>
+
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
