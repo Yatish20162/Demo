@@ -1,6 +1,7 @@
 package com.payroll.leave.service.impl;
 
 import com.payroll.leave.LeaveApplication;
+import com.payroll.leave.dto.EmployeeDto;
 import com.payroll.leave.dto.LeaveDto;
 import com.payroll.leave.dto.LeaveRequestDto;
 import com.payroll.leave.dto.NotificationResponseDto;
@@ -12,7 +13,10 @@ import com.payroll.leave.mapper.LeaveRequestMapper;
 import com.payroll.leave.repository.LeaveRepository;
 import com.payroll.leave.repository.LeaveRequestRepository;
 import com.payroll.leave.service.ILeaveService;
+import com.payroll.leave.service.clients.EmployeeFeignClient;
 import lombok.AllArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
@@ -74,7 +78,6 @@ public class LeaveServiceImpl implements ILeaveService {
 
         System.out.println("LeaveRequests List : " + leaveRequests);
 
-
         Long lwpDays = 0L;
 
         for (LeaveRequest leaveRequest : leaveRequests) {
@@ -119,8 +122,6 @@ public class LeaveServiceImpl implements ILeaveService {
 
             leave.setRemainingLeaves(leave.getRemainingLeaves() - daysBetween);
 
-
-
         }
         else{
 
@@ -133,10 +134,12 @@ public class LeaveServiceImpl implements ILeaveService {
 
         }
 
+        leaveRequest.setStatus(LeaveRequest.Status.APPROVED);
         leaveRequestRepository.save(leaveRequest);
         leaveRepository.save(leave);
         return true;
     }
+
 
     @Override
     public List<LeaveRequestDto> fetchLeaveRequest(Long managerId) {
