@@ -55,17 +55,18 @@ public class LeaveServiceImpl implements ILeaveService {
         if(leave != null){
             Long remainingLeaves = leave.getRemainingLeaves();
             Long lwp = leave.getLwp();
-//            Long plwp = leave.getLwp();
-
             leaveRequest.setRemainingLeaves(remainingLeaves);
             leaveRequest.setLwp(lwp);
 //            leaveRequest.setPlwp(plwp);
             leaveRequest.setStatus(LeaveRequest.Status.PENDING);
+            leaveRequest.setManagerId(leaveRequestDto.getManagerId());
             leaveRequestRepository.save(leaveRequest);
             isCreated = true;
         }
 
 //       code for send Notification to manager
+
+
 
         return isCreated;
     }
@@ -130,6 +131,7 @@ public class LeaveServiceImpl implements ILeaveService {
 
             leave.setLwp(leave.getLwp() + (daysBetween - leave.getRemainingLeaves()));
             leave.setRemainingLeaves(0L);
+
         }
 
         leaveRequest.setStatus(LeaveRequest.Status.APPROVED);
@@ -137,4 +139,17 @@ public class LeaveServiceImpl implements ILeaveService {
         leaveRepository.save(leave);
         return true;
     }
+
+
+    @Override
+    public List<LeaveRequestDto> fetchLeaveRequest(Long managerId) {
+
+        List<LeaveRequestDto> leaveRequestDtos= leaveRequestRepository.findByManagerId(managerId)
+                .stream()
+                .map(leave->LeaveRequestMapper.mapToLeaveRequestDto(leave,new LeaveRequestDto()))
+                .toList();
+
+        return leaveRequestDtos;
+    }
+
 }
