@@ -8,6 +8,7 @@
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
         <module name="eurekaserver" />
+        <module name="gatewayserver" />
         <module name="leave" />
         <module name="report" />
         <module name="ConfigServer" />
@@ -25,6 +26,7 @@
       <module name="ConfigServer" options="-parameters" />
       <module name="employee" options="-parameters" />
       <module name="eurekaserver" options="-parameters" />
+      <module name="gatewayserver" options="-parameters" />
       <module name="leave" options="-parameters" />
       <module name="login" options="-parameters" />
       <module name="report" options="-parameters" />
