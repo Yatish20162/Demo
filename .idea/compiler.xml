@@ -8,6 +8,7 @@
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
         <module name="eurekaserver" />
+        <module name="gatewayserver" />
         <module name="leave" />
         <module name="report" />
         <module name="ConfigServer" />
@@ -17,7 +18,6 @@
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>
-      <module name="gatewayserver" target="17" />
       <module name="leaves" target="17" />
     </bytecodeTargetLevel>
   </component>
