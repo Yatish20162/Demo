@@ -12,6 +12,8 @@ import org.springframework.web.bind.annotation.*;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
+import java.util.List;
 
 @RestController
 @RequestMapping("/leave")
@@ -19,6 +21,13 @@ import java.time.format.DateTimeFormatter;
 public class LeaveController {
 
     private final ILeaveService iLeaveService;
+
+
+    @GetMapping("/s")
+    public String a()
+    {
+        return "S";
+    }
 
     @Autowired
     private EmployeeFeignClient employeeFeignClient;
@@ -82,6 +91,14 @@ public class LeaveController {
         return ResponseEntity
                 .status(HttpStatus.OK)
                 .body(new ResponseDto("200", "Leave Request Declined"));
+    }
+
+    @GetMapping("/fetchleaverequest")
+    public  ResponseEntity<List<LeaveRequestDto>> fetchLeaveRequest(@RequestParam Long managerId){
+
+        List<LeaveRequestDto> leaveRequestDtos = new ArrayList<>();
+        leaveRequestDtos = iLeaveService.fetchLeaveRequest(managerId);
+        return  ResponseEntity.status(HttpStatus.OK).body(leaveRequestDtos);
     }
 
     @GetMapping("/getEmployeeDetails/{employeeId}")

@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 
 import java.time.LocalDate;
+import java.util.List;
 
 
 public interface ILeaveService {
@@ -21,5 +22,8 @@ public interface ILeaveService {
 
     boolean approveLeave(NotificationResponseDto notificationResponseDto);
 
+    List<LeaveRequestDto> fetchLeaveRequest(Long managerId);
+
 //    EmployeeDto getEmployeeDetails(Long employeeId);
+
 }
