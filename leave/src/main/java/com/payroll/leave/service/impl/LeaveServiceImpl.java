@@ -1,6 +1,7 @@
 package com.payroll.leave.service.impl;
 
 import com.payroll.leave.LeaveApplication;
+import com.payroll.leave.dto.EmployeeDto;
 import com.payroll.leave.dto.LeaveDto;
 import com.payroll.leave.dto.LeaveRequestDto;
 import com.payroll.leave.dto.NotificationResponseDto;
@@ -12,7 +13,10 @@ import com.payroll.leave.mapper.LeaveRequestMapper;
 import com.payroll.leave.repository.LeaveRepository;
 import com.payroll.leave.repository.LeaveRequestRepository;
 import com.payroll.leave.service.ILeaveService;
+import com.payroll.leave.service.clients.EmployeeFeignClient;
 import lombok.AllArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
@@ -51,17 +55,18 @@ public class LeaveServiceImpl implements ILeaveService {
         if(leave != null){
             Long remainingLeaves = leave.getRemainingLeaves();
             Long lwp = leave.getLwp();
-//            Long plwp = leave.getLwp();
-
             leaveRequest.setRemainingLeaves(remainingLeaves);
             leaveRequest.setLwp(lwp);
 //            leaveRequest.setPlwp(plwp);
             leaveRequest.setStatus(LeaveRequest.Status.PENDING);
+            leaveRequest.setManagerId(leaveRequestDto.getManagerId());
             leaveRequestRepository.save(leaveRequest);
             isCreated = true;
         }
 
 //       code for send Notification to manager
+
+
 
         return isCreated;
     }
@@ -72,7 +77,6 @@ public class LeaveServiceImpl implements ILeaveService {
         List<LeaveRequest> leaveRequests = leaveRequestRepository.findByEmployeeIdAndStartDateBetween(employeeId, startDate, endDate);
 
         System.out.println("LeaveRequests List : " + leaveRequests);
-
 
         Long lwpDays = 0L;
 
@@ -118,8 +122,6 @@ public class LeaveServiceImpl implements ILeaveService {
 
             leave.setRemainingLeaves(leave.getRemainingLeaves() - daysBetween);
 
-
-
         }
         else{
 
@@ -130,12 +132,24 @@ public class LeaveServiceImpl implements ILeaveService {
             leave.setLwp(leave.getLwp() + (daysBetween - leave.getRemainingLeaves()));
             leave.setRemainingLeaves(0L);
 
-
         }
 
+        leaveRequest.setStatus(LeaveRequest.Status.APPROVED);
         leaveRequestRepository.save(leaveRequest);
         leaveRepository.save(leave);
         return true;
+    }
+
+
+    @Override
+    public List<LeaveRequestDto> fetchLeaveRequest(Long managerId) {
+
+        List<LeaveRequestDto> leaveRequestDtos= leaveRequestRepository.findByManagerId(managerId)
+                .stream()
+                .map(leave->LeaveRequestMapper.mapToLeaveRequestDto(leave,new LeaveRequestDto()))
+                .toList();
+
+        return leaveRequestDtos;
     }
 
 }

@@ -14,4 +14,6 @@ import java.util.Optional;
 public interface LeaveRequestRepository extends JpaRepository<LeaveRequest, Long> {
     List<LeaveRequest> findByEmployeeIdAndStartDateBetween(Long employeeId, LocalDate startDate, LocalDate endDate);
     Optional<LeaveRequest> findByLeaveRequestId(Long leaveRequestId);
+    List<LeaveRequest> findByManagerId(Long managerId);
+
 }
