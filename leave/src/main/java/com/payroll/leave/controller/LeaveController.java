@@ -22,6 +22,13 @@ public class LeaveController {
 
     private final ILeaveService iLeaveService;
 
+
+    @GetMapping("/s")
+    public String a()
+    {
+        return "S";
+    }
+
     @Autowired
     private EmployeeFeignClient employeeFeignClient;
 
