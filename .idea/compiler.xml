@@ -17,6 +17,7 @@
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>
+      <module name="gatewayserver" target="17" />
       <module name="leaves" target="17" />
     </bytecodeTargetLevel>
   </component>
@@ -25,6 +26,7 @@
       <module name="ConfigServer" options="-parameters" />
       <module name="employee" options="-parameters" />
       <module name="eurekaserver" options="-parameters" />
+      <module name="gatewayserver" options="-parameters" />
       <module name="leave" options="-parameters" />
       <module name="login" options="-parameters" />
       <module name="report" options="-parameters" />

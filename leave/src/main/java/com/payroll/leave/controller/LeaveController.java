@@ -21,6 +21,11 @@ public class LeaveController {
 
     private final ILeaveService iLeaveService;
 
+    @GetMapping("/s")
+    public String a()
+    {
+        return "S";
+    }
     @GetMapping("/viewLeaves")
     public ResponseEntity<LeaveDto> viewLeaves(@RequestParam Long employeeId){
         LeaveDto leaveDto = iLeaveService.viewLeaves(employeeId);
