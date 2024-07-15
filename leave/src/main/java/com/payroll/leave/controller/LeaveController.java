@@ -13,6 +13,8 @@ import org.springframework.web.bind.annotation.*;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
+import java.util.List;
 
 @RestController
 @RequestMapping("/api")
@@ -80,6 +82,14 @@ public class LeaveController {
         return ResponseEntity
                 .status(HttpStatus.OK)
                 .body(new ResponseDto("200", "Leave Request Declined"));
+    }
+
+    @GetMapping("/fetchleaverequest")
+    public  ResponseEntity<List<LeaveRequestDto>> fetchLeaveRequest(@RequestParam Long managerId){
+
+        List<LeaveRequestDto> leaveRequestDtos = new ArrayList<>();
+        leaveRequestDtos = iLeaveService.fetchLeaveRequest(managerId);
+        return  ResponseEntity.status(HttpStatus.OK).body(leaveRequestDtos);
     }
 
 

@@ -41,7 +41,7 @@ public class LeaveRequest {
     @Enumerated(EnumType.STRING)
     private Status status;
 
-    private Long managerID;
+    private Long managerId;
 
 
 }
