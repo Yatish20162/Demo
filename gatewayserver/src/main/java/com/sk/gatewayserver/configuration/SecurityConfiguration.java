@@ -23,9 +23,9 @@ public class SecurityConfiguration {
     public SecurityWebFilterChain securityWebFilterChain(ServerHttpSecurity httpSecurity) {
         httpSecurity.authorizeExchange(exchange -> exchange
                 .pathMatchers(HttpMethod.GET).permitAll()
-                .pathMatchers(HttpMethod.POST,"/payroll/accounts/**").hasRole("ADMIN")
-                .pathMatchers("/payroll/report/**").hasRole("MANAGER")
-                .pathMatchers("/payroll/employee/**").hasRole("EMPLOYEE")
+                .pathMatchers(HttpMethod.POST,"/payroll/leave/**").authenticated()
+                .pathMatchers("/payroll/report/**").hasRole("ADMIN")
+                .pathMatchers(HttpMethod.POST,"/payroll/employee/**").hasRole("EMPLOYEE")
         ).oauth2ResourceServer(config -> config.jwt(spec -> spec.jwtAuthenticationConverter(grantedAuthorityExtractor())));
 
         httpSecurity.csrf(ServerHttpSecurity.CsrfSpec::disable);
