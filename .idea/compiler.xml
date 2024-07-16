@@ -15,6 +15,7 @@
         <module name="login" />
         <module name="salary" />
         <module name="employee" />
+        <module name="message" />
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>
@@ -29,6 +30,7 @@
       <module name="gatewayserver" options="-parameters" />
       <module name="leave" options="-parameters" />
       <module name="login" options="-parameters" />
+      <module name="message" options="-parameters" />
       <module name="report" options="-parameters" />
       <module name="salary" options="-parameters" />
     </option>

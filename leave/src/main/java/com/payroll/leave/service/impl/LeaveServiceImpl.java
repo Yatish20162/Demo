@@ -2,6 +2,7 @@ package com.payroll.leave.service.impl;
 
 import com.payroll.leave.LeaveApplication;
 import com.payroll.leave.dto.EmployeeDto;
+import com.payroll.leave.dto.LeaveMsgRequestDto;
 import com.payroll.leave.dto.LeaveDto;
 import com.payroll.leave.dto.LeaveRequestDto;
 import com.payroll.leave.dto.NotificationResponseDto;
@@ -15,7 +16,10 @@ import com.payroll.leave.repository.LeaveRequestRepository;
 import com.payroll.leave.service.ILeaveService;
 import com.payroll.leave.service.clients.EmployeeFeignClient;
 import lombok.AllArgsConstructor;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cloud.stream.function.StreamBridge;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
@@ -29,8 +33,10 @@ import java.util.Optional;
 @AllArgsConstructor
 public class LeaveServiceImpl implements ILeaveService {
 
+    private static final Logger logger = LoggerFactory.getLogger(LeaveServiceImpl.class);
     private final LeaveRepository leaveRepository;
     private final LeaveRequestRepository leaveRequestRepository;
+    private final StreamBridge streamBridge;
 
 
     @Override
@@ -61,6 +67,8 @@ public class LeaveServiceImpl implements ILeaveService {
             leaveRequest.setStatus(LeaveRequest.Status.PENDING);
             leaveRequest.setManagerId(leaveRequestDto.getManagerId());
             leaveRequestRepository.save(leaveRequest);
+
+            createMessage(leaveRequestDto);
             isCreated = true;
         }
 
@@ -69,6 +77,14 @@ public class LeaveServiceImpl implements ILeaveService {
 
 
         return isCreated;
+    }
+
+    void createMessage(LeaveRequestDto leaveRequestDto){
+
+        LeaveMsgRequestDto leaveMsgRequestDto = new LeaveMsgRequestDto(leaveRequestDto.getStartDate() , leaveRequestDto.getEndDate());
+        boolean isSend = streamBridge.send("sendCommunication-out-0", leaveMsgRequestDto);
+        logger.info("Is Communication send? - {}", isSend);
+
     }
 
     @Override
