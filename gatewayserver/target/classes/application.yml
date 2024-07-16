@@ -1,3 +1,5 @@
+authentication:
+  mode: keycloak
 spring:
   application:
     name: "gatewayserver"
