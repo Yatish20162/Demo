@@ -17,8 +17,8 @@ import java.time.LocalDate;
 public class Payroll {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long employeeId;
     private Long payrollId;
+    private Long employeeId;
     private Long baseSalary;
     private Long hra;
     private Long benefits;

@@ -11,6 +11,7 @@ public class PayrollMapper {
         payroll.setDeduction(payrollDto.getDeduction());
         payroll.setBaseSalary(payrollDto.getBaseSalary());
         payroll.setNetSalary(payrollDto.getNetSalary());
+        payroll.setEmployeeId(payrollDto.getEmployeeId());
         return payroll;
     }
     public static PayrollDto mapToPayrollDto(PayrollDto payrollDto, Payroll payroll)
@@ -20,6 +21,7 @@ public class PayrollMapper {
         payrollDto.setDeduction(payroll.getDeduction());
         payrollDto.setBaseSalary(payroll.getBaseSalary());
         payrollDto.setNetSalary(payroll.getNetSalary());
+        payrollDto.setEmployeeId(payroll.getEmployeeId());
         return payrollDto;
     }
 }

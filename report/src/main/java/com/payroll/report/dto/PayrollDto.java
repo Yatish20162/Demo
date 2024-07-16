@@ -17,5 +17,6 @@ public class PayrollDto {
     private Long benefits;
     private Long netSalary;
     private Long deduction;
-    private LocalDate localDateTime;
+//    private LocalDate localDateTime;
+    private Long employeeId;
 }

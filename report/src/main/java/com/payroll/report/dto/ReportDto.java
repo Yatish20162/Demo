@@ -13,6 +13,6 @@ import java.util.Date;
 public class ReportDto {
     private String employeeName;
     private Long employeeId;
-    private LocalDate startDate;
-    private LocalDate endDate;
+    private String startDate;
+    private String endDate;
 }
