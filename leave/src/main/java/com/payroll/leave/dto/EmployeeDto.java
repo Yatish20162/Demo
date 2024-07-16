@@ -1,4 +1,4 @@
-package com.payroll.report.dto;
+package com.payroll.leave.dto;
 
 //import com.payroll.employee.enums.Role;
 import lombok.AllArgsConstructor;

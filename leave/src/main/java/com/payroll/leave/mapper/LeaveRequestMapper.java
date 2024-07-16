@@ -11,6 +11,7 @@ public class LeaveRequestMapper {
         leaveRequestDto.setEmployeeId(leaveRequest.getEmployeeId());
         leaveRequestDto.setStartDate(leaveRequest.getStartDate());
         leaveRequestDto.setEndDate(leaveRequest.getEndDate());
+        leaveRequestDto.setManagerId(leaveRequest.getManagerId());
 //        leaveRequestDto.setRemainingLeaves(leaveRequest.getRemainingLeaves());
 //        leaveRequestDto.setLwp(leaveRequest.getLwp());
         return leaveRequestDto;
@@ -20,7 +21,7 @@ public class LeaveRequestMapper {
         leaveRequest.setEmployeeId(leaveRequestDto.getEmployeeId());
         leaveRequest.setStartDate(leaveRequestDto.getStartDate());
         leaveRequest.setEndDate(leaveRequestDto.getEndDate());
-//        leaveRequest.setRemainingLeaves(leaveRequestDto.getRemainingLeaves());
+        leaveRequest.setManagerId(leaveRequestDto.getManagerId());
 //        leaveRequest.setLwp(leaveRequestDto.getLwp());
         return leaveRequest;
     }
