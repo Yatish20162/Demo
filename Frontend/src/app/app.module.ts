@@ -7,6 +7,11 @@ import { ManagerDashboardComponent } from './components/manager-dashboard/manage
 import { AdminDashboardComponent } from './components/admin-dashboard/admin-dashboard.component';
 import { EmployeeDashboardComponent } from './components/employee-dashboard/employee-dashboard.component';
 import { HomeComponent } from './components/home/home.component';
+import { provideAnimationsAsync } from '@angular/platform-browser/animations/async';
+import { EditEmployeeComponent } from './components/edit-employee/edit-employee.component';
+import { HttpClientModule } from '@angular/common/http';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+
 
 @NgModule({
   declarations: [
@@ -14,14 +19,21 @@ import { HomeComponent } from './components/home/home.component';
     ManagerDashboardComponent,
     AdminDashboardComponent,
     EmployeeDashboardComponent,
-    HomeComponent
+    HomeComponent,
+    EditEmployeeComponent,
   ],
   imports: [
     BrowserModule,
-    AppRoutingModule
+    AppRoutingModule,
+    HttpClientModule,
+    FormsModule,
+    ReactiveFormsModule
+  ],
+  exports:[
   ],
   providers: [
-    provideClientHydration()
+    provideClientHydration(),
+    provideAnimationsAsync()
   ],
   bootstrap: [AppComponent]
 })
