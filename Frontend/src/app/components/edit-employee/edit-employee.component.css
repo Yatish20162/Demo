@@ -1,0 +1,16 @@
+.form-group{
+    margin: 20px;
+}
+
+.btn-primary{
+    margin-left: 20px;
+}
+
+.form-group label{
+    margin-bottom: 8px;
+}
+
+.thin-line-bottom{
+    border-bottom: 1px solid #ddd;
+    margin: 10px 20px;
+}
