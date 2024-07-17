@@ -22,7 +22,7 @@ spring:
 #    console:
 #      enabled: true
 api:
-  key: "34436c8f460cb15cb20f26c680ea74e8f79928f1e1fe5c3decce2c2307470347"
+  key: "6e106b8a460de653bf527cc6d7ed7fbd8e5d1eb70fb001c5d88373ff2daa1ef4"
 
 management:
   endpoints:
