@@ -9,6 +9,6 @@ import org.springframework.web.bind.annotation.PathVariable;
 @FeignClient("EMPLOYEE-MICROSERVICE")
 public interface EmployeeFeignClient {
 
-    @GetMapping("/api/employee/{employeeId}")
+    @GetMapping("/api/{employeeId}")
     public ResponseEntity<EmployeeDto> getEmployeeById(@PathVariable Long employeeId);
 }
