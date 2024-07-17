@@ -39,8 +39,13 @@
               "src/styles.css"
             ],
             "scripts": [
+<<<<<<< HEAD
               "node_modules/@popperjs/core/dist/umd/popper.min.js",
               "node_modules/bootstrap/dist/js/bootstrap.min.js"
+=======
+              "node_modules/bootstrap/dist/js/bootstrap.min.js",
+              "node_modules/jquery/dist/jquery.js"
+>>>>>>> d605dfd2887b86e1afcb5d49886496d7d14a06d9
             ],
             "server": "src/main.server.ts",
             "prerender": true,
