@@ -39,17 +39,17 @@
           <div class="card-body">
             <div class="dropdown">
               <button class="btn btn-primary dropdown-toggle" type="button" id="leaveDropdown" data-bs-toggle="dropdown" aria-expanded="false">
-                Select Leave Request
+                {{ selectedLeaveRequest ? selectedLeaveRequest.employeeId : 'Select Leave Request' }}
               </button>
               <ul class="dropdown-menu" aria-labelledby="leaveDropdown">
-                <li><a class="dropdown-item" href="#">Leave Request 1</a></li>
-                <li><a class="dropdown-item" href="#">Leave Request 2</a></li>
-                <li><a class="dropdown-item" href="#">Leave Request 3</a></li>
+                <li *ngFor="let leaveRequest of leaveRequests" (click)="onLeaveRequestSelected(leaveRequest)">
+                  <a class="dropdown-item" href="#">{{ leaveRequest.employeeId }} - {{ leaveRequest.startDate }} to {{ leaveRequest.endDate }}</a>
+                </li>
               </ul>
             </div>
             <div class="d-flex justify-content-end mt-3">
-              <button class="btn btn-success me-2">Approve</button>
-              <button class="btn btn-danger">Decline</button>
+              <button class="btn btn-success me-2" [disabled]="!selectedLeaveRequest" (click)="approveLeave()">Approve</button>
+              <button class="btn btn-danger" [disabled]="!selectedLeaveRequest" (click)="declineLeave()">Decline</button>
             </div>
           </div>
         </div>
