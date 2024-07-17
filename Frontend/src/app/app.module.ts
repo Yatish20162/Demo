@@ -19,7 +19,9 @@ import { provideAnimationsAsync } from '@angular/platform-browser/animations/asy
   ],
   imports: [
     BrowserModule,
-    AppRoutingModule
+    AppRoutingModule,
+  ],
+  exports:[
   ],
   providers: [
     provideClientHydration(),

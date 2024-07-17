@@ -8,5 +8,5 @@ export interface Employee {
     jobTitle: string;
     managerId: number;
     phoneNumber: string;
-    roles: UserRole[];
+    employeeRoles: UserRole[];
 }
