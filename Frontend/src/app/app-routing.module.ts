@@ -4,13 +4,9 @@ import { ManagerDashboardComponent } from './components/manager-dashboard/manage
 import { EmployeeDashboardComponent } from './components/employee-dashboard/employee-dashboard.component';
 import { AdminDashboardComponent } from './components/admin-dashboard/admin-dashboard.component';
 import { HomeComponent } from './components/home/home.component';
+import { EditEmployeeComponent } from './components/edit-employee/edit-employee.component';
 
 const routes: Routes = [
-  {
-    path: '',
-    component: HomeComponent,
-    pathMatch: 'full'
-  },
   {
     path: 'manager-dashboard',
     component: ManagerDashboardComponent,
@@ -24,6 +20,16 @@ const routes: Routes = [
   {
     path: 'admin-dashboard',
     component: AdminDashboardComponent,
+    pathMatch: 'full'
+  },
+  {
+    path: 'edit-employee/:id',
+    component: EditEmployeeComponent,
+    pathMatch: 'full'
+  },
+  {
+    path: '',
+    component: HomeComponent,
     pathMatch: 'full'
   }
 ];

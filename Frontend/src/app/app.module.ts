@@ -8,6 +8,10 @@ import { AdminDashboardComponent } from './components/admin-dashboard/admin-dash
 import { EmployeeDashboardComponent } from './components/employee-dashboard/employee-dashboard.component';
 import { HomeComponent } from './components/home/home.component';
 import { provideAnimationsAsync } from '@angular/platform-browser/animations/async';
+import { EditEmployeeComponent } from './components/edit-employee/edit-employee.component';
+import { HttpClientModule } from '@angular/common/http';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+
 
 @NgModule({
   declarations: [
@@ -16,10 +20,14 @@ import { provideAnimationsAsync } from '@angular/platform-browser/animations/asy
     AdminDashboardComponent,
     EmployeeDashboardComponent,
     HomeComponent,
+    EditEmployeeComponent,
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
+    HttpClientModule,
+    FormsModule,
+    ReactiveFormsModule
   ],
   exports:[
   ],

@@ -14,8 +14,7 @@ export class AdminDashboardComponent implements OnInit{
   employees: Employee[] = []; // Placeholder data
   errorMessage: string = '';
 
-  constructor(private adminDashboardService: AdminDashboardService) { this
-  }
+  constructor(private adminDashboardService: AdminDashboardService) { }
 
   ngOnInit(): void {
     // Fetch leave request count from the database
