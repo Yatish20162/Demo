@@ -53,7 +53,6 @@ public class LeaveServiceImpl implements ILeaveService {
     public boolean generateLeaveRequest(LeaveRequestDto leaveRequestDto) {
         boolean isCreated = false;
         LeaveRequest leaveRequest = LeaveRequestMapper.mapToLeaveRequest(leaveRequestDto , new LeaveRequest());
-        System.out.println("IN Service" + leaveRequest.getEmployeeId());
         Leave leave = leaveRepository.findByEmployeeId(leaveRequest.getEmployeeId()).orElseThrow(
                 () -> new ResourceNotFoundException("leaves", "employeeID", leaveRequest.getEmployeeId())
         );
@@ -63,12 +62,11 @@ public class LeaveServiceImpl implements ILeaveService {
             Long lwp = leave.getLwp();
             leaveRequest.setRemainingLeaves(remainingLeaves);
             leaveRequest.setLwp(lwp);
-//            leaveRequest.setPlwp(plwp);
             leaveRequest.setStatus(LeaveRequest.Status.PENDING);
             leaveRequest.setManagerId(leaveRequestDto.getManagerId());
             leaveRequestRepository.save(leaveRequest);
 
-            createMessage(leaveRequestDto);
+//            createMessage(leaveRequestDto);
             isCreated = true;
         }
 

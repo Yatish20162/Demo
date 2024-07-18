@@ -80,7 +80,7 @@ public class ReportServiceImpl implements IReportService {
     }
 
     @Override
-    public boolean createReport(ReportDto reportDto) {
+    public JsonNode createReport(ReportDto reportDto) {
         boolean isCreated = false;
         System.out.println("Creating report for: " + reportDto.getEmployeeName() +
                 ", Start Date: " + reportDto.getStartDate() +
@@ -142,9 +142,9 @@ public class ReportServiceImpl implements IReportService {
                 leftentries.add("UKG");
                 leftentries.add("OKAYA Tower-4 Sector 62, Noida, 201301, India");
                 leftentries.add("Payroll Service");
-                leftentries.add("Jaskaran");
+                leftentries.add("Chris Todd");
                 leftentries.add("8168660330");
-                leftentries.add("ukg@test.com");
+                leftentries.add("ukg@payroll.com");
                 ArrayNode array = objectMapper.valueToTree(leftentries);
                 List<String> rightEntriesHeading = new ArrayList<String>();
                 List<String> rightEntries = new ArrayList<String>();
@@ -157,26 +157,24 @@ public class ReportServiceImpl implements IReportService {
 
                 ArrayNode rightHeadings = objectMapper.valueToTree(rightEntriesHeading);
                 rightEntries.add(reportDto.getEmployeeName());
-                rightEntries.add("New Bank");
-                rightEntries.add("Company");
-                rightEntries.add("12 345 678 9");
+                rightEntries.add("HDFC BANK");
+                rightEntries.add("SAVINGS");
+                rightEntries.add("0013068989");
                 rightEntries.add(reportDto.getEmployeeName());
-                rightEntries.add("1234567890");
+                rightEntries.add("9592209290");
 
                 ArrayNode rightArray = objectMapper.valueToTree(rightEntries);
-//                System.out.println(rightArray);
                 firstColumnDetails.replace("values",array);
                 secondColumnDetails.replace("headings",rightHeadings);
                 secondColumnDetails.replace("values",rightArray);
                 totalPayable.put("currency"," ");
                 totalPayable.put("amount","Rs. "+netSalary);
                 List<ContentDto> contentDtos=new ArrayList<>();
-                contentDtos.add(new ContentDto(reportDto.getStartDate()+" "+reportDto.getEndDate(),"INR","Rs "+(salary.getBaseSalary() + salary.getHra() + salary.getBenefits())));
+                contentDtos.add(new ContentDto(reportDto.getStartDate()+" to  "+reportDto.getEndDate(),"INR","Rs "+(salary.getBaseSalary() + salary.getHra() + salary.getBenefits())));
 
                 ArrayNode contentDto = objectMapper.valueToTree(contentDtos );
                 tableDetails.replace("content",contentDto);
                 ObjectNode totals = (ObjectNode)tableDetails.get("totals");
-//                System.out.println(totals);
 //
                 List<String> headings=new ArrayList<>();
 
@@ -191,7 +189,6 @@ public class ReportServiceImpl implements IReportService {
                 endingValues.add("Rs "+netSalary);
 
                 totals.put("values", objectMapper.valueToTree(endingValues));
-                System.out.println(node.toPrettyString());
 //                // Send JSON payload to the external API
                 RestTemplate restTemplate = new RestTemplate();
                 String apiUrl = "https://api.advicement.io/v1/templates/pub-simple-invoice-v1/compile";
@@ -201,8 +198,6 @@ public class ReportServiceImpl implements IReportService {
                 headers.set("x-amz-security-token", "IQoJb3JpZ2luX2VjECgaCWV1LXdlc3QtMSJHMEUCIQCm8rPf1tqUHl97qcjmg5uYmfAg0sMT9fpmTtzE%2FEcIRwIgPj7uxMDHgNV5GIj%2B1agQgT2XP6QxoY5qlCFY%2FMU0EX0q8wII8f%2F%2F%2F%2F%2F%2F%2F%2F%2F%2FARAFGgw3MTE2NzY1MTM3NjQiDPlvhDC9nU%2Ff7%2BiOqSrHAmsma3etiJYjqViZxk5L7GjLysaK9BghU8rPS4lxRHpJr0HJRKy1Jm%2FmrSlBNoOQ8Fe%2FiGC99%2FwNiQmUJ4Njh2mpuVCMiP4K5RGunldexf0gi9VGSsLTWAN4eXcOAh79j2MncR5UmjIehAik0iUg7wOgV4T6ctRMomukJIawr27g4P5TQQdBPGntDMMvR4icTYHgvNTAaQVx6OL5uDGTDkpF4jb%2FkP61yxK2RUiJ1Hl%2BxADIMhu%2BZvl1t%2BRGLiayyN5y16sjV3QuqEl88fzFo5n2O6urCfCmHKTZv3CCJWHs4FZBQE5rgEaH5bO167Eda0pNl%2Fx32GgyXHB7LYl%2Bs%2FGvf4bH8mqBQTuwZCD%2FT0b1QKVWKYJeXeMJpFQ7dWTPCx3EomKwwJoVFdIBJS%2FHrt2xwbQlNVF5ubrBYtA%2FJ1YF3zA4mtypKzCN1N%2B0BjqeASavTx1JxX5wE%2Fk60Q8VNX1BYw%2FDL%2FKWiLMIKjo4LqsqESeqTA5Nbv%2FBPnNJQoUduDmV99zAzujiiS0OIVgbGBMUxQ7bBjz%2BeqVm0wo5eYrbaYOEiQ71NuCbkzmLXn6RsuE5%2Fvnq%2F0ngUw2j7vtQp4IZC8qokbP6qzYjRmTKuKxXenJgmt1j0wXmTT8B2zMEGKiX5Utgtrszh%2Fck1%2BgD");
                 HttpEntity<String> request = new HttpEntity<>(node.toString(), headers);
                 ResponseEntity<JsonNode> response = restTemplate.postForEntity(apiUrl, request, JsonNode.class);
-//                System.out.println(response.getBody().get("documentStatusUrl"));
-//                response.getBody().get("documentStatusUrl");
                 String uriString = UriComponentsBuilder
                         .fromUriString("https://advicement-prod-api-calls.s3.eu-west-1.amazonaws.com/b17f61f848ca1487/pub-simple-invoice-v1/7da502ab-b036-4ac8-8874-64ce7cf30554/output/progress.json")
                         .queryParam("AWSAccessKeyId", "ASIA2LMZZZXSOXTEYHGE")
@@ -211,34 +206,10 @@ public class ReportServiceImpl implements IReportService {
                         .queryParam("X-Amzn-Trace-Id", "Root%3D1-6697ecaf-7089f74972de7cd3454f4c2c%3BParent%3D1b1207be79830b69%3BSampled%3D0%3BLineage%3Dcb532f32%3A0%7C649baf5e%3A0")
                         .queryParam("x-amz-security-token", "IQoJb3JpZ2luX2VjECgaCWV1LXdlc3QtMSJHMEUCIQCm8rPf1tqUHl97qcjmg5uYmfAg0sMT9fpmTtzE%2FEcIRwIgPj7uxMDHgNV5GIj%2B1agQgT2XP6QxoY5qlCFY%2FMU0EX0q8wII8f%2F%2F%2F%2F%2F%2F%2F%2F%2F%2FARAFGgw3MTE2NzY1MTM3NjQiDPlvhDC9nU%2Ff7%2BiOqSrHAmsma3etiJYjqViZxk5L7GjLysaK9BghU8rPS4lxRHpJr0HJRKy1Jm%2FmrSlBNoOQ8Fe%2FiGC99%2FwNiQmUJ4Njh2mpuVCMiP4K5RGunldexf0gi9VGSsLTWAN4eXcOAh79j2MncR5UmjIehAik0iUg7wOgV4T6ctRMomukJIawr27g4P5TQQdBPGntDMMvR4icTYHgvNTAaQVx6OL5uDGTDkpF4jb%2FkP61yxK2RUiJ1Hl%2BxADIMhu%2BZvl1t%2BRGLiayyN5y16sjV3QuqEl88fzFo5n2O6urCfCmHKTZv3CCJWHs4FZBQE5rgEaH5bO167Eda0pNl%2Fx32GgyXHB7LYl%2Bs%2FGvf4bH8mqBQTuwZCD%2FT0b1QKVWKYJeXeMJpFQ7dWTPCx3EomKwwJoVFdIBJS%2FHrt2xwbQlNVF5ubrBYtA%2FJ1YF3zA4mtypKzCN1N%2B0BjqeASavTx1JxX5wE%2Fk60Q8VNX1BYw%2FDL%2FKWiLMIKjo4LqsqESeqTA5Nbv%2FBPnNJQoUduDmV99zAzujiiS0OIVgbGBMUxQ7bBjz%2BeqVm0wo5eYrbaYOEiQ71NuCbkzmLXn6RsuE5%2Fvnq%2F0ngUw2j7vtQp4IZC8qokbP6qzYjRmTKuKxXenJgmt1j0wXmTT8B2zMEGKiX5Utgtrszh%2Fck1%2BgD")
                         .build().toUriString();
-//                System.out.println(uriString);
-//                ResponseEntity<String> response2 = restTemplate.exchange(
-//                        urlTemplate,
-//                        HttpMethod.GET,
-//                        entity,
-//                        String.class,
-//                        params
-//                System.out.println(response2);
-//                Timer timer = new Timer();
-//                TimerTask tt = new TimerTask() {
-//
-//                    public void run()
-//                    {
-//
-//
-//                            if (responseFinal.getStatusCode()==HttpStatus.OK) {
-//                                System.out.println(responseFinal.getBody());
-//                                // loop stops after 7 iterations
-//                                timer.cancel();
-//
-//                            }
-//
-//                    };
-//                };
-//                timer.schedule(tt, 1000, 1000);
 
                 if (response.getStatusCode() == HttpStatus.OK) {
-                    return true;
+                    return response.getBody();
+//                    return true;
                 }
             } catch (Exception e) {
                 e.printStackTrace();
@@ -247,7 +218,7 @@ public class ReportServiceImpl implements IReportService {
             isCreated = true;
 
         }
-        return isCreated;
+        return null;
     }
 
     @Override
