@@ -3,7 +3,7 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { throwError } from 'rxjs';
 import { catchError } from 'rxjs/operators';
-import { LeaveRequest } from '../../model/Leave-Request.model';
+import { LeaveRequest} from '../../model/Leave-Request.model';
 import {NotificationResponse} from '../../model/notification-response'
 @Injectable({
   providedIn: 'root'
