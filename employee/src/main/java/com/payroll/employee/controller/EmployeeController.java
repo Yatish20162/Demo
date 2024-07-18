@@ -1,8 +1,6 @@
 package com.payroll.employee.controller;
 
-import com.payroll.employee.dto.EmployeeDto;
-import com.payroll.employee.dto.ErrorResponseDto;
-import com.payroll.employee.dto.ResponseDto;
+import com.payroll.employee.dto.*;
 import com.payroll.employee.service.IEmployeeService;
 import com.payroll.employee.service.impl.EmployeeServiceImpl;
 import io.swagger.v3.oas.annotations.Operation;
@@ -189,5 +187,17 @@ public class EmployeeController {
     public ResponseEntity<List<EmployeeDto>> getEmployeeByManagerId(@PathVariable Long managerId){ // Not sure if Long will work or have to use String
         List<EmployeeDto> employeeDtoList = employeeService.getEmployeesByManagerId(managerId);
         return ResponseEntity.status(HttpStatus.OK).body(employeeDtoList);
+    }
+
+    @PostMapping("/login")
+    public ResponseEntity<LoginDto> login(@RequestBody LoginRequestDto loginRequestDto){
+        LoginDto loginDto= employeeService.login(loginRequestDto);
+        if(loginDto != null)
+            return ResponseEntity
+                    .status(HttpStatus.OK)
+                    .body(loginDto);
+        return ResponseEntity
+                .status(HttpStatus.UNAUTHORIZED)
+                .body(null);
     }
 }
