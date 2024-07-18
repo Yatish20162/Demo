@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { LeaveRequest } from '../../model/Leave-Request.model';
 import { EmployeeDashboardService } from './employee-dashboard.service';
-
+import { SalaryInfo } from '../../model/salaryInfo.model';
 
 
 @Component({
@@ -14,6 +14,7 @@ export class EmployeeDashboardComponent implements OnInit {
    leaveRequestCount : number = 0;
   leaveRequest :LeaveRequest|null =null;
   errorMessage: string ='';
+  salaryInfo: SalaryInfo | null = null;
 
 
   constructor(
@@ -23,6 +24,7 @@ export class EmployeeDashboardComponent implements OnInit {
   ngOnInit() {
  
      this.getLeave();
+     this.getSalary();
    
   }
 
@@ -35,6 +37,19 @@ export class EmployeeDashboardComponent implements OnInit {
       (error)=>{
         // this.leaveRequest=null;
         this.errorMessage='error fetching leaves';
+      }
+    );
+   }
+
+   getSalary(){
+    this.employeeDashboardService.getSalary(2).subscribe(
+      (response) =>{
+        console.log("salary data fetch successfully: ",response)
+        this.salaryInfo = response
+      },
+      (error)=>{
+        // this.leaveRequest=null;
+        this.errorMessage='error fetching salary info';
       }
     );
    }

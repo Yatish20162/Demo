@@ -8,7 +8,6 @@ import { AdminDashboardComponent } from './components/admin-dashboard/admin-dash
 import { EmployeeDashboardComponent } from './components/employee-dashboard/employee-dashboard.component';
 import { HomeComponent } from './components/home/home.component';
 import { provideAnimationsAsync } from '@angular/platform-browser/animations/async';
-import { LoginComponent } from './components/login/login.component';
 import { EditEmployeeComponent } from './components/edit-employee/edit-employee.component';
 import { HttpClientModule } from '@angular/common/http';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
@@ -21,7 +20,6 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
     AdminDashboardComponent,
     EmployeeDashboardComponent,
     HomeComponent,
-    LoginComponent
     EditEmployeeComponent,
   ],
   imports: [
