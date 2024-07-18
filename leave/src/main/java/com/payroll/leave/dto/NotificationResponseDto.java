@@ -21,5 +21,4 @@ public class NotificationResponseDto {
     private Long leaveRequestId;
     @Enumerated(EnumType.STRING)
     private Status status;
-
 }

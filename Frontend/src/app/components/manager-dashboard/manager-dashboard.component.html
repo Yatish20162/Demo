@@ -1,93 +1,115 @@
 <nav class="navbar navbar-expand-lg bg-body-tertiary">
-    <div class="container-fluid">
-      <a class="navbar-brand" href="#">Manager Dashboard</a>
-      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
-        <span class="navbar-toggler-icon"></span>
-      </button>
-      <div class="collapse navbar-collapse" id="navbarNavDropdown">
-        <ul class="navbar-nav">
-          <li class="nav-item">
-            <a class="nav-link active" aria-current="page" href="#">Home</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="#">Employees</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="#">Leaves</a>
-          </li>
-          <li class="nav-item dropdown">
-            <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-              Settings
-            </a>
-            <ul class="dropdown-menu">
-              <li><a class="dropdown-item" href="#">Profile</a></li>
-              <li><a class="dropdown-item" href="#">Notifications</a></li>
-              <li><a class="dropdown-item" href="#">Logout</a></li>
-            </ul>
-          </li>
-        </ul>
-      </div>
+  <div class="container-fluid">
+    <a class="navbar-brand" href="#">Manager Dashboard</a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarNavDropdown">
+      <ul class="navbar-nav">
+        <li class="nav-item">
+          <a class="nav-link active" aria-current="page" href="#">Home</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="#">Employees</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="#">Leaves</a>
+        </li>
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+            Settings
+          </a>
+          <ul class="dropdown-menu">
+            <li><a class="dropdown-item" href="#">Profile</a></li>
+            <li><a class="dropdown-item" href="#">Notifications</a></li>
+            <li><a class="dropdown-item" href="#">Logout</a></li>
+          </ul>
+        </li>
+      </ul>
     </div>
-  </nav>
-  <div class="container my-5">
-    <div class="row">
-      <div class="col-md-6">
-        <div class="card">
-          <div class="card-header">
-            Approve Leave
+  </div>
+</nav>
+<div class="container my-5">
+  <div class="row">
+    <div class="col-md-6">
+      <div class="card">
+        <div class="card-header">
+          Approve Leave
+        </div>
+        <div class="card-body">
+          <div class="dropdown">
+            <button class="btn btn-primary dropdown-toggle" type="button" id="leaveDropdown" data-bs-toggle="dropdown" aria-expanded="false">
+              Select Leave Request
+            </button>
+            <ul class="dropdown-menu" aria-labelledby="leaveDropdown">
+              <li *ngFor="let leaveRequest of leaveRequests">
+                <a class="dropdown-item" href="#" (click)="onLeaveRequestSelected(leaveRequest)">
+                  {{ leaveRequest.employeeId }} - {{ leaveRequest.startDate }} to {{ leaveRequest.endDate }}
+                </a>
+              </li>
+            </ul>
           </div>
-          <div class="card-body">
-            <div class="dropdown">
-              <button class="btn btn-primary dropdown-toggle" type="button" id="leaveDropdown" data-bs-toggle="dropdown" aria-expanded="false">
-                {{ selectedLeaveRequest ? selectedLeaveRequest.employeeId : 'Select Leave Request' }}
-              </button>
-              <ul class="dropdown-menu" aria-labelledby="leaveDropdown">
-                <li *ngFor="let leaveRequest of leaveRequests" (click)="onLeaveRequestSelected(leaveRequest)">
-                  <a class="dropdown-item" href="#">{{ leaveRequest.employeeId }} - {{ leaveRequest.startDate }} to {{ leaveRequest.endDate }}</a>
-                </li>
-              </ul>
-            </div>
-            <div class="d-flex justify-content-end mt-3">
-              <button class="btn btn-success me-2" [disabled]="!selectedLeaveRequest" (click)="approveLeave()">Approve</button>
-              <button class="btn btn-danger" [disabled]="!selectedLeaveRequest" (click)="declineLeave()">Decline</button>
-            </div>
+          <div class="d-flex justify-content-end mt-3" *ngIf="selectedLeaveRequest">
+            <button class="btn btn-success me-2" (click)="approveLeave()">
+              Approve ({{ selectedLeaveRequest.employeeId }})
+            </button>
+            <button class="btn btn-danger" (click)="declineLeave()">
+              Decline ({{ selectedLeaveRequest.employeeId }})
+            </button>
           </div>
         </div>
       </div>
-      <div class="col-md-6">
-        <div class="card">
-          <div class="card-header">
-            Add Leave Request
-          </div>
-          <div class="card-body">
-            <form>
-              <div class="mb-3">
-                <label for="startDate" class="form-label">Start Date</label>
-                <input type="date" class="form-control" id="startDate" aria-describedby="startDateHelp">
-                <div id="startDateHelp" class="form-text">Enter the start date of your leave request.</div>
-              </div>
-              <div class="mb-3">
-                <label for="endDate" class="form-label">End Date</label>
-                <input type="date" class="form-control" id="endDate" aria-describedby="endDateHelp">
-                <div id="endDateHelp" class="form-text">Enter the end date of your leave request.</div>
-              </div>
-              <button type="submit" class="btn btn-primary">Submit</button>
-            </form>
-          </div>
+    </div>
+    <div class="col-md-6">
+      <div class="card">
+        <div class="card-header">
+          Add Leave Request
+        </div>
+        <div class="card-body">
+          <form [formGroup]="leaveForm" (ngSubmit)="onSubmit()">
+            <div class="mb-3">
+              <label for="employeeId" class="form-label">Employee ID</label>
+              <input type="number" id="employeeId" class="form-control" formControlName="employeeId" />
+              <div class="form-text">Enter your employee ID.</div>
+            </div>
+          
+            <div class="mb-3">
+              <label for="managerId" class="form-label">Manager ID</label>
+              <input type="number" id="managerId" class="form-control" formControlName="managerId" />
+              <div class="form-text">Enter your manager ID.</div>
+            </div>
+          
+            <div class="mb-3">
+              <label for="startDate" class="form-label">Start Date</label>
+              <input type="date" id="startDate" class="form-control" formControlName="startDate" />
+              <div class="form-text">Enter the start date of your leave request.</div>
+            </div>
+          
+            <div class="mb-3">
+              <label for="endDate" class="form-label">End Date</label>
+              <input type="date" id="endDate" class="form-control" formControlName="endDate" />
+              <div class="form-text">Enter the end date of your leave request.</div>
+            </div>
+          
+            <button type="submit" class="btn btn-primary">Submit</button>
+          </form>
+          
+          
         </div>
       </div>
     </div>
   </div>
-  
-  <footer class="footer mt-auto py-3 bg-light">
-    <div class="container">
-      <div class="row">
-        <div class="col-md-6">
-          <p>Leave Request Counter: {{ leaveRequestCount }}</p>
-        </div>
-        <div class="col-md-6 text-end">
-          <p>&copy; 2024 Manager Dashboard. All rights reserved.</p>
-        </div>
+</div>
+
+<footer class="footer mt-auto py-3 bg-light">
+  <div class="container">
+    <div class="row">
+      <div class="col-md-6">
+        <p>Leave Request Counter: {{ leaveRequestCount }}</p>
+      </div>
+      <div class="col-md-6 text-end">
+        <p>&copy; 2024 Manager Dashboard. All rights reserved.</p>
       </div>
     </div>
-  </footer>
+  </div>
+</footer>
