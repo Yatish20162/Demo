@@ -1,22 +1,5 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { HomeComponent } from './components/home/home.component';
-import { LoginComponent } from './components/login/login.component';
-
-const routes: Routes = [{
-      path:'',
-      component:HomeComponent,
-      pathMatch:"full"
-    },
-
-    {
-      path: 'login',
-      component: LoginComponent,
-      title: "IJP - Login",
-       pathMatch:"full"}
-
-
-  ];
 import { ManagerDashboardComponent } from './components/manager-dashboard/manager-dashboard.component';
 import { EmployeeDashboardComponent } from './components/employee-dashboard/employee-dashboard.component';
 import { AdminDashboardComponent } from './components/admin-dashboard/admin-dashboard.component';
