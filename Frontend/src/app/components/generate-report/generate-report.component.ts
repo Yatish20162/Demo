@@ -11,6 +11,7 @@ export class GenerateReportComponent {
   employeeId: number = 0;
   startDate: string = '';
   endDate: string = '';
+  employeeName: string = '';
 
   constructor(private route: ActivatedRoute, adminDashboardService: AdminDashboardService) { }
 
@@ -23,7 +24,7 @@ export class GenerateReportComponent {
     this.route.paramMap.subscribe(params => {
       this.employeeId = Number(params.get('id') ? params.get('id') : '') 
       if(this.employeeId!= 0){
-        
+
       }
     });
   }
