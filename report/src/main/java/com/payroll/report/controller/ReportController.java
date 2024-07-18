@@ -90,4 +90,10 @@ public class ReportController {
                 .status(HttpStatus.OK)
                 .body(leaveFeignClient.fetchLwp(employeeId, startDate, endDate).getBody());
     }
+    @GetMapping("/getsalary")
+    public ResponseEntity<SalaryDto>getSalary(@RequestParam Long employeeId)
+    {
+        SalaryDto salaryDto= reportService.getSalary(employeeId);
+        return   ResponseEntity.status(HttpStatus.OK).body(salaryDto);
+    }
 }
