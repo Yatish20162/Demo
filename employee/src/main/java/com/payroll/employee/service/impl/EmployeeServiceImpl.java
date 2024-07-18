@@ -119,25 +119,20 @@ public class EmployeeServiceImpl implements IEmployeeService {
 
         @Override
         public LoginDto login(LoginRequestDto loginRequestDto) {
+                Login employee = loginRepository.findByEmployeeId(loginRequestDto.getEmployeeId()).orElseThrow(
+                        () -> new ResourceNotFoundException("Employee", "EmployeeId", loginRequestDto.getEmployeeId().toString())
+
+                );
+                if(employee.getPassword().equals(loginRequestDto.getPassword())){
+                        List<EmployeeRole> employeeRoleList= employeeRoleRepository.findAllByEmployeeId(loginRequestDto.getEmployeeId()).orElseThrow(
+                                ()-> new ResourceNotFoundException("Employee", "EmployeeId", loginRequestDto.getEmployeeId().toString())
+                        );
+
+                        List<Role> roleList = employeeRoleList.stream().map(EmployeeRole::getRole).toList();
+                        return new LoginDto(loginRequestDto.getEmployeeId(), roleList);
+                }
                 return null;
         }
-
-//        @Override
-//        public LoginDto login(LoginRequestDto loginRequestDto) {
-//                Login employee = loginRepository.findByEmployeeId(loginRequestDto.getEmployeeId()).orElseThrow(
-//                        () -> new ResourceNotFoundException("Employee", "EmployeeId", loginRequestDto.getEmployeeId().toString())
-//
-//                );
-//                if(employee.getPassword().equals(loginRequestDto.getPassword())){
-//                        List<EmployeeRole> employeeRoleList= employeeRoleRepository.findAllByEmployeeId(loginRequestDto.getEmployeeId()).orElseThrow(
-//                                ()-> new ResourceNotFoundException("Employee", "EmployeeId", loginRequestDto.getEmployeeId().toString())
-//                        );
-//
-//                        List<Role> roleList = employeeRoleList.stream().map(EmployeeRole::getRole).toList();
-//                        return new LoginDto(loginRequestDto.getEmployeeId(), roleList);
-//                }
-//                return null;
-//        }
 
         @Override
         public List<EmployeeDto> getAllEmployeeData(){

@@ -19,5 +19,5 @@ public interface IEmployeeService {
 
     List<EmployeeDto> getEmployeesByManagerId(Long managerId); // accessible to admin, manager
 
-    LoginDto login (LoginRequestDto loginRequestDto);
+    LoginDto login(LoginRequestDto loginRequestDto);
 }
