@@ -1,1 +1,124 @@
-<p>employee-dashboard works!</p>
+<nav class="navbar navbar-expand-lg bg-body-tertiary">
+    <div class="container-fluid">
+      <a class="navbar-brand" href="#">Employee Dashboard</a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarNavDropdown">
+        <ul class="navbar-nav">
+          <li class="nav-item">
+            <a class="nav-link active" aria-current="page" href="#">Home</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#">Leave</a>
+          </li>
+          
+          
+          <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+              Settings
+            </a>
+            <ul class="dropdown-menu">
+              <li><a class="dropdown-item" href="#">Profile</a></li>
+              <li><a class="dropdown-item" href="#">Notifications</a></li>
+              <li><a class="dropdown-item" href="#">Logout</a></li>
+            </ul>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+  
+  <div class="container my-5">
+    <div class="row">
+      <div class="col-md-6">
+        <div class="card">
+          <div class="card-header">
+            Leave Request
+          </div>
+          <div class="card-body">
+            <form>
+              <div class="mb-3">
+                <label for="startDate" class="form-label">Start Date</label>
+                <input type="date" class="form-control" id="startDate" aria-describedby="startDateHelp">
+                <div id="startDateHelp" class="form-text">Enter the start date of your leave request.</div>
+              </div>
+              <div class="mb-3">
+                <label for="endDate" class="form-label">End Date</label>
+                <input type="date" class="form-control" id="endDate" aria-describedby="endDateHelp">
+                <div id="endDateHelp" class="form-text">Enter the end date of your leave request.</div>
+              </div>
+              <button type="submit" class="btn btn-primary">Submit</button>
+            </form>
+          </div>
+        </div>
+      </div>
+      
+
+      <div class="col-md-6">
+        <div class="card">
+          <div class="card-header">
+            Leave Dashboard
+          </div>
+          <div class="card-body">
+            <p>Total Leaves: {{ leaveRequest?.totalLeaves }}</p>
+            <p>Remaining Leaves: {{ leaveRequest?.remainingLeaves }}</p>
+            <p>LWP: {{leaveRequest?.lwp }}</p>
+            <!-- <p>LWP: {{ leaveDto?.lwp }}</p> -->
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+
+
+  <div class="container my-5">
+    <div class="row">
+      <div class="col-md-12">
+        <div class="card">
+          <div class="card-header">
+            Salary Slip
+          </div>
+          <div class="card-body">
+            <table class="table">
+              <thead>
+                <tr>
+                  <th>Component</th>
+                  <th>Amount</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>Basic</td>
+                  <td>{{ salaryInfo?.baseSalary }}</td>
+                </tr>
+                <tr>
+                  <td>HRA</td>
+                  <td>{{ salaryInfo?.hra }}</td>
+                </tr>
+                <tr>
+                  <td>Benefits</td>
+                  <td>{{ salaryInfo?.benefits }}</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  
+  <footer class="footer mt-auto py-3 bg-light">
+    <div class="container">
+      <div class="row">
+        <div class="col-md-6">
+          <p>&copy; 2024 Employee Dashboard. All rights reserved.</p>
+        </div>
+        <div class="col-md-6 text-end">
+          <p>Version 1.0</p>
+        </div>
+      </div>
+    </div>
+  </footer>
