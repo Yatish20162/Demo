@@ -35,23 +35,26 @@
         </div>
 
         <div class="d-flex ">
-            <div class="form-group flex-grow-1/2">
+            <div class="form-group half-flex-grow">
                 <label for="phoneNumber">Phone Number</label>
                 <input type="text" id="phoneNumber" class="form-control" formControlName="phoneNumber">
               </div>
 
               <div class="form-group flex-grow-1">
-                <label for="employeeRoles">Employee Roles</label>
-                <!-- <div formArrayName="employeeRoles">
-                  <div *ngFor="let role of employeeForm.get('employeeRoles').controls; let i = index">
-                    <input [formControlName]="i" class="form-control mb-2">
-                  </div>
-                </div> -->
+                <label for="">Employee Roles</label>
+                  <mat-form-field  style="width: 100%; ">
+                    <mat-label for="roles">Roles</mat-label>
+                    <mat-select id="roles" formControlName="roles" multiple>
+                      @for (role of roleList; track role) {
+                        <mat-option [value]="role">{{role}}</mat-option>
+                      }
+                    </mat-select>
+                  </mat-form-field>
               </div>
         </div>
 
         <div class="thin-line-bottom"></div>
 
-        <button type="submit" class="btn btn-primary">Submit</button>
+        <button type="button" (click)="updateData()" class="btn btn-primary">Submit</button>
     </form>
 </div>

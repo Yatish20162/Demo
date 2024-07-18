@@ -2,19 +2,29 @@ import { Component } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { AdminDashboardService } from '../admin-dashboard/admin-dashboard.service';
 import { Employee } from '../../model/employee.model';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-
+import { FormBuilder, FormControl, FormGroup, Validators, FormsModule, ReactiveFormsModule } from '@angular/forms';
+import {MatSelectModule} from '@angular/material/select';
+import {MatFormFieldModule} from '@angular/material/form-field';
 
 @Component({
   selector: 'app-edit-employee',
   templateUrl: './edit-employee.component.html',
   styleUrl: './edit-employee.component.css',
+  standalone: true,
+  imports: [MatFormFieldModule, MatSelectModule, FormsModule, ReactiveFormsModule],
 })
+
+
+
 export class EditEmployeeComponent {
 
   id : string = '';
   errorMessage: string = '';
   employeeForm: FormGroup;
+  
+  roles = new FormControl('');
+  roleList: string[] = ['EMPLOYEE', 'MANAGER', 'ADMIN'];
+
 
   employee: Employee = {
     employeeId: 0,
@@ -28,7 +38,7 @@ export class EditEmployeeComponent {
   };
 
   constructor(private route: ActivatedRoute, private adminDashboardService: AdminDashboardService, private fb: FormBuilder) {
-      this.employeeForm = this.fb.group({
+    this.employeeForm = this.fb.group({
       employeeId: ['', Validators.required],
       firstName: ['', Validators.required],
       lastName: ['', Validators.required],
@@ -36,7 +46,7 @@ export class EditEmployeeComponent {
       jobTitle: ['', Validators.required],
       managerId: ['', Validators.required],
       phoneNumber: ['', Validators.required],
-      employeeRoles: this.fb.array([])  // You can populate this array with default roles if needed
+      roles: [[], Validators.required]
     });
   }
 
@@ -48,6 +58,19 @@ export class EditEmployeeComponent {
     }
   }
 
+  setDefaultInputs(): void {
+    this.employeeForm = this.fb.group({
+      employeeId: [this.employee.employeeId, Validators.required],
+      firstName: [this.employee.firstName, Validators.required],
+      lastName: [this.employee.lastName, Validators.required],
+      email: [this.employee.email, [Validators.required, Validators.email]],
+      jobTitle: [this.employee.jobTitle, Validators.required],
+      managerId: [this.employee.managerId, Validators.required],
+      phoneNumber: [this.employee.phoneNumber, Validators.required],
+      roles: [this.employee.employeeRoles.map((role)=>{console.log(role); return "EMPLOYEE";}), Validators.required]
+    });
+  }
+
   ngOnInit(): void {
     this.route.paramMap.subscribe(params => {
       this.id = String(params.get('id') ? params.get('id') : '') 
@@ -57,11 +80,25 @@ export class EditEmployeeComponent {
     });
   }
 
+  updateData(): void{
+    if (this.employeeForm.valid) {
+      this.updateEmployeeData(this.employeeForm.value);
+    } else {
+      console.log('Form is invalid');
+    }
+  }
+
+  updateEmployeeData(employeeData: Employee): void {
+    console.log(employeeData)
+  }
+
+
   getEmployeeById(employeeId: string) {
     this.adminDashboardService.getEmployeeById(this.id).subscribe(
       (response) => {
         // console.log("Employee Data Fetched Successfully:  ", response)
         this.employee = response;
+        this.setDefaultInputs();
       },
       (error) => {
         this.errorMessage = 'Error fetching employees.';

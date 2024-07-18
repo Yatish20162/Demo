@@ -12,5 +12,15 @@
 
 .thin-line-bottom{
     border-bottom: 1px solid #ddd;
-    margin: 10px 20px;
+    margin: 5px 20p 20px;
+}
+
+.form-control{
+    height: 55px;
+    background-color: #efefef;
+    color: rgb(33, 37, 41);
+}
+
+.half-flex-grow{
+    flex-grow: 0.5;
 }

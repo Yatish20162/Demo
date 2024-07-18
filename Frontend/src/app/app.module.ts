@@ -11,6 +11,9 @@ import { provideAnimationsAsync } from '@angular/platform-browser/animations/asy
 import { EditEmployeeComponent } from './components/edit-employee/edit-employee.component';
 import { HttpClientModule } from '@angular/common/http';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { MatInputModule, MatFormField, MatLabel } from '@angular/material/input';
+import { MatOption } from '@angular/material/core';
+import { provideHttpClient, withFetch } from "@angular/common/http";
 
 
 @NgModule({
@@ -20,20 +23,24 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
     AdminDashboardComponent,
     EmployeeDashboardComponent,
     HomeComponent,
-    EditEmployeeComponent,
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     HttpClientModule,
     FormsModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    MatFormField,
+    MatInputModule,
+    MatLabel,
+    MatOption
   ],
   exports:[
   ],
   providers: [
     provideClientHydration(),
-    provideAnimationsAsync()
+    provideAnimationsAsync(),
+    provideHttpClient(withFetch())
   ],
   bootstrap: [AppComponent]
 })
