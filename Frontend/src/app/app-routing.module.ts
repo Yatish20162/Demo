@@ -6,6 +6,9 @@ import { AdminDashboardComponent } from './components/admin-dashboard/admin-dash
 import { HomeComponent } from './components/home/home.component';
 import { EditEmployeeComponent } from './components/edit-employee/edit-employee.component';
 import { CreateEmployeeComponent } from './components/create-employee/create-employee.component';
+import { LeaveApproveComponent } from './components/leave-approve/leave-approve.component';
+import { LeaveRequestComponent } from './components/leave-request/leave-request.component';
+import { LoginComponent } from './components/login/login.component';
 
 const routes: Routes = [
   {
@@ -35,6 +38,22 @@ const routes: Routes = [
   {
     path: '',
     component: HomeComponent,
+    pathMatch: 'full'
+  },
+  {
+    path : 'approve-leave',
+    component: LeaveApproveComponent,
+    pathMatch: 'full'
+  },
+
+  {
+    path : 'leave-request',
+    component: LeaveRequestComponent,
+    pathMatch: 'full'
+  },
+  {
+    path : 'login',
+    component: LoginComponent,
     pathMatch: 'full'
   }
 ];

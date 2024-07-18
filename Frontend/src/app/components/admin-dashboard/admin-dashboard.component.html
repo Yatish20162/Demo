@@ -1,11 +1,11 @@
-<nav class="navbar navbar-expand-lg bg-body-tertiary">
+<nav class="navbar navbar-expand-lg navbar-dark bg-primary">
   <div class="container-fluid">
     <a class="navbar-brand" href="#">Admin Dashboard</a>
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
     </button>
     <div class="collapse navbar-collapse" id="navbarNavDropdown">
-      <ul class="navbar-nav">
+      <ul class="navbar-nav ms-auto">
         <li class="nav-item">
           <a class="nav-link active" aria-current="page" href="#">Home</a>
         </li>
@@ -29,64 +29,70 @@
     </div>
   </div>
 </nav>
+
 <div class="container my-5">
   <div class="row">
-    <div class="mx-auto">
-      <div class="card">
-        <div class="card-header d-flex justify-content-between align-items-center">
-          <p style="font-size: 20px;">Employees</p>
-
-          <button type="button" (click)="goToCreateEmployee()" class="btn btn-primary">Add New Employee</button>
+    <div class="col-12">
+      <div class="card shadow-sm">
+        <div class="card-header bg-primary text-white d-flex justify-content-between align-items-center">
+          <h5 class="mb-0">Employee Management</h5>
+          <button type="button" (click)="goToCreateEmployee()" class="btn btn-light">
+            <i class="bi bi-plus-circle me-2"></i>Add New Employee
+          </button>
         </div>
         <div class="card-body">
-          <!-- <div class="dropdown">
-            <button class="btn btn-primary dropdown-toggle" type="button" id="leaveDropdown" data-bs-toggle="dropdown" aria-expanded="false">
-              Select Employee
-            </button>
-            <ul class="dropdown-menu" aria-labelledby="leaveDropdown">
-              <li><a class="dropdown-item" href="#">Leave Request 1</a></li>
-              <li><a class="dropdown-item" href="#">Leave Request 2</a></li>
-              <li><a class="dropdown-item" href="#">Leave Request 3</a></li>
-            </ul>
-          </div> -->
-          <div class="d-flex flex-column ">
-            <div *ngFor="let employee of employees" class="my-3 d-flex flex-column thin-border-bottom">
-             <div>
-               <div class="d-flex justify-content-between">
-                <div>Employee Id: {{employee.employeeId}}</div>
-                <div> {{employee.firstName + ' ' + employee.lastName}}</div>
-                <div> {{employee.jobTitle}}</div>
-                <div>{{employee.phoneNumber}}</div>
-                <div>{{employee.email}}</div>
-               </div>
-               <div class="d-flex mt-3">
-                Roles Assigned: <div *ngFor="let employeeRole of employee.employeeRoles" class="mx-1">{{employeeRole}}</div> 
-               </div>
-            
-             </div>
-              <div class="d-flex flex-row my-2">
-                <div class="flex-grow-1"></div>
-                <button (click)="navigateToEditEmployee(employee.employeeId)" class="btn btn-danger me-2">Edit</button>
-                <button class="btn btn-success">View Salary</button>
-              </div>
-            </div>
-
+          <div class="table-responsive">
+            <table class="table table-hover">
+              <thead class="table-light">
+                <tr>
+                  <th>Employee ID</th>
+                  <th>Name</th>
+                  <th>Job Title</th>
+                  <th>Phone Number</th>
+                  <th>Email</th>
+                  <th>Roles</th>
+                  <th>Actions</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr *ngIf="employees.length === 0">
+                  <td colspan="7" class="text-center">No employees found</td>
+                </tr>
+                <tr *ngFor="let employee of employees">
+                  <td>{{employee.employeeId}}</td>
+                  <td>{{employee.firstName + ' ' + employee.lastName}}</td>
+                  <td>{{employee.jobTitle}}</td>
+                  <td>{{employee.phoneNumber}}</td>
+                  <td>{{employee.email}}</td>
+                  <td>
+                    <span *ngFor="let role of employee.employeeRoles" class="badge bg-secondary me-1">{{role}}</span>
+                  </td>
+                  <td>
+                    <button (click)="navigateToEditEmployee(employee.employeeId)" class="btn btn-sm btn-outline-primary me-2">
+                      <i class="bi bi-pencil-square"></i> Edit
+                    </button>
+                    <button class="btn btn-sm btn-outline-success">
+                      <i class="bi bi-cash-coin"></i> View Salary
+                    </button>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
           </div>
         </div>
       </div>
     </div>
-
   </div>
 </div>
 
-<footer class="footer mt-auto py-3 bg-light">
+<footer class="footer mt-5 py-3 bg-light">
   <div class="container">
     <div class="row">
-<!--      <div class="col-md-6">-->
-<!--        <p>Leave Request Counter: {{ leaveRequestCount }}</p>-->
-<!--      </div>-->
-      <div class="col-md-6 text-end">
-        <p>&copy; 2024 Admin Dashboard. All rights reserved.</p>
+      <div class="col-md-6">
+        <p class="mb-0">Total Employees: {{employees.length}}</p>
+      </div>
+      <div class="col-md-6 text-md-end">
+        <p class="mb-0">&copy; 2024 Admin Dashboard. All rights reserved.</p>
       </div>
     </div>
   </div>

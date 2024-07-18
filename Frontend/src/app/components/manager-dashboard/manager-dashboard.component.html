@@ -1,108 +1,111 @@
-<nav class="navbar navbar-expand-lg bg-body-tertiary">
+<nav class="navbar navbar-expand-lg navbar-dark bg-primary">
   <div class="container-fluid">
     <a class="navbar-brand" href="#">Manager Dashboard</a>
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
     </button>
     <div class="collapse navbar-collapse" id="navbarNavDropdown">
-      <ul class="navbar-nav">
+      <ul class="navbar-nav ms-auto">
         <li class="nav-item">
           <a class="nav-link active" aria-current="page" href="#">Home</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="#">Employees</a>
+          <a class="nav-link" href="#" [routerLink]="['/leave-request']">Leave Requests</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="#">Leaves</a>
+          <a class="nav-link" href="#" [routerLink]="['/approve-leave']">Leaves</a>
         </li>
-        <li class="nav-item dropdown">
-          <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-            Settings
-          </a>
-          <ul class="dropdown-menu">
-            <li><a class="dropdown-item" href="#">Profile</a></li>
-            <li><a class="dropdown-item" href="#">Notifications</a></li>
-            <li><a class="dropdown-item" href="#">Logout</a></li>
-          </ul>
+        <li class="nav-item">
+          <a class="nav-link" href="#" [routerLink]="['/manager-dashboard']">Profile</a>
         </li>
       </ul>
     </div>
   </div>
 </nav>
+
 <div class="container my-5">
   <div class="row">
-    <div class="col-md-6">
-      <div class="card">
-        <div class="card-header">
-          Approve Leave
+    <div class="col-md-4 mb-4">
+      <div class="card shadow-sm h-100">
+        <div class="card-header bg-primary text-white">
+          <h5 class="card-title mb-0">Manager Profile</h5>
         </div>
         <div class="card-body">
-            <div *ngFor="let leaveRequest of leaveRequests" class="my-3 d-flex flex-column thin-border-bottom">
-              <div>
-                <div class="d-flex flex-column">
-                  <div class="d-flex justify-content-between">
-                    <div>Employee Id: {{leaveRequest.employeeId}}</div>
-                    <div> {{leaveRequest.endDate}}</div>
-                    <div>{{leaveRequest.startDate}}</div>
-                    <div> {{leaveRequest.status}}</div>
-                    <div>{{leaveRequest.managerId}}</div>
-                  </div>
-                  <div class="d-flex flex-row mt-3" style="padding-bottom: 10px; border-bottom: 1px solid #ccc;">
-                    <div class="flex-grow-1"></div>
-                    <button class="btn btn-success me-2" (click)="approveLeave(leaveRequest.leaveRequestId , leaveRequest.employeeId)">Approve</button>
-                    <button class="btn btn-danger" (click)="declineLeave(leaveRequest.leaveRequestId , leaveRequest.employeeId)">Decline</button>
-                  </div>
-
-                </div>
-              </div>
-            </div>
+          <div class="text-center mb-3">
+            <img src="https://via.placeholder.com/150" alt="Manager Profile Picture" class="rounded-circle img-thumbnail">
+          </div>
+          <h4 class="text-center mb-3">John Doe</h4>
+          <p><strong>Employee ID:</strong> 12345</p>
+          <p><strong>Position:</strong> Senior Manager</p>
+          <p><strong>Department:</strong> Human Resources</p>
+          <p><strong>Email:</strong> john.doecompany.com</p>
+          <p><strong>Phone:</strong> (555) 123-4567</p>
         </div>
       </div>
     </div>
-    <div class="col-md-6">
-      <div class="card">
-        <div class="card-header">
-          Add Leave Request
+    
+    <div class="col-md-8 mb-4">
+      <div class="card shadow-sm h-100">
+        <div class="card-header bg-primary text-white">
+          <h5 class="card-title mb-0">About Me</h5>
         </div>
         <div class="card-body">
+          <p>Experienced manager with a passion for team development and process improvement. Committed to fostering a positive work environment and achieving organizational goals.</p>
+        </div>
+      </div>
+    </div>
+  </div>
 
-          <form (ngSubmit)="onSubmit()">
-            <div class="mb-3">
-              <label for="employeeId" class="form-label">Employee ID</label>
-              <input type="number" id="employeeId" name="managerId" [(ngModel)]="leave.employeeId" class="form-control" aria-describedby="employeeIdHelp" required/>
-              <div id="employeeIdHelp" class="form-text">Enter your employee ID.</div>
+  <div class="row">
+    <div class="col-md-12">
+      <div class="card shadow-sm">
+        <div class="card-header bg-primary text-white">
+          <h5 class="card-title mb-0">Leave Statistics</h5>
+        </div>
+        <div class="card-body">
+          <div class="row">
+            <div class="col-md-4 mb-3">
+              <div class="card bg-light">
+                <div class="card-body text-center">
+                  <h5 class="card-title">Leave Requests</h5>
+                  <p class="card-text display-4">{{ leaveRequestCount }}</p>
+                </div>
+              </div>
             </div>
-            <div class="mb-3">
-              <label for="managerId" class="form-label">Manager ID</label>
-              <input type="number" id="managerId" name="managerId" [(ngModel)]="leave.managerId" class="form-control" aria-describedby="managerIdHelp" required/>
-              <div id="managerIdHelp" class="form-text">Enter your manager ID.</div>
+            <div class="col-md-4 mb-3">
+              <div class="card bg-light">
+                <div class="card-body text-center">
+                  <h5 class="card-title">Remaining Leaves</h5>
+                  <p class="card-text display-4">{{ remainingLeaves }}</p>
+                </div>
+              </div>
             </div>
-            <div class="mb-3">
-              <label for="startDate" class="form-label">Start Date</label>
-              <input type="date" class="form-control" id="startDate" name="startDate" [(ngModel)]="leave.startDate" aria-describedby="startDateHelp" required>
-              <div id="startDateHelp" class="form-text">Enter the start date of your leave request.</div>
+            <div class="col-md-4 mb-3">
+              <div class="card bg-light">
+                <div class="card-body text-center">
+                  <h5 class="card-title">LWP</h5>
+                  <p class="card-text display-4">{{ lwpCount }}</p>
+                </div>
+              </div>
             </div>
-            <div class="mb-3">
-              <label for="endDate" class="form-label">End Date</label>
-              <input type="date" class="form-control" id="endDate" name="endDate" [(ngModel)]="leave.endDate" aria-describedby="endDateHelp" required>
-              <div id="endDateHelp" class="form-text">Enter the end date of your leave request.</div>
-            </div>
-            <button type="submit" class="btn btn-primary">Submit</button>
-          </form>
+          </div>
         </div>
       </div>
     </div>
   </div>
 </div>
 
-<footer class="footer mt-auto py-3 bg-light">
+<footer class="footer mt-5 py-3 bg-light">
   <div class="container">
     <div class="row">
       <div class="col-md-6">
-        <p>Leave Request Counter: {{ leaveRequestCount }}</p>
+        <h5>Contact</h5>
+        <p class="mb-0">Email: supportcompany.com</p>
+        <p class="mb-0">Phone: (555) 987-6543</p>
       </div>
-      <div class="col-md-6 text-end">
-        <p>&copy; 2024 Manager Dashboard. All rights reserved.</p>
+      <div class="col-md-6 text-md-end">
+        <p class="mb-0">&copy; 2024 Manager Dashboard. All rights reserved.</p>
+        <p class="mb-0">Version 1.0</p>
       </div>
     </div>
   </div>

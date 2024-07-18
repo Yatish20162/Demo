@@ -15,6 +15,8 @@ import { MatInputModule, MatFormField, MatLabel } from '@angular/material/input'
 import { MatOption } from '@angular/material/core';
 import { provideHttpClient, withFetch } from "@angular/common/http";
 import { CreateEmployeeComponent } from './components/create-employee/create-employee.component';
+import { LeaveApproveComponent } from './components/leave-approve/leave-approve.component';
+import { LeaveRequestComponent } from './components/leave-request/leave-request.component';
 
 
 @NgModule({
@@ -24,6 +26,8 @@ import { CreateEmployeeComponent } from './components/create-employee/create-emp
     AdminDashboardComponent,
     EmployeeDashboardComponent,
     HomeComponent,
+    LeaveApproveComponent,
+    LeaveRequestComponent,
   ],
   imports: [
     BrowserModule,

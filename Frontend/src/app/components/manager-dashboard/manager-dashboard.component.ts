@@ -14,6 +14,8 @@ import {   FormBuilder, FormControl, FormGroup, Validators, FormsModule, Reactiv
 export class ManagerDashboardComponent implements OnInit {
 
   leaveRequestCount: number = 0;
+  remainingLeaves:number=0;
+  lwpCount:number=0;
   errorMessage: string = '';
   leaveRequests: LeaveRequest[] = [];
   leave: Partial<Leave> = {};
@@ -37,7 +39,10 @@ export class ManagerDashboardComponent implements OnInit {
   fetchLeaveRequestCount() {
     this.managerDashboardService.getLeaveRequestCount(2).subscribe(
       (response) => {
+        console.log(response);
         this.leaveRequestCount = response.totalLeaves;
+        this.remainingLeaves = response.remainingLeaves;
+        this.lwpCount = response.lwp;
         this.errorMessage = '';
       },
       (error) => {
