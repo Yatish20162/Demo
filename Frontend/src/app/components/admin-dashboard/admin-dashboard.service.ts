@@ -6,13 +6,14 @@ import { catchError } from 'rxjs/operators';
 import { Employee } from '../../model/employee.model';
 import { responseData } from '../../model/response.model';
 import { newEmployee } from '../../model/newemployee.model';
+import { SalaryInfo } from '../../model/salaryInfo.model';
 @Injectable({
   providedIn: 'root'
 })
 
 export class AdminDashboardService {
   private apiUrl = 'http://localhost:8001/api';
-
+  private salaryApiUrl = 'http://localhost:8002/report';
   constructor(private http: HttpClient) {}
 
 
@@ -40,7 +41,14 @@ export class AdminDashboardService {
     );
   }
   
-
+  getSalaryByEmployeeId(employeeId: string): Observable<SalaryInfo>{
+    return this.http.get<SalaryInfo>(`${this.salaryApiUrl}/getsalary?employeeId=${employeeId}`).pipe(
+      catchError((error) => {
+        console.error('Error fetching salary info:', error);
+        return throwError(error);
+      })
+    );
+  }
   private handleError(error: HttpErrorResponse): Observable<never> {
     let errorMessage = '';
     if (error.status === 404) {

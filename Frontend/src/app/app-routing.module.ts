@@ -6,6 +6,9 @@ import { AdminDashboardComponent } from './components/admin-dashboard/admin-dash
 import { HomeComponent } from './components/home/home.component';
 import { EditEmployeeComponent } from './components/edit-employee/edit-employee.component';
 import { CreateEmployeeComponent } from './components/create-employee/create-employee.component';
+import path from 'path';
+import { SalaryComponent } from './components/salary/salary.component';
+import { GenerateReportComponent } from './components/generate-report/generate-report.component';
 
 const routes: Routes = [
   {
@@ -35,6 +38,16 @@ const routes: Routes = [
   {
     path: '',
     component: HomeComponent,
+    pathMatch: 'full'
+  },
+  {
+    path: 'salary/:id',
+    component: SalaryComponent,
+    pathMatch: 'full'
+  },
+  {
+    path: 'generate-report/:id',
+    component: GenerateReportComponent,
     pathMatch: 'full'
   }
 ];

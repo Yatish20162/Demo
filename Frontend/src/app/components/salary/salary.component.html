@@ -1,0 +1,30 @@
+<div class="container mt-5">
+    <div class="card">
+      <div class="card-header bg-primary text-white">
+        Salary Information
+      </div>
+      <div class="card-body">
+        <table class="table table-bordered">
+          <tbody>
+            <tr>
+              <th scope="row">Employee ID</th>
+              <td>{{ salary.employeeId }}</td>
+            </tr>
+            <tr>
+              <th scope="row">HRA</th>
+              <td>{{ salary.hra | currency }}</td>
+            </tr>
+            <tr>
+              <th scope="row">Base Salary</th>
+              <td>{{ salary.baseSalary | currency }}</td>
+            </tr>
+            <tr>
+              <th scope="row">Benefits</th>
+              <td>{{ salary.benefits | currency }}</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+  
