@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { LeaveRequest } from '../../model/Leave-Request.model';
+import { LeaveRequest } from '../../model/leave-request.model';
 import { EmployeeDashboardService } from './employee-dashboard.service';
 import { SalaryInfo } from '../../model/salaryInfo.model';
 

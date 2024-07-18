@@ -37,7 +37,11 @@ export class AdminDashboardComponent implements OnInit{
 
      // navigation
     navigateToEditEmployee(id: number) {
-      this.router.navigate([`/edit-employee/${id.toString()}`]); // Replace with actual route
+      this.router.navigate([`/edit-employee/${id.toString()}`]);
     };
 
+    goToCreateEmployee(){
+      this.router.navigate(['/create-employee']);
+      // console.log("Navigated to Create Employee Page");
+    };
 }
