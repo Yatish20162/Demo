@@ -16,6 +16,7 @@ import java.util.stream.Collectors;
 @AllArgsConstructor
 public class EmployeeMapper {
     public static EmployeeDto mapToEmployeeDto(Employee employee, EmployeeDto employeeDto){
+        employeeDto.setEmployeeId(employee.getEmployeeId());
         employeeDto.setFirstName(employee.getFirstName());
         employeeDto.setLastName(employee.getLastName());
         employeeDto.setDateOfBirth(employee.getDateOfBirth());
@@ -29,6 +30,7 @@ public class EmployeeMapper {
     }
 
     public static Employee mapToEmployee(EmployeeDto  employeeDto , Employee employee){
+        employee.setEmployeeId(employeeDto.getEmployeeId());
         employee.setFirstName(employeeDto.getFirstName());
         employee.setLastName(employeeDto.getLastName());
         employee.setDateOfBirth(employeeDto.getDateOfBirth());
