@@ -68,10 +68,7 @@ public class EmployeeServiceImpl implements IEmployeeService {
                         () -> new ResourceNotFoundException("Employee", "employeeId", employeeId.toString())
                 );
 
-
-
                Employee updatedemployee=EmployeeMapper.mapToEmployee(employeeDto, new Employee());
-               updatedemployee.setEmployeeId(employeeId);
                employeeRepository.save(updatedemployee);
 
                 employeeRoleRepository.deleteAllByEmployeeId(employeeId);

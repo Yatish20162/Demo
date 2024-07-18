@@ -16,6 +16,7 @@ import java.util.List;
 @AllArgsConstructor
 @NoArgsConstructor
 public class EmployeeDto {
+    private Long employeeId;
     private String firstName;
     private String lastName;
     private LocalDate dateOfBirth;
