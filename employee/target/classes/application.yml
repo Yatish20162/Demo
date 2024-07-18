@@ -51,7 +51,3 @@ info:
     name: "employee Microservice"
     description: "employee Microservice for Synergy bankl"
     version: "1.0.0"
-
-# JWT properties
-  jwt.secret: "jwtsecret"
-  jwt.expiration: 3600000  # 1 hour in milliseconds

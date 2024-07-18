@@ -253,14 +253,11 @@ public class ReportServiceImpl implements IReportService {
     @Override
     public SalaryDto getSalary(Long employeeId) {
         Salary salary= salaryRepository.findByEmployeeId(employeeId).orElseThrow( () -> new ResourceNotFoundException("salary", "employee", employeeId));
-      //  if(salary!=null)
         {
             SalaryDto salaryDto=SalaryMapper.mapToSalaryDto(salary,new SalaryDto());
             return salaryDto;
 
         }
-//      return null;
-
     }
 
     private Long calculateDeductions(Long lwp) {
