@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ManagerDashboardService } from './manager-dashboard.service';
-import { LeaveRequest } from '../../model/Leave-Request.model';
+import { LeaveRequest } from '../../model/leave-request.model';
 import {NotificationResponse} from '../../model/notification-response'
 import { status } from '../../model/request-status.model';
 import { Leave } from '../../model/leave.model';

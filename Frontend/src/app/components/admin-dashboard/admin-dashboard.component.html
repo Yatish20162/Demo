@@ -37,7 +37,7 @@
           Employees
         </div>
         <div class="card-body">
-          <div class="dropdown">
+          <!-- <div class="dropdown">
             <button class="btn btn-primary dropdown-toggle" type="button" id="leaveDropdown" data-bs-toggle="dropdown" aria-expanded="false">
               Select Employee
             </button>
@@ -46,36 +46,34 @@
               <li><a class="dropdown-item" href="#">Leave Request 2</a></li>
               <li><a class="dropdown-item" href="#">Leave Request 3</a></li>
             </ul>
-          </div>
-          <div class="d-flex justify-content-end mt-3">
-            <button class="btn btn-danger me-2">Edit</button>
-            <button class="btn btn-success">View Salary</button>
+          </div> -->
+          <div class="d-flex flex-column ">
+            <div *ngFor="let employee of employees" class="my-3 d-flex flex-column thin-border-bottom">
+             <div>
+               <div class="d-flex justify-content-between">
+                <div>Employee Id: {{employee.employeeId}}</div>
+                <div> {{employee.firstName + ' ' + employee.lastName}}</div>
+                <div> {{employee.jobTitle}}</div>
+                <div>{{employee.phoneNumber}}</div>
+                <div>{{employee.email}}</div>
+               </div>
+               <div class="d-flex mt-3">
+                Roles Assigned: <div *ngFor="let employeeRole of employee.employeeRoles" class="mx-1">{{employeeRole}}</div> 
+               </div>
+            
+             </div>
+              <div class="d-flex flex-row my-2">
+                <div class="flex-grow-1"></div>
+                <button (click)="navigateToEditEmployee(employee.employeeId)" class="btn btn-danger me-2">Edit</button>
+                <button class="btn btn-success">View Salary</button>
+              </div>
+            </div>
+
           </div>
         </div>
       </div>
     </div>
-<!--    <div class="col-md-6">-->
-<!--      <div class="card">-->
-<!--        <div class="card-header">-->
-<!--          Add Leave Request-->
-<!--        </div>-->
-<!--        <div class="card-body">-->
-<!--          <form>-->
-<!--            <div class="mb-3">-->
-<!--              <label for="startDate" class="form-label">Start Date</label>-->
-<!--              <input type="date" class="form-control" id="startDate" aria-describedby="startDateHelp">-->
-<!--              <div id="startDateHelp" class="form-text">Enter the start date of your leave request.</div>-->
-<!--            </div>-->
-<!--            <div class="mb-3">-->
-<!--              <label for="endDate" class="form-label">End Date</label>-->
-<!--              <input type="date" class="form-control" id="endDate" aria-describedby="endDateHelp">-->
-<!--              <div id="endDateHelp" class="form-text">Enter the end date of your leave request.</div>-->
-<!--            </div>-->
-<!--            <button type="submit" class="btn btn-primary">Submit</button>-->
-<!--          </form>-->
-<!--        </div>-->
-<!--      </div>-->
-<!--    </div>-->
+
   </div>
 </div>
 

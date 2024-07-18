@@ -7,8 +7,14 @@ import { ManagerDashboardComponent } from './components/manager-dashboard/manage
 import { AdminDashboardComponent } from './components/admin-dashboard/admin-dashboard.component';
 import { EmployeeDashboardComponent } from './components/employee-dashboard/employee-dashboard.component';
 import { HomeComponent } from './components/home/home.component';
-import { ReactiveFormsModule } from '@angular/forms';
-import { FormsModule } from '@angular/forms'; // Import FormsModule
+import { provideAnimationsAsync } from '@angular/platform-browser/animations/async';
+import { EditEmployeeComponent } from './components/edit-employee/edit-employee.component';
+import { HttpClientModule } from '@angular/common/http';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { MatInputModule, MatFormField, MatLabel } from '@angular/material/input';
+import { MatOption } from '@angular/material/core';
+import { provideHttpClient, withFetch } from "@angular/common/http";
+
 
 @NgModule({
   declarations: [
@@ -16,16 +22,25 @@ import { FormsModule } from '@angular/forms'; // Import FormsModule
     ManagerDashboardComponent,
     AdminDashboardComponent,
     EmployeeDashboardComponent,
-    HomeComponent
+    HomeComponent,
   ],
   imports: [
     BrowserModule,
     ReactiveFormsModule,
     AppRoutingModule,
-    FormsModule 
+    HttpClientModule,
+    FormsModule,
+    MatFormField,
+    MatInputModule,
+    MatLabel,
+    MatOption
+  ],
+  exports:[
   ],
   providers: [
-    provideClientHydration()
+    provideClientHydration(),
+    provideAnimationsAsync(),
+    provideHttpClient(withFetch())
   ],
   bootstrap: [AppComponent]
 })

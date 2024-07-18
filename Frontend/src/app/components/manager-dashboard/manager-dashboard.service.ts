@@ -3,10 +3,9 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { throwError } from 'rxjs';
 import { catchError } from 'rxjs/operators';
-import { LeaveRequest } from '../../model/Leave-Request.model';
+import { LeaveRequest} from '../../model/leave-request.model';
 import {NotificationResponse} from '../../model/notification-response';
 import { Leave } from '../../model/leave.model';
-
 @Injectable({
   providedIn: 'root'
 })
