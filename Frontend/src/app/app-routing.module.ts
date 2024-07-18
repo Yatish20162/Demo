@@ -5,6 +5,7 @@ import { EmployeeDashboardComponent } from './components/employee-dashboard/empl
 import { AdminDashboardComponent } from './components/admin-dashboard/admin-dashboard.component';
 import { HomeComponent } from './components/home/home.component';
 import { EditEmployeeComponent } from './components/edit-employee/edit-employee.component';
+import { CreateEmployeeComponent } from './components/create-employee/create-employee.component';
 
 const routes: Routes = [
   {
@@ -26,6 +27,10 @@ const routes: Routes = [
     path: 'edit-employee/:id',
     component: EditEmployeeComponent,
     pathMatch: 'full'
+  },
+  {
+    path: 'create-employee',
+    component: CreateEmployeeComponent,
   },
   {
     path: '',

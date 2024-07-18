@@ -5,13 +5,14 @@ import { Employee } from '../../model/employee.model';
 import { FormBuilder, FormControl, FormGroup, Validators, FormsModule, ReactiveFormsModule } from '@angular/forms';
 import {MatSelectModule} from '@angular/material/select';
 import {MatFormFieldModule} from '@angular/material/form-field';
+import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-edit-employee',
   templateUrl: './edit-employee.component.html',
   styleUrl: './edit-employee.component.css',
   standalone: true,
-  imports: [MatFormFieldModule, MatSelectModule, FormsModule, ReactiveFormsModule],
+  imports: [MatFormFieldModule, MatSelectModule, FormsModule, ReactiveFormsModule, CommonModule],
 })
 
 
@@ -20,6 +21,7 @@ export class EditEmployeeComponent {
 
   id : string = '';
   errorMessage: string = '';
+  successMessage: string = '';
   employeeForm: FormGroup;
   
   roles = new FormControl('');
@@ -48,7 +50,7 @@ export class EditEmployeeComponent {
       managerId: ['', Validators.required],
       phoneNumber: ['', Validators.required],
       department: ['', Validators.required],
-      roles: [[], Validators.required]
+      employeeRoles: [[], Validators.required],
     });
   }
 
@@ -69,7 +71,10 @@ export class EditEmployeeComponent {
       jobTitle: [this.employee.jobTitle, Validators.required],
       managerId: [this.employee.managerId, Validators.required],
       phoneNumber: [this.employee.phoneNumber, Validators.required],
-      roles: [this.employee.employeeRoles.map((role)=>{console.log(role); return "EMPLOYEE";}), Validators.required]
+      department: [this.employee.department, Validators.required],
+      employeeRoles: [this.employee.employeeRoles.map((role)=> {
+        return role.toString();
+      }), Validators.required]
     });
   }
 
@@ -91,9 +96,18 @@ export class EditEmployeeComponent {
   }
 
   updateEmployeeData(employeeData: Employee): void {
-    console.log(employeeData)
+    console.log("EmployeeData: ", JSON.stringify(employeeData));
+    console.log("---------------------------")
+    this.adminDashboardService.updateEmployeeById(employeeData.employeeId, employeeData).subscribe(
+      (response) => {
+        console.log(employeeData);
+        this.successMessage = 'Employee updated successfully.';
+      },
+      (error) => {
+        this.errorMessage = 'Some Error Occured.';
+      }
+    );
   }
-
 
   getEmployeeById(employeeId: string) {
     this.adminDashboardService.getEmployeeById(this.id).subscribe(
