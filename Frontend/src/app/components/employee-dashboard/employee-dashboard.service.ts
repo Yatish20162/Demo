@@ -24,7 +24,7 @@ export class EmployeeDashboardService {
       console.error('Error fetching leave request count:', error);
       return throwError(error);
     })
-    );
+  );
  }
 
 
@@ -34,8 +34,15 @@ export class EmployeeDashboardService {
       console.error('Error fetching salary info:', error);
       return throwError(error);
     })
-    );
+  );
  }
 
- 
+ submitLeaveRequest(leaveRequest:Partial<LeaveRequest>): Observable<LeaveRequest> {
+  return this.http.post<LeaveRequest>(`${this.apiUrl}/leaveRequest`, leaveRequest).pipe(
+    catchError((error) => {
+      console.error('Error submitting leave request:', error);
+      return throwError(error);
+    })
+  );
+ }
 }

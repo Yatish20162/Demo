@@ -11,25 +11,31 @@ import { SalaryInfo } from '../../model/salaryInfo.model';
   styleUrls: ['./employee-dashboard.component.css']
 })
 export class EmployeeDashboardComponent implements OnInit {
-   leaveRequestCount : number = 0;
+  leaveRequestCount : number = 0;
   leaveRequest :LeaveRequest|null =null;
   errorMessage: string ='';
   salaryInfo: SalaryInfo | null = null;
-
+  leaveRequest1: Partial<LeaveRequest> = {};
 
   constructor(
     private employeeDashboardService: EmployeeDashboardService
   ) {}
 
   ngOnInit() {
- 
+
      this.getLeave();
      this.getSalary();
-   
+     this.leaveRequest1 = {
+       employeeId: 1,
+       startDate: new Date(),
+       endDate: new Date(),
+       managerId: 12345
+     };
+
   }
 
    getLeave(){
-    this.employeeDashboardService.getLeave(2).subscribe(
+    this.employeeDashboardService.getLeave(1).subscribe(
       (response) =>{
         console.log("leave data fetch successfully: ",response)
         this.leaveRequest = response
@@ -42,7 +48,7 @@ export class EmployeeDashboardComponent implements OnInit {
    }
 
    getSalary(){
-    this.employeeDashboardService.getSalary(2).subscribe(
+    this.employeeDashboardService.getSalary(1).subscribe(
       (response) =>{
         console.log("salary data fetch successfully: ",response)
         this.salaryInfo = response
@@ -54,13 +60,17 @@ export class EmployeeDashboardComponent implements OnInit {
     );
    }
 
-
-  
- 
-
-  
-
-  
-
-  
+  onSubmit(){
+    console.log('Leave request:', this.leaveRequest1);
+    if(this.leaveRequest1.startDate && this.leaveRequest1.endDate){
+      this.employeeDashboardService.submitLeaveRequest(this.leaveRequest1).subscribe(
+        (response) => {
+          console.log('Leave request submitted successfully:', response);
+        },
+        (error) => {
+          console.error('Error submitting leave request:', error);
+        }
+      );
+    }
+  }
 }

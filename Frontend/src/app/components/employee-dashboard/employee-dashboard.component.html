@@ -12,8 +12,8 @@
           <li class="nav-item">
             <a class="nav-link" href="#">Leave</a>
           </li>
-          
-          
+
+
           <li class="nav-item dropdown">
             <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
               Settings
@@ -28,7 +28,7 @@
       </div>
     </div>
   </nav>
-  
+
   <div class="container my-5">
     <div class="row">
       <div class="col-md-6">
@@ -37,15 +37,15 @@
             Leave Request
           </div>
           <div class="card-body">
-            <form>
+            <form (ngSubmit)="onSubmit()">
               <div class="mb-3">
                 <label for="startDate" class="form-label">Start Date</label>
-                <input type="date" class="form-control" id="startDate" aria-describedby="startDateHelp">
+                <input type="date" class="form-control" id="startDate" name="startDate" [(ngModel)]="leaveRequest1.startDate" aria-describedby="startDateHelp" required>
                 <div id="startDateHelp" class="form-text">Enter the start date of your leave request.</div>
               </div>
               <div class="mb-3">
                 <label for="endDate" class="form-label">End Date</label>
-                <input type="date" class="form-control" id="endDate" aria-describedby="endDateHelp">
+                <input type="date" class="form-control" id="endDate" name="endDate" [(ngModel)]="leaveRequest1.endDate" aria-describedby="endDateHelp" required>
                 <div id="endDateHelp" class="form-text">Enter the end date of your leave request.</div>
               </div>
               <button type="submit" class="btn btn-primary">Submit</button>
@@ -53,7 +53,7 @@
           </div>
         </div>
       </div>
-      
+
 
       <div class="col-md-6">
         <div class="card">
@@ -109,7 +109,7 @@
       </div>
     </div>
   </div>
-  
+
   <footer class="footer mt-auto py-3 bg-light">
     <div class="container">
       <div class="row">
