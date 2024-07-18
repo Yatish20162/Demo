@@ -9,6 +9,10 @@ import { EmployeeDashboardComponent } from './components/employee-dashboard/empl
 import { HomeComponent } from './components/home/home.component';
 import { provideAnimationsAsync } from '@angular/platform-browser/animations/async';
 import { LoginComponent } from './components/login/login.component';
+import { EditEmployeeComponent } from './components/edit-employee/edit-employee.component';
+import { HttpClientModule } from '@angular/common/http';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+
 
 @NgModule({
   declarations: [
@@ -18,10 +22,16 @@ import { LoginComponent } from './components/login/login.component';
     EmployeeDashboardComponent,
     HomeComponent,
     LoginComponent
+    EditEmployeeComponent,
   ],
   imports: [
     BrowserModule,
-    AppRoutingModule
+    AppRoutingModule,
+    HttpClientModule,
+    FormsModule,
+    ReactiveFormsModule
+  ],
+  exports:[
   ],
   providers: [
     provideClientHydration(),
