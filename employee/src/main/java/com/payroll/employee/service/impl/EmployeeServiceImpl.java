@@ -1,14 +1,18 @@
 package com.payroll.employee.service.impl;
 
 import com.payroll.employee.dto.EmployeeDto;
+import com.payroll.employee.dto.LoginDto;
+import com.payroll.employee.dto.LoginRequestDto;
 import com.payroll.employee.entity.Employee;
 import com.payroll.employee.entity.EmployeeRole;
+import com.payroll.employee.entity.Login;
 import com.payroll.employee.enums.Role;
 import com.payroll.employee.exception.EmployeeAlreadyExistException;
 import com.payroll.employee.exception.ResourceNotFoundException;
 import com.payroll.employee.mapper.EmployeeMapper;
 import com.payroll.employee.repository.EmployeeRepository;
 import com.payroll.employee.repository.EmployeeRoleRepository;
+import com.payroll.employee.repository.LoginRepository;
 import com.payroll.employee.service.IEmployeeService;
 import jakarta.transaction.Transactional;
 import lombok.AllArgsConstructor;
@@ -26,6 +30,7 @@ import java.util.Optional;
 public class EmployeeServiceImpl implements IEmployeeService {
         private final EmployeeRepository employeeRepository;
         private final EmployeeRoleRepository employeeRoleRepository;
+        private final LoginRepository loginRepository;
 
         @Override
         public void createEmployee(EmployeeDto employeeDto){
@@ -113,6 +118,23 @@ public class EmployeeServiceImpl implements IEmployeeService {
                 return employeeList.map(employees -> employees.stream().map(
                     (employee) -> getEmployeeById(employee.getEmployeeId())
             ).toList()).orElseGet(ArrayList::new);
+        }
+
+        @Override
+        public LoginDto login(LoginRequestDto loginRequestDto) {
+                Login employee = loginRepository.findByEmployeeId(loginRequestDto.getEmployeeId()).orElseThrow(
+                        () -> new ResourceNotFoundException("Employee", "EmployeeId", loginRequestDto.getEmployeeId().toString())
+
+                );
+                if(employee.getPassword().equals(loginRequestDto.getPassword())){
+                        List<EmployeeRole> employeeRoleList= employeeRoleRepository.findAllByEmployeeId(loginRequestDto.getEmployeeId()).orElseThrow(
+                                ()-> new ResourceNotFoundException("Employee", "EmployeeId", loginRequestDto.getEmployeeId().toString())
+                        );
+
+                        List<Role> roleList = employeeRoleList.stream().map(EmployeeRole::getRole).toList();
+                        return new LoginDto(loginRequestDto.getEmployeeId(), roleList);
+                }
+                return null;
         }
 
         @Override

@@ -1,6 +1,8 @@
 package com.payroll.employee.service;
 
 import com.payroll.employee.dto.EmployeeDto;
+import com.payroll.employee.dto.LoginDto;
+import com.payroll.employee.dto.LoginRequestDto;
 
 import java.util.List;
 
@@ -16,4 +18,6 @@ public interface IEmployeeService {
     List<EmployeeDto> getAllEmployeeData();
 
     List<EmployeeDto> getEmployeesByManagerId(Long managerId); // accessible to admin, manager
+
+    LoginDto login (LoginRequestDto loginRequestDto);
 }
