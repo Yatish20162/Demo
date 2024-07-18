@@ -1,5 +1,6 @@
 package com.payroll.leave.dto;
 
+import com.payroll.leave.constants.Constants;
 import com.payroll.leave.entity.LeaveRequest;
 import jakarta.persistence.EnumType;
 import jakarta.persistence.Enumerated;
@@ -14,12 +15,8 @@ import lombok.Setter;
 @NoArgsConstructor
 
 public class NotificationResponseDto {
-    public enum Status {
-        APPROVED, PENDING , DECLINED;
-    }
     private Long employeeId;
     private Long leaveRequestId;
     @Enumerated(EnumType.STRING)
-    private Status status;
-
+    private Constants.Status status;
 }

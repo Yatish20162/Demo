@@ -1,6 +1,7 @@
 package com.payroll.leave.service.impl;
 
 import com.payroll.leave.LeaveApplication;
+import com.payroll.leave.constants.Constants;
 import com.payroll.leave.dto.EmployeeDto;
 import com.payroll.leave.dto.LeaveMsgRequestDto;
 import com.payroll.leave.dto.LeaveDto;
@@ -53,7 +54,6 @@ public class LeaveServiceImpl implements ILeaveService {
     public boolean generateLeaveRequest(LeaveRequestDto leaveRequestDto) {
         boolean isCreated = false;
         LeaveRequest leaveRequest = LeaveRequestMapper.mapToLeaveRequest(leaveRequestDto , new LeaveRequest());
-        System.out.println("IN Service" + leaveRequest.getEmployeeId());
         Leave leave = leaveRepository.findByEmployeeId(leaveRequest.getEmployeeId()).orElseThrow(
                 () -> new ResourceNotFoundException("leaves", "employeeID", leaveRequest.getEmployeeId())
         );
@@ -63,8 +63,8 @@ public class LeaveServiceImpl implements ILeaveService {
             Long lwp = leave.getLwp();
             leaveRequest.setRemainingLeaves(remainingLeaves);
             leaveRequest.setLwp(lwp);
-//            leaveRequest.setPlwp(plwp);
             leaveRequest.setStatus(LeaveRequest.Status.PENDING);
+
             leaveRequest.setManagerId(leaveRequestDto.getManagerId());
             leaveRequestRepository.save(leaveRequest);
 
@@ -98,7 +98,7 @@ public class LeaveServiceImpl implements ILeaveService {
 
         for (LeaveRequest leaveRequest : leaveRequests) {
             System.out.println(leaveRequest);
-            if (leaveRequest.getStatus().equals(LeaveRequest.Status.APPROVED)) {
+            if (leaveRequest.getStatus().equals(Constants.Status.APPROVED)) {
                 System.out.println(leaveRequest.getLwp());
                 System.out.println(leaveRequest.getStartDate());
                 System.out.println(leaveRequest.getEndDate());
@@ -114,11 +114,8 @@ public class LeaveServiceImpl implements ILeaveService {
 
         Long employeeId = notificationResponseDto.getEmployeeId();
         Long leaveRequestId = notificationResponseDto.getLeaveRequestId();
-        NotificationResponseDto.Status status = notificationResponseDto.getStatus();
+        Constants.Status status = notificationResponseDto.getStatus();
 
-        if(status != NotificationResponseDto.Status.APPROVED){
-            return false;
-        }
 
 
         Leave leave = leaveRepository.findByEmployeeId(employeeId).orElseThrow(
@@ -150,7 +147,14 @@ public class LeaveServiceImpl implements ILeaveService {
 
         }
 
-        leaveRequest.setStatus(LeaveRequest.Status.APPROVED);
+        if(status != Constants.Status.APPROVED){
+            leaveRequest.setStatus(Constants.Status.DECLINED);
+            leaveRequestRepository.save(leaveRequest);
+            leaveRepository.save(leave);
+            return  false;
+        }
+
+        leaveRequest.setStatus(Constants.Status.APPROVED);
         leaveRequestRepository.save(leaveRequest);
         leaveRepository.save(leave);
         return true;
@@ -163,7 +167,13 @@ public class LeaveServiceImpl implements ILeaveService {
         List<LeaveRequestDto> leaveRequestDtos= leaveRequestRepository.findByManagerId(managerId)
                 .stream()
                 .map(leave->LeaveRequestMapper.mapToLeaveRequestDto(leave,new LeaveRequestDto()))
+
                 .toList();
+
+        leaveRequestDtos = leaveRequestDtos.stream().filter(
+                x -> x.getStatus().equals(Constants.Status.PENDING)
+        ).toList();
+
 
         return leaveRequestDtos;
     }

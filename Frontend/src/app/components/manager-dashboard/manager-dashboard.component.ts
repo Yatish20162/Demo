@@ -1,8 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { ManagerDashboardService } from './manager-dashboard.service';
-import { LeaveRequest } from '../../model/Leave-Request.model';
+import { LeaveRequest } from '../../model/leave-request.model';
 import {NotificationResponse} from '../../model/notification-response'
 import { status } from '../../model/request-status.model';
+import { Leave } from '../../model/leave.model';
+import {   FormBuilder, FormControl, FormGroup, Validators, FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 @Component({
   selector: 'app-manager-dashboard',
@@ -10,24 +12,37 @@ import { status } from '../../model/request-status.model';
   styleUrls: ['./manager-dashboard.component.css']
 })
 export class ManagerDashboardComponent implements OnInit {
+
   leaveRequestCount: number = 0;
+  remainingLeaves:number=0;
+  lwpCount:number=0;
   errorMessage: string = '';
   leaveRequests: LeaveRequest[] = [];
-  selectedLeaveRequest: LeaveRequest | null = null;
+  leave: Partial<Leave> = {};
 
 
-  constructor(private managerDashboardService: ManagerDashboardService) {}
+  constructor(private managerDashboardService: ManagerDashboardService ){}
 
   ngOnInit(): void {
 
     this.fetchLeaveRequestCount();
     this.fetchLeaveRequests();
+
+    this.leave = {
+      employeeId: undefined,
+      startDate: new Date(),
+      endDate: new Date(),
+      managerId: undefined
+    };
   }
 
   fetchLeaveRequestCount() {
     this.managerDashboardService.getLeaveRequestCount(2).subscribe(
       (response) => {
+        console.log(response);
         this.leaveRequestCount = response.totalLeaves;
+        this.remainingLeaves = response.remainingLeaves;
+        this.lwpCount = response.lwp;
         this.errorMessage = '';
       },
       (error) => {
@@ -50,17 +65,14 @@ export class ManagerDashboardComponent implements OnInit {
     );
   }
 
-  onLeaveRequestSelected(leaveRequest: LeaveRequest) {
-    this.selectedLeaveRequest = leaveRequest;
-  }
-
-  approveLeave() {
+  approveLeave(leaveRequestId: number , employeeId: number) {
     console.log("Approve function Enetred")
-    if (this.selectedLeaveRequest) {
+
+    if (leaveRequestId) {
       const notificationResponseDto: NotificationResponse = {
-        leaveRequestId: this.selectedLeaveRequest.employeeId,
+        leaveRequestId: leaveRequestId,
         status: status.APPROVED,
-        employeeId: this.selectedLeaveRequest.employeeId
+        employeeId: employeeId
       };
 
       this.managerDashboardService.approveLeave(notificationResponseDto).subscribe(
@@ -76,12 +88,12 @@ export class ManagerDashboardComponent implements OnInit {
     }
   }
 
-  declineLeave() {
-    if (this.selectedLeaveRequest) {
+  declineLeave(leaveRequestId: number , employeeId: number) {
+    if (leaveRequestId) {
       const notificationResponseDto: NotificationResponse = {
-        leaveRequestId: this.selectedLeaveRequest.employeeId,
+        leaveRequestId: leaveRequestId,
         status: status.DECLINED,
-        employeeId: this.selectedLeaveRequest.employeeId
+        employeeId: employeeId
       };
 
       this.managerDashboardService.approveLeave(notificationResponseDto).subscribe(
@@ -96,4 +108,19 @@ export class ManagerDashboardComponent implements OnInit {
       );
     }
   }
-}
+
+  
+    onSubmit(){
+      console.log('Leave :', this.leave);
+      if(this.leave.startDate && this.leave.endDate){
+        this.managerDashboardService.createLeaveRequest(this.leave).subscribe(
+          (response) => {
+            console.log('Leave request submitted successfully:', response);
+          },
+          (error) => {
+            console.error('Error submitting leave request:', error);
+          }
+        );
+      }
+    }
+  }

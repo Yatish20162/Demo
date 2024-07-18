@@ -11,10 +11,9 @@ import java.util.List;
 @FeignClient("EMPLOYEE-MICROSERVICE")
 public interface EmployeeFeignClient {
 
-    @GetMapping("/api/employee/{employeeId}")
+    @GetMapping("/api/{employeeId}")
     public ResponseEntity<EmployeeDto> getEmployeeById(@PathVariable Long employeeId);
 
-    @GetMapping("/api/employee/fetch-all")
+    @GetMapping("/api/fetch-all")
     public ResponseEntity<List<EmployeeDto>> getAllEmployeeData();
-
 }

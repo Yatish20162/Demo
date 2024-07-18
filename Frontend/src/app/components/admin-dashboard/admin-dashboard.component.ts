@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { Employee } from '../../model/employee.model';
 import { UserRole } from '../../model/user-role.model';
 import { AdminDashboardService } from './admin-dashboard.service';
+import { Router } from '@angular/router';
+
 
 @Component({
   selector: 'app-admin-dashboard',
@@ -14,10 +16,9 @@ export class AdminDashboardComponent implements OnInit{
   employees: Employee[] = []; // Placeholder data
   errorMessage: string = '';
 
-  constructor(private adminDashboardService: AdminDashboardService) { }
+  constructor(private adminDashboardService: AdminDashboardService, private router: Router) { }
 
   ngOnInit(): void {
-    // Fetch leave request count from the database
     this.getAllEmployeesData();
   }
 
@@ -34,4 +35,13 @@ export class AdminDashboardComponent implements OnInit{
     );
   }
 
+     // navigation
+    navigateToEditEmployee(id: number) {
+      this.router.navigate([`/edit-employee/${id.toString()}`]);
+    };
+
+    goToCreateEmployee(){
+      this.router.navigate(['/create-employee']);
+      // console.log("Navigated to Create Employee Page");
+    };
 }
