@@ -26,10 +26,10 @@ import { provideHttpClient, withFetch } from "@angular/common/http";
   ],
   imports: [
     BrowserModule,
+    ReactiveFormsModule,
     AppRoutingModule,
     HttpClientModule,
     FormsModule,
-    ReactiveFormsModule,
     MatFormField,
     MatInputModule,
     MatLabel,

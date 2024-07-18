@@ -1,8 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { ManagerDashboardService } from './manager-dashboard.service';
-import { LeaveRequest } from '../../model/Leave-Request.model';
+import { LeaveRequest } from '../../model/leave-request.model';
 import {NotificationResponse} from '../../model/notification-response'
 import { status } from '../../model/request-status.model';
+import { Leave } from '../../model/leave.model';
+import {   FormBuilder, FormControl, FormGroup, Validators, FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 @Component({
   selector: 'app-manager-dashboard',
@@ -10,13 +12,23 @@ import { status } from '../../model/request-status.model';
   styleUrls: ['./manager-dashboard.component.css']
 })
 export class ManagerDashboardComponent implements OnInit {
+  leave: Leave = new Leave();
+
   leaveRequestCount: number = 0;
   errorMessage: string = '';
   leaveRequests: LeaveRequest[] = [];
   selectedLeaveRequest: LeaveRequest | null = null;
 
+  leaveForm: FormGroup;
 
-  constructor(private managerDashboardService: ManagerDashboardService) {}
+  constructor(private managerDashboardService: ManagerDashboardService , private fb: FormBuilder) {
+    this.leaveForm = this.fb.group({
+      employeeId: ['', Validators.required],
+      managerId: ['', Validators.required],
+      startDate: ['', Validators.required],
+      endDate: ['', Validators.required]
+    });
+  }
 
   ngOnInit(): void {
 
@@ -77,6 +89,8 @@ export class ManagerDashboardComponent implements OnInit {
   }
 
   declineLeave() {
+
+    
     if (this.selectedLeaveRequest) {
       const notificationResponseDto: NotificationResponse = {
         leaveRequestId: this.selectedLeaveRequest.employeeId,
@@ -96,4 +110,30 @@ export class ManagerDashboardComponent implements OnInit {
       );
     }
   }
+
+  onSubmit() {
+
+    if (this.leaveForm.valid) {
+      // Process leave request submission
+      console.log(this.leaveForm.value);
+      // Optionally, reset the form after submission
+      this.leaveForm.reset();
+    } else {
+      console.log('Form is not valid');
+    }
+  
+    // console.log('Submitting leave request:', this.leave);
+    // this.managerDashboardService.createLeaveRequest(this.leave).subscribe(
+    //   response => {
+    //     console.log('Leave request submitted successfully!', response);
+    //     this.leave = new Leave(); // Reset form after submission
+    //     this.fetchLeaveRequests(); // Refresh leave requests
+    //   },
+    //   error => {
+    //     console.error('Error submitting leave request:', error);
+    //   }
+    // );
+  }
+
+  
 }
