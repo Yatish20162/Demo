@@ -34,6 +34,7 @@ export class EditEmployeeComponent {
     jobTitle: '',
     managerId: 0,
     phoneNumber: '',
+    department: '',
     employeeRoles: []
   };
 
@@ -46,6 +47,7 @@ export class EditEmployeeComponent {
       jobTitle: ['', Validators.required],
       managerId: ['', Validators.required],
       phoneNumber: ['', Validators.required],
+      department: ['', Validators.required],
       roles: [[], Validators.required]
     });
   }
