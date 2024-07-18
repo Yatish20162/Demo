@@ -1,10 +1,11 @@
 package com.payroll.report.service.impl;
-
+import java.net.*;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.MapperFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.node.ArrayNode;
 import com.fasterxml.jackson.databind.node.ObjectNode;
+import com.google.common.base.Strings;
 import com.payroll.report.dto.*;
 import com.payroll.report.entity.Payroll;
 import com.payroll.report.entity.Salary;
@@ -24,11 +25,18 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.core.io.ClassPathResource;
 import org.springframework.http.*;
 import org.springframework.stereotype.Service;
+import org.springframework.util.MultiValueMap;
 import org.springframework.web.client.RestTemplate;
+import org.springframework.web.util.DefaultUriBuilderFactory;
 import org.springframework.web.util.UriComponentsBuilder;
 
 import java.io.File;
+import java.nio.charset.StandardCharsets;
 import java.util.*;
+import java.util.stream.Collectors;
+
+import static java.util.stream.Collectors.mapping;
+import static java.util.stream.Collectors.toList;
 
 
 @Service
@@ -79,8 +87,10 @@ public class ReportServiceImpl implements IReportService {
         return isUpdated;
     }
 
+
+
     @Override
-    public boolean createReport(ReportDto reportDto) {
+    public ResponseEntity<JsonNode>  createReport(ReportDto reportDto) {
         boolean isCreated = false;
         System.out.println("Creating report for: " + reportDto.getEmployeeName() +
                 ", Start Date: " + reportDto.getStartDate() +
@@ -191,7 +201,7 @@ public class ReportServiceImpl implements IReportService {
                 endingValues.add("Rs "+netSalary);
 
                 totals.put("values", objectMapper.valueToTree(endingValues));
-                System.out.println(node.toPrettyString());
+//                System.out.println(node.toPrettyString());
 //                // Send JSON payload to the external API
                 RestTemplate restTemplate = new RestTemplate();
                 String apiUrl = "https://api.advicement.io/v1/templates/pub-simple-invoice-v1/compile";
@@ -202,43 +212,14 @@ public class ReportServiceImpl implements IReportService {
                 HttpEntity<String> request = new HttpEntity<>(node.toString(), headers);
                 ResponseEntity<JsonNode> response = restTemplate.postForEntity(apiUrl, request, JsonNode.class);
 //                System.out.println(response.getBody().get("documentStatusUrl"));
-//                response.getBody().get("documentStatusUrl");
-                String uriString = UriComponentsBuilder
-                        .fromUriString("https://advicement-prod-api-calls.s3.eu-west-1.amazonaws.com/b17f61f848ca1487/pub-simple-invoice-v1/7da502ab-b036-4ac8-8874-64ce7cf30554/output/progress.json")
-                        .queryParam("AWSAccessKeyId", "ASIA2LMZZZXSOXTEYHGE")
-                        .queryParam("Expires", "1721236161")
-                        .queryParam("Signature", "qKBlhTLhCOXqDHCiKhtVWZZ6w44%3D")
-                        .queryParam("X-Amzn-Trace-Id", "Root%3D1-6697ecaf-7089f74972de7cd3454f4c2c%3BParent%3D1b1207be79830b69%3BSampled%3D0%3BLineage%3Dcb532f32%3A0%7C649baf5e%3A0")
-                        .queryParam("x-amz-security-token", "IQoJb3JpZ2luX2VjECgaCWV1LXdlc3QtMSJHMEUCIQCm8rPf1tqUHl97qcjmg5uYmfAg0sMT9fpmTtzE%2FEcIRwIgPj7uxMDHgNV5GIj%2B1agQgT2XP6QxoY5qlCFY%2FMU0EX0q8wII8f%2F%2F%2F%2F%2F%2F%2F%2F%2F%2FARAFGgw3MTE2NzY1MTM3NjQiDPlvhDC9nU%2Ff7%2BiOqSrHAmsma3etiJYjqViZxk5L7GjLysaK9BghU8rPS4lxRHpJr0HJRKy1Jm%2FmrSlBNoOQ8Fe%2FiGC99%2FwNiQmUJ4Njh2mpuVCMiP4K5RGunldexf0gi9VGSsLTWAN4eXcOAh79j2MncR5UmjIehAik0iUg7wOgV4T6ctRMomukJIawr27g4P5TQQdBPGntDMMvR4icTYHgvNTAaQVx6OL5uDGTDkpF4jb%2FkP61yxK2RUiJ1Hl%2BxADIMhu%2BZvl1t%2BRGLiayyN5y16sjV3QuqEl88fzFo5n2O6urCfCmHKTZv3CCJWHs4FZBQE5rgEaH5bO167Eda0pNl%2Fx32GgyXHB7LYl%2Bs%2FGvf4bH8mqBQTuwZCD%2FT0b1QKVWKYJeXeMJpFQ7dWTPCx3EomKwwJoVFdIBJS%2FHrt2xwbQlNVF5ubrBYtA%2FJ1YF3zA4mtypKzCN1N%2B0BjqeASavTx1JxX5wE%2Fk60Q8VNX1BYw%2FDL%2FKWiLMIKjo4LqsqESeqTA5Nbv%2FBPnNJQoUduDmV99zAzujiiS0OIVgbGBMUxQ7bBjz%2BeqVm0wo5eYrbaYOEiQ71NuCbkzmLXn6RsuE5%2Fvnq%2F0ngUw2j7vtQp4IZC8qokbP6qzYjRmTKuKxXenJgmt1j0wXmTT8B2zMEGKiX5Utgtrszh%2Fck1%2BgD")
-                        .build().toUriString();
-//                System.out.println(uriString);
-//                ResponseEntity<String> response2 = restTemplate.exchange(
-//                        urlTemplate,
-//                        HttpMethod.GET,
-//                        entity,
-//                        String.class,
-//                        params
-//                System.out.println(response2);
-//                Timer timer = new Timer();
-//                TimerTask tt = new TimerTask() {
-//
-//                    public void run()
-//                    {
-//
-//
-//                            if (responseFinal.getStatusCode()==HttpStatus.OK) {
-//                                System.out.println(responseFinal.getBody());
-//                                // loop stops after 7 iterations
-//                                timer.cancel();
-//
-//                            }
-//
-//                    };
-//                };
-//                timer.schedule(tt, 1000, 1000);
+//                System.out.println( response.getBody().get("documentStatusUrl"));
+               ;
+                System.out.println(response.getStatusCode());
 
+
+//
                 if (response.getStatusCode() == HttpStatus.OK) {
-                    return true;
+                    return   response ;
                 }
             } catch (Exception e) {
                 e.printStackTrace();
@@ -247,7 +228,7 @@ public class ReportServiceImpl implements IReportService {
             isCreated = true;
 
         }
-        return isCreated;
+        return null;
     }
 
     @Override
@@ -267,5 +248,23 @@ public class ReportServiceImpl implements IReportService {
         return lwp * 2000;
     }
 
+//    private  Map<String, List<String>> splitQuery(URL url) {
+//        if (Strings.isNullOrEmpty(url.getQuery())) {
+//            return Collections.emptyMap();
+//        }
+//        return Arrays.stream(url.getQuery().split("&"))
+//                .map(this::splitQueryParameter)
+//                .collect(Collectors.groupingBy(SimpleImmutableEntry::getKey, LinkedHashMap::new, mapping(Map.Entry::getValue, toList())));
+//    }
+
+//    public AbstractMap.SimpleImmutableEntry<String, String> splitQueryParameter(String it) {
+//        final int idx = it.indexOf("=");
+//        final String key = idx > 0 ? it.substring(0, idx) : it;
+//        final String value = idx > 0 && it.length() > idx + 1 ? it.substring(idx + 1) : null;
+//        return new AbstractMap.SimpleImmutableEntry<>(
+//                URLDecoder.decode(key, StandardCharsets.UTF_8),
+//                URLDecoder.decode(value, StandardCharsets.UTF_8)
+//        );
+//    }
 
 }

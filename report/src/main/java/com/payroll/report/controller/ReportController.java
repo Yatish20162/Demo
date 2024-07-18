@@ -1,5 +1,6 @@
 package com.payroll.report.controller;
 
+import com.fasterxml.jackson.databind.JsonNode;
 import com.payroll.report.dto.EmployeeDto;
 import com.payroll.report.dto.ReportDto;
 import com.payroll.report.dto.ResponseDto;
@@ -30,17 +31,17 @@ public class ReportController {
     private LeaveFeignClient leaveFeignClient;
 
     @PostMapping("/create")
-    public ResponseEntity<ResponseDto> createReport(@RequestBody ReportDto reportDto)
+    public ResponseEntity<JsonNode> createReport(@RequestBody ReportDto reportDto)
     {
-        boolean isCreated = reportService.createReport(reportDto);
-        if (isCreated) {
+        ResponseEntity<JsonNode> Created = reportService.createReport(reportDto);
+        if (Created.getStatusCode()==HttpStatus.OK) {
             return ResponseEntity
                     .status(HttpStatus.CREATED)
-                    .body(new ResponseDto("201", "Created successfully"));
+                    .body(Created.getBody());
         } else {
             return ResponseEntity
                     .status(HttpStatus.INTERNAL_SERVER_ERROR)
-                    .body(new ResponseDto("500", "Internal Server Error"));
+                    .body(Created.getBody());
         }
     }
 
