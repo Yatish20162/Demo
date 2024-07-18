@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { LeaveRequest } from '../../model/Leave-Request.model';
+import { LeaveRequest } from '../../model/leave-request.model';
 import { EmployeeDashboardService } from './employee-dashboard.service';
 import { SalaryInfo } from '../../model/salaryInfo.model';
 
@@ -26,10 +26,10 @@ export class EmployeeDashboardComponent implements OnInit {
      this.getLeave();
      this.getSalary();
      this.leaveRequest1 = {
-       employeeId: 1,
+       employeeId: undefined,
        startDate: new Date(),
        endDate: new Date(),
-       managerId: 12345
+       managerId: undefined
      };
 
   }

@@ -12,28 +12,26 @@ import {   FormBuilder, FormControl, FormGroup, Validators, FormsModule, Reactiv
   styleUrls: ['./manager-dashboard.component.css']
 })
 export class ManagerDashboardComponent implements OnInit {
-  leave: Leave = new Leave();
 
   leaveRequestCount: number = 0;
   errorMessage: string = '';
   leaveRequests: LeaveRequest[] = [];
-  selectedLeaveRequest: LeaveRequest | null = null;
+  leave: Partial<Leave> = {};
 
-  leaveForm: FormGroup;
 
-  constructor(private managerDashboardService: ManagerDashboardService , private fb: FormBuilder) {
-    this.leaveForm = this.fb.group({
-      employeeId: ['', Validators.required],
-      managerId: ['', Validators.required],
-      startDate: ['', Validators.required],
-      endDate: ['', Validators.required]
-    });
-  }
+  constructor(private managerDashboardService: ManagerDashboardService ){}
 
   ngOnInit(): void {
 
     this.fetchLeaveRequestCount();
     this.fetchLeaveRequests();
+
+    this.leave = {
+      employeeId: undefined,
+      startDate: new Date(),
+      endDate: new Date(),
+      managerId: undefined
+    };
   }
 
   fetchLeaveRequestCount() {
@@ -62,17 +60,14 @@ export class ManagerDashboardComponent implements OnInit {
     );
   }
 
-  onLeaveRequestSelected(leaveRequest: LeaveRequest) {
-    this.selectedLeaveRequest = leaveRequest;
-  }
-
-  approveLeave() {
+  approveLeave(leaveRequestId: number , employeeId: number) {
     console.log("Approve function Enetred")
-    if (this.selectedLeaveRequest) {
+
+    if (leaveRequestId) {
       const notificationResponseDto: NotificationResponse = {
-        leaveRequestId: this.selectedLeaveRequest.employeeId,
+        leaveRequestId: leaveRequestId,
         status: status.APPROVED,
-        employeeId: this.selectedLeaveRequest.employeeId
+        employeeId: employeeId
       };
 
       this.managerDashboardService.approveLeave(notificationResponseDto).subscribe(
@@ -88,14 +83,12 @@ export class ManagerDashboardComponent implements OnInit {
     }
   }
 
-  declineLeave() {
-
-    
-    if (this.selectedLeaveRequest) {
+  declineLeave(leaveRequestId: number , employeeId: number) {
+    if (leaveRequestId) {
       const notificationResponseDto: NotificationResponse = {
-        leaveRequestId: this.selectedLeaveRequest.employeeId,
+        leaveRequestId: leaveRequestId,
         status: status.DECLINED,
-        employeeId: this.selectedLeaveRequest.employeeId
+        employeeId: employeeId
       };
 
       this.managerDashboardService.approveLeave(notificationResponseDto).subscribe(
@@ -111,29 +104,18 @@ export class ManagerDashboardComponent implements OnInit {
     }
   }
 
-  onSubmit() {
-
-    if (this.leaveForm.valid) {
-      // Process leave request submission
-      console.log(this.leaveForm.value);
-      // Optionally, reset the form after submission
-      this.leaveForm.reset();
-    } else {
-      console.log('Form is not valid');
+  
+    onSubmit(){
+      console.log('Leave :', this.leave);
+      if(this.leave.startDate && this.leave.endDate){
+        this.managerDashboardService.createLeaveRequest(this.leave).subscribe(
+          (response) => {
+            console.log('Leave request submitted successfully:', response);
+          },
+          (error) => {
+            console.error('Error submitting leave request:', error);
+          }
+        );
+      }
     }
-  
-    // console.log('Submitting leave request:', this.leave);
-    // this.managerDashboardService.createLeaveRequest(this.leave).subscribe(
-    //   response => {
-    //     console.log('Leave request submitted successfully!', response);
-    //     this.leave = new Leave(); // Reset form after submission
-    //     this.fetchLeaveRequests(); // Refresh leave requests
-    //   },
-    //   error => {
-    //     console.error('Error submitting leave request:', error);
-    //   }
-    // );
   }
-
-  
-}

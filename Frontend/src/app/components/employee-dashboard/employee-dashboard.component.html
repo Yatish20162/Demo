@@ -39,6 +39,16 @@
           <div class="card-body">
             <form (ngSubmit)="onSubmit()">
               <div class="mb-3">
+                <label for="employeeId" class="form-label">Employee ID</label>
+                <input type="number" id="employeeId" name="managerId" [(ngModel)]="leaveRequest1.employeeId" class="form-control" aria-describedby="employeeIdHelp" required/>
+                <div id="employeeIdHelp" class="form-text">Enter your employee ID.</div>
+              </div>
+              <div class="mb-3">
+                <label for="managerId" class="form-label">Manager ID</label>
+                <input type="number" id="managerId" name="managerId" [(ngModel)]="leaveRequest1.managerId" class="form-control" aria-describedby="managerIdHelp" required/>
+                <div id="managerIdHelp" class="form-text">Enter your manager ID.</div>
+              </div>
+              <div class="mb-3">
                 <label for="startDate" class="form-label">Start Date</label>
                 <input type="date" class="form-control" id="startDate" name="startDate" [(ngModel)]="leaveRequest1.startDate" aria-describedby="startDateHelp" required>
                 <div id="startDateHelp" class="form-text">Enter the start date of your leave request.</div>

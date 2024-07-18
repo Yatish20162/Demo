@@ -37,26 +37,25 @@
           Approve Leave
         </div>
         <div class="card-body">
-          <div class="dropdown">
-            <button class="btn btn-primary dropdown-toggle" type="button" id="leaveDropdown" data-bs-toggle="dropdown" aria-expanded="false">
-              Select Leave Request
-            </button>
-            <ul class="dropdown-menu" aria-labelledby="leaveDropdown">
-              <li *ngFor="let leaveRequest of leaveRequests">
-                <a class="dropdown-item" href="#" (click)="onLeaveRequestSelected(leaveRequest)">
-                  {{ leaveRequest.employeeId }} - {{ leaveRequest.startDate }} to {{ leaveRequest.endDate }}
-                </a>
-              </li>
-            </ul>
-          </div>
-          <div class="d-flex justify-content-end mt-3" *ngIf="selectedLeaveRequest">
-            <button class="btn btn-success me-2" (click)="approveLeave()">
-              Approve ({{ selectedLeaveRequest.employeeId }})
-            </button>
-            <button class="btn btn-danger" (click)="declineLeave()">
-              Decline ({{ selectedLeaveRequest.employeeId }})
-            </button>
-          </div>
+            <div *ngFor="let leaveRequest of leaveRequests" class="my-3 d-flex flex-column thin-border-bottom">
+              <div>
+                <div class="d-flex flex-column">
+                  <div class="d-flex justify-content-between">
+                    <div>Employee Id: {{leaveRequest.employeeId}}</div>
+                    <div> {{leaveRequest.endDate}}</div>
+                    <div>{{leaveRequest.startDate}}</div>
+                    <div> {{leaveRequest.status}}</div>
+                    <div>{{leaveRequest.managerId}}</div>
+                  </div>
+                  <div class="d-flex flex-row mt-3" style="padding-bottom: 10px; border-bottom: 1px solid #ccc;">
+                    <div class="flex-grow-1"></div>
+                    <button class="btn btn-success me-2" (click)="approveLeave(leaveRequest.leaveRequestId , leaveRequest.employeeId)">Approve</button>
+                    <button class="btn btn-danger" (click)="declineLeave(leaveRequest.leaveRequestId , leaveRequest.employeeId)">Decline</button>
+                  </div>
+
+                </div>
+              </div>
+            </div>
         </div>
       </div>
     </div>
@@ -66,35 +65,30 @@
           Add Leave Request
         </div>
         <div class="card-body">
-          <form [formGroup]="leaveForm" (ngSubmit)="onSubmit()">
+
+          <form (ngSubmit)="onSubmit()">
             <div class="mb-3">
               <label for="employeeId" class="form-label">Employee ID</label>
-              <input type="number" id="employeeId" class="form-control" formControlName="employeeId" />
-              <div class="form-text">Enter your employee ID.</div>
+              <input type="number" id="employeeId" name="managerId" [(ngModel)]="leave.employeeId" class="form-control" aria-describedby="employeeIdHelp" required/>
+              <div id="employeeIdHelp" class="form-text">Enter your employee ID.</div>
             </div>
-          
             <div class="mb-3">
               <label for="managerId" class="form-label">Manager ID</label>
-              <input type="number" id="managerId" class="form-control" formControlName="managerId" />
-              <div class="form-text">Enter your manager ID.</div>
+              <input type="number" id="managerId" name="managerId" [(ngModel)]="leave.managerId" class="form-control" aria-describedby="managerIdHelp" required/>
+              <div id="managerIdHelp" class="form-text">Enter your manager ID.</div>
             </div>
-          
             <div class="mb-3">
               <label for="startDate" class="form-label">Start Date</label>
-              <input type="date" id="startDate" class="form-control" formControlName="startDate" />
-              <div class="form-text">Enter the start date of your leave request.</div>
+              <input type="date" class="form-control" id="startDate" name="startDate" [(ngModel)]="leave.startDate" aria-describedby="startDateHelp" required>
+              <div id="startDateHelp" class="form-text">Enter the start date of your leave request.</div>
             </div>
-          
             <div class="mb-3">
               <label for="endDate" class="form-label">End Date</label>
-              <input type="date" id="endDate" class="form-control" formControlName="endDate" />
-              <div class="form-text">Enter the end date of your leave request.</div>
+              <input type="date" class="form-control" id="endDate" name="endDate" [(ngModel)]="leave.endDate" aria-describedby="endDateHelp" required>
+              <div id="endDateHelp" class="form-text">Enter the end date of your leave request.</div>
             </div>
-          
             <button type="submit" class="btn btn-primary">Submit</button>
           </form>
-          
-          
         </div>
       </div>
     </div>

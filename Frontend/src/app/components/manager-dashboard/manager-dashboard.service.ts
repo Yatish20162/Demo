@@ -32,7 +32,7 @@ export class ManagerDashboardService {
     return this.http.post<any>(`${this.apiUrl}/approveleave`, notificationResponseDto);
   }
 
-  createLeaveRequest(leave: Leave): Observable<any> {
+  createLeaveRequest(leave: Partial<Leave>): Observable<any> {
     const url = `${this.apiUrl}/leaveRequest`;
     console.log('Creating Leave Request with payload:', leave); // Debug: log payload
     return this.http.post<any>(url, leave);
