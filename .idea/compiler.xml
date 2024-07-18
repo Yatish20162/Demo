@@ -15,11 +15,11 @@
         <module name="login" />
         <module name="salary" />
         <module name="employee" />
-        <module name="message" />
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>
       <module name="leaves" target="17" />
+      <module name="message" target="17" />
     </bytecodeTargetLevel>
   </component>
   <component name="JavacSettings">
