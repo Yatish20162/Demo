@@ -4,6 +4,8 @@ import { Observable } from 'rxjs';
 import { throwError } from 'rxjs';
 import { catchError } from 'rxjs/operators';
 import { Employee } from '../../model/employee.model';
+import { responseData } from '../../model/response.model';
+import { newEmployee } from '../../model/newemployee.model';
 @Injectable({
   providedIn: 'root'
 })
@@ -25,6 +27,19 @@ export class AdminDashboardService {
       catchError(this.handleError)
     );
   }
+
+  updateEmployeeById(employeeId: number, employee: Employee): Observable<responseData> {
+    return this.http.put<responseData>(`${this.apiUrl}/update/${employeeId}`, employee).pipe(
+      catchError(this.handleError)
+    );
+  }
+
+  createEmployee(employee: newEmployee): Observable<responseData> {
+    return this.http.post<responseData>(`${this.apiUrl}/create`, employee).pipe(
+      catchError(this.handleError)
+    );
+  }
+  
 
   private handleError(error: HttpErrorResponse): Observable<never> {
     let errorMessage = '';

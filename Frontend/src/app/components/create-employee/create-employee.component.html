@@ -40,7 +40,8 @@
 
 
 
-<h2 class="m-auto" style="padding-top: 20px; margin-left: 80px;">Edit Employee Data</h2>
+
+<h2 class="m-auto">Create Employee Data</h2>
 
 <div class="container mt-4">
     <div *ngIf="successMessage" class="alert alert-primary" role="alert">
@@ -52,10 +53,6 @@
 
     <form [formGroup]="employeeForm" (ngSubmit)="onSubmit()">
         <div class="d-flex">
-            <div class="form-group flex-grow-1">
-                <label for="employeeId">Employee ID</label>
-                <input value={{employee.employeeId}} type="number" id="employeeId" class="form-control" formControlName="employeeId" />
-            </div>
 
             <div class="form-group flex-grow-1">
                 <label for="firstName">First Name</label>
@@ -66,13 +63,15 @@
                 <label for="lastName">Last Name</label>
                 <input value={{employee.lastName}} type="text" id="lastName" class="form-control" formControlName="lastName" />
             </div>
-        </div>
 
-        <div class="d-flex">
             <div class="form-group flex-grow-1">
                 <label for="jobTitle">Job Title</label>
                 <input type="text" id="jobTitle" class="form-control" formControlName="jobTitle" />
             </div>
+        </div>
+
+        <div class="d-flex">
+            
 
             <div class="form-group flex-grow-1">
                 <label for="managerId">Manager ID</label>
@@ -83,13 +82,15 @@
                 <label for="department">department</label>
                 <input type="text" id="department" class="form-control" formControlName="department" />
             </div>
-        </div>
 
-        <div class="d-flex ">
             <div class="form-group flex-grow-1">
                 <label for="email">Email</label>
                 <input type="email" id="email" class="form-control" formControlName="email" />
             </div>
+        </div>
+
+        <div class="d-flex ">
+            
 
             <div class="form-group flex-grow-1">
                 <label for="phoneNumber">Phone Number</label>
@@ -111,6 +112,6 @@
 
         <div class="thin-line-bottom"></div>
 
-        <button type="button" (click)="updateData()" style="margin-top: 30px; width: 150px;" class="btn  btn-primary">Update Employee</button>
+        <button type="button" (click)="createNewEmployee()" style="margin-top: 30px; width: 150px;" class="btn  btn-primary">Create Employee</button>
     </form>
 </div>
